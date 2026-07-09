@@ -4,3 +4,16 @@ build/
 *.iml
 .gradle/
 local.properties
+
+# tab_visite (Flutter sub-project) - generated platform folders and artifacts,
+# regenerated in CI (see .github/workflows/build-apk.yml), not committed.
+tab_visite/android/
+tab_visite/ios/
+tab_visite/linux/
+tab_visite/macos/
+tab_visite/windows/
+tab_visite/web/
+tab_visite/.dart_tool/
+tab_visite/build/
+tab_visite/.flutter-plugins*
+tab_visite/pubspec.lock

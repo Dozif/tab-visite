@@ -1,0 +1,52 @@
+name: Build APK
+on:
+  push:
+    branches: [ main, feat/tab-visite-app ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Generate Android platform project
+        run: flutter create --platforms=android --org com.tabvisite --project-name tab_visite .
+        working-directory: tab_visite
+
+      - name: Force minSdk 29
+        working-directory: tab_visite
+        run: |
+          if [ -f android/app/build.gradle.kts ]; then
+            sed -i -E 's/minSdk( )?=( )?(flutter\.minSdkVersion|[0-9]+)/minSdk = 29/' android/app/build.gradle.kts
+          fi
+          if [ -f android/app/build.gradle ]; then
+            sed -i -E 's/minSdkVersion (flutter\.minSdkVersion|[0-9]+)/minSdkVersion 29/' android/app/build.gradle
+            sed -i -E 's/minSdk (flutter\.minSdkVersion|[0-9]+)/minSdk 29/' android/app/build.gradle
+          fi
+
+      - name: Declare optional camera feature in manifest
+        working-directory: tab_visite
+        run: |
+          sed -i 's#<application#<uses-feature android:name="android.hardware.camera" android:required="false"/>\n    <application#' android/app/src/main/AndroidManifest.xml
+
+      - run: flutter pub get
+        working-directory: tab_visite
+
+      - run: flutter analyze
+        working-directory: tab_visite
+
+      - run: flutter test
+        working-directory: tab_visite
+
+      - run: flutter build apk --release
+        working-directory: tab_visite
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tab-visite-apk
+          path: tab_visite/build/app/outputs/flutter-apk/app-release.apk
