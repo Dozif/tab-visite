@@ -43,9 +43,11 @@ class ZoneOverlay extends StatelessWidget {
       onTap: () => onTap(z),
       onPanUpdate: (d) {
         final nx = (z.x + d.delta.dx / size.width)
-            .clamp(0.0, math.max(0.0, 1.0 - z.largeur));
+            .clamp(0.0, math.max(0.0, 1.0 - z.largeur))
+            .toDouble();
         final ny = (z.y + d.delta.dy / size.height)
-            .clamp(0.0, math.max(0.0, 1.0 - z.hauteur));
+            .clamp(0.0, math.max(0.0, 1.0 - z.hauteur))
+            .toDouble();
         onChanged(z.copyWith(x: nx, y: ny));
       },
       onPanEnd: (_) => onCommit(z),
@@ -56,9 +58,11 @@ class ZoneOverlay extends StatelessWidget {
           child: GestureDetector(
             onPanUpdate: (d) {
               final nw = (z.largeur + d.delta.dx / size.width)
-                  .clamp(0.02, math.max(0.02, 1.0 - z.x));
+                  .clamp(0.02, math.max(0.02, 1.0 - z.x))
+                  .toDouble();
               final nh = (z.hauteur + d.delta.dy / size.height)
-                  .clamp(0.02, math.max(0.02, 1.0 - z.y));
+                  .clamp(0.02, math.max(0.02, 1.0 - z.y))
+                  .toDouble();
               onChanged(z.copyWith(largeur: nw, hauteur: nh));
             },
             onPanEnd: (_) => onCommit(z),
