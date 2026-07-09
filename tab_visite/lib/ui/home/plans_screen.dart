@@ -99,6 +99,25 @@ class _PlansScreenState extends State<PlansScreen> {
                         MaterialPageRoute(builder: (_) => PlanViewScreen(plan: plan)));
                     _load();
                   },
+                  onLongPress: () async {
+                    final ok = await showDialog<bool>(context: context, builder: (_) => AlertDialog(
+                      title: Text('Supprimer « ${plan.nom} » ?'),
+                      content: const Text('Le plan et toutes ses photos seront supprimés.'),
+                      actions: [
+                        TextButton(onPressed: () => Navigator.pop(context, false), child: const Text('Annuler')),
+                        FilledButton(onPressed: () => Navigator.pop(context, true), child: const Text('Supprimer')),
+                      ],
+                    ));
+                    if (ok != true) return;
+                    for (final z in await ctx.zones.forPlan(plan.id)) {
+                      for (final ph in await ctx.photos.forZone(z.id)) {
+                        await ctx.storage.deleteRelative(ph.cheminFichier);
+                      }
+                    }
+                    await ctx.storage.deleteRelative(plan.cheminImage);
+                    await ctx.plans.delete(plan.id);
+                    _load();
+                  },
                 );
               },
             ),
