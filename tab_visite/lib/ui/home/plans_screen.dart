@@ -89,7 +89,12 @@ class _PlansScreenState extends State<PlansScreen> {
                 return ListTile(
                   leading: SizedBox(
                     width: 64,
-                    child: Image.file(ctx.storage.resolve(plan.cheminImage), fit: BoxFit.cover),
+                    child: Image.file(
+                      ctx.storage.resolve(plan.cheminImage),
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, __, ___) =>
+                          const Icon(Icons.broken_image, color: Colors.grey),
+                    ),
                   ),
                   title: Text(plan.nom),
                   subtitle: Text('${_zoneCounts[plan.id] ?? 0} zone(s)'),

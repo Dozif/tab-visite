@@ -43,7 +43,11 @@ class PhotoViewer extends StatelessWidget {
       body: Center(
         child: InteractiveViewer(
           maxScale: 5,
-          child: Image.file(file),
+          child: Image.file(
+            file,
+            errorBuilder: (_, __, ___) => const Icon(Icons.broken_image,
+                color: Colors.grey, size: 64),
+          ),
         ),
       ),
     );

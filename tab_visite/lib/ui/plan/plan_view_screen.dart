@@ -162,7 +162,12 @@ class _PlanViewScreenState extends State<PlanViewScreen> {
                         fit: StackFit.expand,
                         children: [
                           Image.file(ctx.storage.resolve(widget.plan.cheminImage),
-                              fit: BoxFit.fill),
+                              fit: BoxFit.fill,
+                              errorBuilder: (_, __, ___) => const ColoredBox(
+                                  color: Colors.black12,
+                                  child: Center(
+                                      child: Icon(Icons.broken_image,
+                                          color: Colors.grey)))),
                           ZoneOverlay(
                             zones: _zones,
                             size: displaySize,

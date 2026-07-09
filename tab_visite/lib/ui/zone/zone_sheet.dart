@@ -92,7 +92,11 @@ class _ZoneSheetState extends State<ZoneSheet> {
                           ),
                           child: Image.file(
                               widget.ctx.storage.resolve(p.cheminFichier),
-                              fit: BoxFit.cover),
+                              fit: BoxFit.cover,
+                              errorBuilder: (_, __, ___) => const ColoredBox(
+                                  color: Colors.black12,
+                                  child: Icon(Icons.broken_image,
+                                      color: Colors.grey))),
                         ),
                       );
                     },
