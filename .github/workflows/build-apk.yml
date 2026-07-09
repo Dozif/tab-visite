@@ -1,7 +1,7 @@
 name: Build APK
 on:
   push:
-    branches: [ main, feat/tab-visite-app ]
+    branches: [ main, master, feat/tab-visite-app ]
   workflow_dispatch:
 
 jobs:
