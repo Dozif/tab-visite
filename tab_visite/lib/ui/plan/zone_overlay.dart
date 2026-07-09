@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import '../../data/models/zone.dart';
 
@@ -11,6 +12,7 @@ class ZoneOverlay extends StatelessWidget {
   final void Function(Zone) onTap;
   final bool editing;
   final void Function(Zone updated) onChanged;
+  final void Function(Zone updated) onCommit;
 
   const ZoneOverlay({
     super.key,
@@ -21,9 +23,10 @@ class ZoneOverlay extends StatelessWidget {
     required this.onTap,
     required this.editing,
     required this.onChanged,
+    required this.onCommit,
   });
 
-  Widget _buildZone(BuildContext context, Zone z, Color color, bool selected) {
+  Widget _buildZone(Zone z, Color color, bool selected) {
     final body = Container(
       alignment: Alignment.center,
       decoration: BoxDecoration(
@@ -39,20 +42,26 @@ class ZoneOverlay extends StatelessWidget {
     return GestureDetector(
       onTap: () => onTap(z),
       onPanUpdate: (d) {
-        final nx = (z.x + d.delta.dx / size.width).clamp(0.0, 1.0 - z.largeur);
-        final ny = (z.y + d.delta.dy / size.height).clamp(0.0, 1.0 - z.hauteur);
+        final nx = (z.x + d.delta.dx / size.width)
+            .clamp(0.0, math.max(0.0, 1.0 - z.largeur));
+        final ny = (z.y + d.delta.dy / size.height)
+            .clamp(0.0, math.max(0.0, 1.0 - z.hauteur));
         onChanged(z.copyWith(x: nx, y: ny));
       },
+      onPanEnd: (_) => onCommit(z),
       child: Stack(children: [
         Positioned.fill(child: body),
         Positioned(
           right: 0, bottom: 0,
           child: GestureDetector(
             onPanUpdate: (d) {
-              final nw = (z.largeur + d.delta.dx / size.width).clamp(0.02, 1.0 - z.x);
-              final nh = (z.hauteur + d.delta.dy / size.height).clamp(0.02, 1.0 - z.y);
+              final nw = (z.largeur + d.delta.dx / size.width)
+                  .clamp(0.02, math.max(0.02, 1.0 - z.x));
+              final nh = (z.hauteur + d.delta.dy / size.height)
+                  .clamp(0.02, math.max(0.02, 1.0 - z.y));
               onChanged(z.copyWith(largeur: nw, hauteur: nh));
             },
+            onPanEnd: (_) => onCommit(z),
             child: const Icon(Icons.open_in_full, size: 18, color: Colors.blue),
           ),
         ),
@@ -72,7 +81,7 @@ class ZoneOverlay extends StatelessWidget {
           top: z.y * size.height,
           width: z.largeur * size.width,
           height: z.hauteur * size.height,
-          child: _buildZone(context, z, color, selected),
+          child: _buildZone(z, color, selected),
         );
       }).toList(),
     );

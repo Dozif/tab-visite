@@ -146,11 +146,13 @@ class _PlanViewScreenState extends State<PlanViewScreen> {
                             selectedId: editor.selectedZoneId,
                             onTap: _onTapZone,
                             editing: editor.editing,
-                            onChanged: (updated) async {
+                            onChanged: (updated) {
                               setState(() {
                                 final i = _zones.indexWhere((e) => e.id == updated.id);
                                 if (i >= 0) _zones[i] = updated;
                               });
+                            },
+                            onCommit: (updated) async {
                               await ctx.zones.update(updated);
                             },
                           ),
