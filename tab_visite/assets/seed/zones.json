@@ -1,0 +1,40 @@
+{
+  "plans": [
+    {
+      "nom": "2N — Voiture (M–Y)",
+      "image": "image1.png",
+      "zones": [
+        {"nom": "M", "x": 0.055, "y": 0.24, "largeur": 0.045, "hauteur": 0.16},
+        {"nom": "N", "x": 0.27,  "y": 0.24, "largeur": 0.045, "hauteur": 0.16},
+        {"nom": "O", "x": 0.35,  "y": 0.24, "largeur": 0.045, "hauteur": 0.16},
+        {"nom": "P", "x": 0.44,  "y": 0.24, "largeur": 0.045, "hauteur": 0.16},
+        {"nom": "Q", "x": 0.52,  "y": 0.24, "largeur": 0.045, "hauteur": 0.16},
+        {"nom": "R", "x": 0.61,  "y": 0.24, "largeur": 0.045, "hauteur": 0.16},
+        {"nom": "S", "x": 0.70,  "y": 0.24, "largeur": 0.045, "hauteur": 0.16},
+        {"nom": "T", "x": 0.78,  "y": 0.24, "largeur": 0.045, "hauteur": 0.16},
+        {"nom": "U", "x": 0.27,  "y": 0.58, "largeur": 0.045, "hauteur": 0.16},
+        {"nom": "V", "x": 0.35,  "y": 0.58, "largeur": 0.045, "hauteur": 0.16},
+        {"nom": "W", "x": 0.44,  "y": 0.58, "largeur": 0.045, "hauteur": 0.16},
+        {"nom": "X", "x": 0.52,  "y": 0.58, "largeur": 0.045, "hauteur": 0.16},
+        {"nom": "Y", "x": 0.61,  "y": 0.58, "largeur": 0.045, "hauteur": 0.16}
+      ]
+    },
+    {"nom": "2N — Vue 2",  "image": "image2.png",  "zones": []},
+    {"nom": "2N — Vue 3",  "image": "image3.png",  "zones": []},
+    {"nom": "2N — Vue 4",  "image": "image4.png",  "zones": []},
+    {"nom": "2N — Vue 5",  "image": "image5.png",  "zones": []},
+    {"nom": "2N — Vue 6",  "image": "image6.png",  "zones": []},
+    {"nom": "2N — Vue 7",  "image": "image7.png",  "zones": []},
+    {"nom": "2N — Vue 8",  "image": "image8.png",  "zones": []},
+    {"nom": "2N — Vue 9",  "image": "image9.png",  "zones": []},
+    {"nom": "2N — Vue 10", "image": "image10.png", "zones": []},
+    {"nom": "2N — Vue 11", "image": "image11.png", "zones": []},
+    {"nom": "2N — Vue 12", "image": "image12.png", "zones": []},
+    {"nom": "2N — Vue 13", "image": "image13.png", "zones": []},
+    {"nom": "2N — Vue 14", "image": "image14.png", "zones": []},
+    {"nom": "2N — Vue 15", "image": "image15.png", "zones": []},
+    {"nom": "2N — Vue 16", "image": "image16.png", "zones": []},
+    {"nom": "2N — Vue 17", "image": "image17.png", "zones": []},
+    {"nom": "2N — Vue 18", "image": "image18.png", "zones": []}
+  ]
+}
