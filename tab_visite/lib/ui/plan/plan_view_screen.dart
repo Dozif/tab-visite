@@ -127,6 +127,8 @@ class _PlanViewScreenState extends State<PlanViewScreen> {
               return InteractiveViewer(
                 maxScale: 6,
                 minScale: 0.5,
+                panEnabled: !editor.editing,
+                scaleEnabled: !editor.editing,
                 child: Center(
                   child: AspectRatio(
                     aspectRatio: imgRatio,
@@ -143,6 +145,14 @@ class _PlanViewScreenState extends State<PlanViewScreen> {
                             zonesAvecPhotos: _avecPhotos,
                             selectedId: editor.selectedZoneId,
                             onTap: _onTapZone,
+                            editing: editor.editing,
+                            onChanged: (updated) async {
+                              setState(() {
+                                final i = _zones.indexWhere((e) => e.id == updated.id);
+                                if (i >= 0) _zones[i] = updated;
+                              });
+                              await ctx.zones.update(updated);
+                            },
                           ),
                         ],
                       );

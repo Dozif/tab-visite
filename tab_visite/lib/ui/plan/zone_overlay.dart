@@ -9,6 +9,8 @@ class ZoneOverlay extends StatelessWidget {
   final Set<String> zonesAvecPhotos;
   final String? selectedId;
   final void Function(Zone) onTap;
+  final bool editing;
+  final void Function(Zone updated) onChanged;
 
   const ZoneOverlay({
     super.key,
@@ -17,7 +19,46 @@ class ZoneOverlay extends StatelessWidget {
     required this.zonesAvecPhotos,
     required this.selectedId,
     required this.onTap,
+    required this.editing,
+    required this.onChanged,
   });
+
+  Widget _buildZone(BuildContext context, Zone z, Color color, bool selected) {
+    final body = Container(
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.25),
+        border: Border.all(color: selected ? Colors.blue : color, width: selected ? 3 : 2),
+        borderRadius: BorderRadius.circular(4),
+      ),
+      child: FittedBox(child: Text(z.nom, style: const TextStyle(fontWeight: FontWeight.bold))),
+    );
+    if (!editing) {
+      return GestureDetector(onTap: () => onTap(z), child: body);
+    }
+    return GestureDetector(
+      onTap: () => onTap(z),
+      onPanUpdate: (d) {
+        final nx = (z.x + d.delta.dx / size.width).clamp(0.0, 1.0 - z.largeur);
+        final ny = (z.y + d.delta.dy / size.height).clamp(0.0, 1.0 - z.hauteur);
+        onChanged(z.copyWith(x: nx, y: ny));
+      },
+      child: Stack(children: [
+        Positioned.fill(child: body),
+        Positioned(
+          right: 0, bottom: 0,
+          child: GestureDetector(
+            onPanUpdate: (d) {
+              final nw = (z.largeur + d.delta.dx / size.width).clamp(0.02, 1.0 - z.x);
+              final nh = (z.hauteur + d.delta.dy / size.height).clamp(0.02, 1.0 - z.y);
+              onChanged(z.copyWith(largeur: nw, hauteur: nh));
+            },
+            child: const Icon(Icons.open_in_full, size: 18, color: Colors.blue),
+          ),
+        ),
+      ]),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,23 +72,7 @@ class ZoneOverlay extends StatelessWidget {
           top: z.y * size.height,
           width: z.largeur * size.width,
           height: z.hauteur * size.height,
-          child: GestureDetector(
-            onTap: () => onTap(z),
-            child: Container(
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: color.withOpacity(hasPhotos ? 0.35 : 0.12),
-                border: Border.all(
-                    color: selected ? Colors.blue : color,
-                    width: selected ? 3 : 2),
-                borderRadius: BorderRadius.circular(4),
-              ),
-              child: FittedBox(
-                child: Text(z.nom,
-                    style: const TextStyle(fontWeight: FontWeight.bold)),
-              ),
-            ),
-          ),
+          child: _buildZone(context, z, color, selected),
         );
       }).toList(),
     );
