@@ -2,9 +2,12 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
 import '../../data/models/plan.dart';
 import '../../data/models/zone.dart';
 import '../../services/app_context.dart';
+import '../../services/export_service.dart';
 import '../zone/zone_sheet.dart';
 import 'zone_overlay.dart';
 import 'zone_editor_controller.dart';
@@ -116,6 +119,16 @@ class _PlanViewScreenState extends State<PlanViewScreen> {
             icon: Icon(editor.editing ? Icons.check : Icons.edit_location_alt),
             tooltip: editor.editing ? 'Terminer l\'édition' : 'Mode édition',
             onPressed: editor.toggle,
+          ),
+          IconButton(
+            icon: const Icon(Icons.folder_zip),
+            tooltip: 'Exporter les photos',
+            onPressed: () async {
+              final dir = await getTemporaryDirectory();
+              final zip = await ExportService(ctx.plans, ctx.zones, ctx.photos, ctx.storage)
+                  .exportPlanToZip(widget.plan.id, dir);
+              await Share.shareXFiles([XFile(zip.path)]);
+            },
           ),
         ],
       ),
