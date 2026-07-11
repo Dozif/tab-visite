@@ -30,12 +30,20 @@ class SeedService {
       await dest.writeAsBytes(bytes);
 
       final planId = _uuid.v4();
+      final nom = entry['nom'] as String;
+      // Catégorie/série : explicites dans le JSON si fournies, sinon déduites
+      // du nom (les plans « Motrice … » sont des motrices, les autres des remorques).
+      final categorie = (entry['categorie'] as String?) ??
+          (nom.startsWith('Motrice') ? 'motrice' : 'remorque');
+      final serie = (entry['serie'] as String?) ?? '2N';
       await planRepo.insert(Plan(
         id: planId,
-        nom: entry['nom'] as String,
+        nom: nom,
         cheminImage: rel,
         ordre: ordre,
         dateCreation: ordre,
+        categorie: categorie,
+        serie: serie,
       ));
       for (final z in (entry['zones'] as List).cast<Map<String, Object?>>()) {
         await zoneRepo.insert(Zone(
@@ -47,6 +55,7 @@ class SeedService {
           largeur: (z['largeur'] as num).toDouble(),
           hauteur: (z['hauteur'] as num).toDouble(),
           dateCreation: ordre,
+          imageReference: z['imageReference'] as String?,
         ));
       }
       ordre++;

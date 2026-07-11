@@ -3,13 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import '../../data/models/plan.dart';
+import '../../data/models/visite.dart';
 import '../../services/app_context.dart';
 import '../../services/plan_import_service.dart';
 import '../plan/plan_view_screen.dart';
 import '../search/search_screen.dart';
 
 class PlansScreen extends StatefulWidget {
-  const PlansScreen({super.key});
+  /// Visite en cours (dossier de rame). Null = accès direct sans visite.
+  final Visite? visite;
+  /// Si fourni (« M1 »/« M2 » ou « R1 »..« R8 »), n'affiche que les images
+  /// de ce véhicule (ses 2 côtés).
+  final String? numeroVehicule;
+  const PlansScreen({super.key, this.visite, this.numeroVehicule});
   @override
   State<PlansScreen> createState() => _PlansScreenState();
 }
@@ -26,7 +32,15 @@ class _PlansScreenState extends State<PlansScreen> {
   }
 
   Future<void> _load() async {
-    final plans = await ctx.plans.all();
+    var plans = widget.visite == null
+        ? await ctx.plans.all()
+        : await ctx.plans.forTypeVisite(widget.visite!.typeVisite);
+    // Restreint à un véhicule précis si demandé (les 2 côtés de M1/M2 ou Rn).
+    if (widget.numeroVehicule != null) {
+      plans = plans
+          .where((p) => p.numeroVehicule == widget.numeroVehicule)
+          .toList();
+    }
     final counts = <String, int>{};
     for (final p in plans) {
       counts[p.id] = (await ctx.zones.forPlan(p.id)).length;
@@ -64,7 +78,10 @@ class _PlansScreenState extends State<PlansScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Plans de visite'),
+        title: Text(widget.visite == null
+            ? 'Plans de visite'
+            : 'Rame ${widget.visite!.numeroRame} — ${widget.visite!.typeVisite}'
+                '${widget.numeroVehicule != null ? ' • ${widget.numeroVehicule}' : ''}'),
         actions: [
           IconButton(
             icon: const Icon(Icons.search),

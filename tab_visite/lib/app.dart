@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'ui/home/plans_screen.dart';
+import 'ui/home/accueil_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF1565C0)),
         useMaterial3: true,
       ),
-      home: const PlansScreen(),
+      home: const AccueilScreen(),
     );
   }
 }

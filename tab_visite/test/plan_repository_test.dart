@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:tab_visite/data/database.dart';
 import 'package:tab_visite/data/models/plan.dart';
+import 'package:tab_visite/data/models/visite.dart';
 import 'package:tab_visite/data/repositories/plan_repository.dart';
 
 void main() {
@@ -15,6 +16,20 @@ void main() {
     final list = await repo.all();
     expect(list.map((p) => p.id).toList(), ['a', 'b']);
     expect(await repo.nextOrdre(), 2);
+    await db.close();
+  });
+
+  test('forTypeVisite filtre motrices / remorques 2N / autre série', () async {
+    final db = await AppDatabase.open(path: inMemoryDatabasePath);
+    final repo = PlanRepository(db);
+    await repo.insert(Plan(id: 'm1', nom: 'Motrice M1', cheminImage: 'a', ordre: 0, dateCreation: 0, categorie: 'motrice', serie: '2N'));
+    await repo.insert(Plan(id: 'r1', nom: 'Remorque R1', cheminImage: 'b', ordre: 1, dateCreation: 0, categorie: 'remorque', serie: '2N'));
+    await repo.insert(Plan(id: 'r2', nom: 'Remorque R2', cheminImage: 'c', ordre: 2, dateCreation: 0, categorie: 'remorque', serie: '2N'));
+    await repo.insert(Plan(id: 'x1', nom: 'Remorque autre', cheminImage: 'd', ordre: 3, dateCreation: 0, categorie: 'remorque', serie: 'AUTRE'));
+
+    expect((await repo.forTypeVisite(TypeVisite.mkbam)).map((p) => p.id).toList(), ['m1']);
+    expect((await repo.forTypeVisite(TypeVisite.mkbdr)).map((p) => p.id).toList(), ['r1', 'r2']);
+    expect((await repo.forTypeVisite(TypeVisite.mkbar)).map((p) => p.id).toList(), ['x1']);
     await db.close();
   });
 }

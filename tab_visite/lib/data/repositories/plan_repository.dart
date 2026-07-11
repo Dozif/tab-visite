@@ -1,5 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 import '../models/plan.dart';
+import '../models/visite.dart';
 
 class PlanRepository {
   final Database db;
@@ -9,6 +10,23 @@ class PlanRepository {
 
   Future<List<Plan>> all() async {
     final rows = await db.query('plans', orderBy: 'ordre ASC');
+    return rows.map(Plan.fromMap).toList();
+  }
+
+  /// Plans à inspecter pour un type de visite :
+  /// MKBAM → les motrices ; MKBDR → les remorques série 2N ;
+  /// MKBAR → les remorques d'une autre série (aucune tant que non fournies).
+  Future<List<Plan>> forTypeVisite(String typeVisite) async {
+    final (where, args) = switch (typeVisite) {
+      TypeVisite.mkbam => ("categorie = 'motrice'", <Object?>[]),
+      TypeVisite.mkbdr => ("categorie = 'remorque' AND serie = '2N'", <Object?>[]),
+      TypeVisite.mkbar => ("categorie = 'remorque' AND serie <> '2N'", <Object?>[]),
+      _ => ('', <Object?>[]),
+    };
+    final rows = await db.query('plans',
+        where: where.isEmpty ? null : where,
+        whereArgs: args.isEmpty ? null : args,
+        orderBy: 'ordre ASC');
     return rows.map(Plan.fromMap).toList();
   }
 

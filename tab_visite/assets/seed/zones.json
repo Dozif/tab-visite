@@ -5,19 +5,14 @@
       "nom": "Remorque (Droit-Pair) R1",
       "image": "image1.png",
       "zones": [
-        {"nom": "M", "x": 0.055, "y": 0.24, "largeur": 0.045, "hauteur": 0.16},
-        {"nom": "N", "x": 0.27,  "y": 0.24, "largeur": 0.045, "hauteur": 0.16},
-        {"nom": "O", "x": 0.35,  "y": 0.24, "largeur": 0.045, "hauteur": 0.16},
-        {"nom": "P", "x": 0.44,  "y": 0.24, "largeur": 0.045, "hauteur": 0.16},
-        {"nom": "Q", "x": 0.52,  "y": 0.24, "largeur": 0.045, "hauteur": 0.16},
-        {"nom": "R", "x": 0.61,  "y": 0.24, "largeur": 0.045, "hauteur": 0.16},
-        {"nom": "S", "x": 0.70,  "y": 0.24, "largeur": 0.045, "hauteur": 0.16},
-        {"nom": "T", "x": 0.78,  "y": 0.24, "largeur": 0.045, "hauteur": 0.16},
-        {"nom": "U", "x": 0.27,  "y": 0.58, "largeur": 0.045, "hauteur": 0.16},
-        {"nom": "V", "x": 0.35,  "y": 0.58, "largeur": 0.045, "hauteur": 0.16},
-        {"nom": "W", "x": 0.44,  "y": 0.58, "largeur": 0.045, "hauteur": 0.16},
-        {"nom": "X", "x": 0.52,  "y": 0.58, "largeur": 0.045, "hauteur": 0.16},
-        {"nom": "Y", "x": 0.61,  "y": 0.58, "largeur": 0.045, "hauteur": 0.16}
+        {"nom": "1", "x": 0.02, "y": 0.60, "largeur": 0.03, "hauteur": 0.07, "imageReference": "assets/reference/point1.png"},
+        {"nom": "2", "x": 0.84, "y": 0.56, "largeur": 0.03, "hauteur": 0.07, "imageReference": "assets/reference/point2.png"},
+        {"nom": "3", "x": 0.95, "y": 0.56, "largeur": 0.03, "hauteur": 0.07, "imageReference": "assets/reference/point3.png"},
+        {"nom": "4", "x": 0.78, "y": 0.76, "largeur": 0.03, "hauteur": 0.07, "imageReference": "assets/reference/point4.png"},
+        {"nom": "5", "x": 0.10, "y": 0.76, "largeur": 0.03, "hauteur": 0.07, "imageReference": "assets/reference/point5.png"},
+        {"nom": "6", "x": 0.04, "y": 0.76, "largeur": 0.03, "hauteur": 0.07, "imageReference": "assets/reference/point6.png"},
+        {"nom": "7", "x": 0.45, "y": 0.78, "largeur": 0.03, "hauteur": 0.07, "imageReference": "assets/reference/point7.png"},
+        {"nom": "8", "x": 0.70, "y": 0.71, "largeur": 0.03, "hauteur": 0.07, "imageReference": "assets/reference/point8.png"}
       ]
     },
     {"nom": "Remorque (Droit-Pair) R2",   "image": "image3.png",  "zones": []},
@@ -30,13 +25,13 @@
     {"nom": "Motrice (Droit-Pair) M2",    "image": "image9.png",  "zones": []},
     {"nom": "Motrice (Gauche-Impair) M2", "image": "image2.png",  "zones": []},
     {"nom": "Remorque (Gauche-Impair) R8","image": "image10.png", "zones": []},
-    {"nom": "Remorque (Gauche) R7",       "image": "image11.png", "zones": []},
-    {"nom": "Remorque (Gauche) R6",       "image": "image12.png", "zones": []},
-    {"nom": "Remorque (Gauche) R5",       "image": "image13.png", "zones": []},
-    {"nom": "Remorque (Gauche) R4",       "image": "image14.png", "zones": []},
-    {"nom": "Remorque (Gauche) R3",       "image": "image15.png", "zones": []},
-    {"nom": "Remorque (Gauche) R2",       "image": "image16.png", "zones": []},
-    {"nom": "Remorque (Gauche) R1",       "image": "image17.png", "zones": []},
+    {"nom": "Remorque (Gauche-Impair) R7",       "image": "image11.png", "zones": []},
+    {"nom": "Remorque (Gauche-Impair) R6",       "image": "image12.png", "zones": []},
+    {"nom": "Remorque (Gauche-Impair) R5",       "image": "image13.png", "zones": []},
+    {"nom": "Remorque (Gauche-Impair) R4",       "image": "image14.png", "zones": []},
+    {"nom": "Remorque (Gauche-Impair) R3",       "image": "image15.png", "zones": []},
+    {"nom": "Remorque (Gauche-Impair) R2",       "image": "image16.png", "zones": []},
+    {"nom": "Remorque (Gauche-Impair) R1",       "image": "image17.png", "zones": []},
     {"nom": "Motrice M1 Côté Gauche",     "image": "image18.png", "zones": []}
   ]
 }

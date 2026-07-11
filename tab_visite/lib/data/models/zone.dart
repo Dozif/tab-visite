@@ -4,6 +4,7 @@ class Zone {
   final String nom;
   final double x, y, largeur, hauteur; // normalisés 0–1
   final int dateCreation;
+  final String? imageReference; // asset de référence (ex 'reference/point1.png')
 
   const Zone({
     required this.id,
@@ -14,6 +15,7 @@ class Zone {
     required this.largeur,
     required this.hauteur,
     required this.dateCreation,
+    this.imageReference,
   });
 
   Map<String, Object?> toMap() => {
@@ -25,6 +27,7 @@ class Zone {
         'largeur': largeur,
         'hauteur': hauteur,
         'date_creation': dateCreation,
+        'image_reference': imageReference,
       };
 
   factory Zone.fromMap(Map<String, Object?> m) => Zone(
@@ -36,6 +39,7 @@ class Zone {
         largeur: (m['largeur'] as num).toDouble(),
         hauteur: (m['hauteur'] as num).toDouble(),
         dateCreation: m['date_creation'] as int,
+        imageReference: m['image_reference'] as String?,
       );
 
   Zone copyWith({String? nom, double? x, double? y, double? largeur, double? hauteur}) => Zone(
@@ -47,5 +51,6 @@ class Zone {
         largeur: largeur ?? this.largeur,
         hauteur: hauteur ?? this.hauteur,
         dateCreation: dateCreation,
+        imageReference: imageReference,
       );
 }

@@ -46,8 +46,22 @@ class _ZoneSheetState extends State<ZoneSheet> {
     await _load();
   }
 
+  void _agrandirReference(String asset) {
+    showDialog(
+      context: context,
+      builder: (_) => Dialog(
+        insetPadding: const EdgeInsets.all(12),
+        child: InteractiveViewer(
+          child: Image.asset(asset, fit: BoxFit.contain),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final ref = widget.zone.imageReference;
+    final estPoint = ref != null;
     return DraggableScrollableSheet(
       expand: false,
       initialChildSize: 0.6,
@@ -58,7 +72,7 @@ class _ZoneSheetState extends State<ZoneSheet> {
             padding: const EdgeInsets.all(12),
             child: Row(
               children: [
-                Text('Zone ${widget.zone.nom}',
+                Text('${estPoint ? "Point" : "Zone"} ${widget.zone.nom}',
                     style: Theme.of(context).textTheme.titleLarge),
                 const Spacer(),
                 FilledButton.icon(
@@ -69,6 +83,33 @@ class _ZoneSheetState extends State<ZoneSheet> {
               ],
             ),
           ),
+          if (ref != null)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(12, 0, 12, 8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text('Référence (appuyer pour agrandir)',
+                      style: TextStyle(fontSize: 12, color: Colors.grey)),
+                  const SizedBox(height: 4),
+                  GestureDetector(
+                    onTap: () => _agrandirReference(ref),
+                    child: Container(
+                      height: 150,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.green, width: 2),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      clipBehavior: Clip.antiAlias,
+                      child: Image.asset(ref, fit: BoxFit.contain,
+                          errorBuilder: (_, __, ___) =>
+                              const Center(child: Icon(Icons.broken_image))),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           Expanded(
             child: _photos.isEmpty
                 ? const Center(child: Text('Aucune photo pour cette zone'))
