@@ -2,23 +2,47 @@
   "plans": [
     {
       "nom": "Motrice (Droit-Pair) M1",
-      "image": "image2.png",
+      "image": "image22.png",
       "zones": [
         {
           "nom": "M1 D1",
-          "x": 0.4,
-          "y": 0.72,
+          "x": 0.02,
+          "y": 0.602,
           "largeur": 0.03,
-          "hauteur": 0.07,
-          "imageReference": "assets/reference/motrice_point1.png"
+          "hauteur": 0.16,
+          "imageReference": "assets/reference/motrice_point2.png"
         },
         {
           "nom": "M1 D2",
-          "x": 0.48,
-          "y": 0.1,
+          "x": 0.082,
+          "y": 0.647,
           "largeur": 0.03,
-          "hauteur": 0.07,
-          "imageReference": "assets/reference/motrice_point2.png"
+          "hauteur": 0.16,
+          "imageReference": "assets/reference/motrice_point1.png"
+        },
+        {
+          "nom": "M1 D3",
+          "x": 0.208,
+          "y": 0.638,
+          "largeur": 0.03,
+          "hauteur": 0.16,
+          "imageReference": "assets/reference/motrice_point1.png"
+        },
+        {
+          "nom": "M1 D4",
+          "x": 0.43,
+          "y": 0.593,
+          "largeur": 0.03,
+          "hauteur": 0.16,
+          "imageReference": "assets/reference/motrice_point1.png"
+        },
+        {
+          "nom": "M1 D5",
+          "x": 0.674,
+          "y": 0.629,
+          "largeur": 0.03,
+          "hauteur": 0.16,
+          "imageReference": "assets/reference/motrice_point1.png"
         }
       ]
     },
@@ -1221,22 +1245,46 @@
     },
     {
       "nom": "Motrice (Droit-Pair) M2",
-      "image": "image9.png",
+      "image": "image21.png",
       "zones": [
         {
           "nom": "M2 D1",
-          "x": 0.4,
-          "y": 0.72,
+          "x": 0.284,
+          "y": 0.642,
           "largeur": 0.03,
-          "hauteur": 0.07,
+          "hauteur": 0.16,
           "imageReference": "assets/reference/motrice_point1.png"
         },
         {
           "nom": "M2 D2",
-          "x": 0.48,
-          "y": 0.1,
+          "x": 0.542,
+          "y": 0.597,
           "largeur": 0.03,
-          "hauteur": 0.07,
+          "hauteur": 0.16,
+          "imageReference": "assets/reference/motrice_point1.png"
+        },
+        {
+          "nom": "M2 D3",
+          "x": 0.774,
+          "y": 0.646,
+          "largeur": 0.03,
+          "hauteur": 0.16,
+          "imageReference": "assets/reference/motrice_point1.png"
+        },
+        {
+          "nom": "M2 D4",
+          "x": 0.9,
+          "y": 0.662,
+          "largeur": 0.03,
+          "hauteur": 0.16,
+          "imageReference": "assets/reference/motrice_point1.png"
+        },
+        {
+          "nom": "M2 D5",
+          "x": 0.949,
+          "y": 0.597,
+          "largeur": 0.03,
+          "hauteur": 0.16,
           "imageReference": "assets/reference/motrice_point2.png"
         }
       ]
@@ -1247,19 +1295,43 @@
       "zones": [
         {
           "nom": "M2 G1",
-          "x": 0.55,
-          "y": 0.72,
+          "x": 0.022,
+          "y": 0.647,
           "largeur": 0.03,
-          "hauteur": 0.07,
-          "imageReference": "assets/reference/motrice_point1.png"
+          "hauteur": 0.16,
+          "imageReference": "assets/reference/motrice_point2.png"
         },
         {
           "nom": "M2 G2",
-          "x": 0.48,
-          "y": 0.1,
+          "x": 0.076,
+          "y": 0.674,
           "largeur": 0.03,
-          "hauteur": 0.07,
-          "imageReference": "assets/reference/motrice_point2.png"
+          "hauteur": 0.16,
+          "imageReference": "assets/reference/motrice_point1.png"
+        },
+        {
+          "nom": "M2 G3",
+          "x": 0.195,
+          "y": 0.666,
+          "largeur": 0.03,
+          "hauteur": 0.16,
+          "imageReference": "assets/reference/motrice_point1.png"
+        },
+        {
+          "nom": "M2 G4",
+          "x": 0.325,
+          "y": 0.628,
+          "largeur": 0.03,
+          "hauteur": 0.16,
+          "imageReference": "assets/reference/motrice_point1.png"
+        },
+        {
+          "nom": "M2 G5",
+          "x": 0.682,
+          "y": 0.674,
+          "largeur": 0.03,
+          "hauteur": 0.16,
+          "imageReference": "assets/reference/motrice_point1.png"
         }
       ]
     },
@@ -2448,23 +2520,1791 @@
     },
     {
       "nom": "Motrice M1 Côté Gauche",
-      "image": "image18.png",
+      "image": "image20.png",
       "zones": [
         {
           "nom": "M1 G1",
-          "x": 0.55,
-          "y": 0.72,
+          "x": 0.28,
+          "y": 0.646,
           "largeur": 0.03,
-          "hauteur": 0.07,
+          "hauteur": 0.16,
           "imageReference": "assets/reference/motrice_point1.png"
         },
         {
           "nom": "M1 G2",
-          "x": 0.48,
-          "y": 0.1,
+          "x": 0.495,
+          "y": 0.638,
+          "largeur": 0.03,
+          "hauteur": 0.16,
+          "imageReference": "assets/reference/motrice_point1.png"
+        },
+        {
+          "nom": "M1 G3",
+          "x": 0.77,
+          "y": 0.646,
+          "largeur": 0.03,
+          "hauteur": 0.16,
+          "imageReference": "assets/reference/motrice_point1.png"
+        },
+        {
+          "nom": "M1 G4",
+          "x": 0.902,
+          "y": 0.625,
+          "largeur": 0.03,
+          "hauteur": 0.16,
+          "imageReference": "assets/reference/motrice_point1.png"
+        },
+        {
+          "nom": "M1 G5",
+          "x": 0.953,
+          "y": 0.578,
+          "largeur": 0.03,
+          "hauteur": 0.16,
+          "imageReference": "assets/reference/motrice_point2.png"
+        }
+      ]
+    },
+    {
+      "nom": "Remorque (Droit-Pair) R1",
+      "image": "image23.png",
+      "categorie": "remorque",
+      "serie": "1N",
+      "zones": [
+        {
+          "nom": "R1 D1.1",
+          "x": 0.0,
+          "y": 0.0016,
           "largeur": 0.03,
           "hauteur": 0.07,
-          "imageReference": "assets/reference/motrice_point2.png"
+          "imageReference": "assets/reference/remorque1n_point1.png"
+        },
+        {
+          "nom": "R1 D1.2",
+          "x": 0.8125,
+          "y": 0.4792,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point1.png"
+        },
+        {
+          "nom": "R1 D1.3",
+          "x": 0.8174,
+          "y": 0.2192,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point1.png"
+        },
+        {
+          "nom": "R1 D2.1",
+          "x": 0.1736,
+          "y": 0.6512,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R1 D2.2",
+          "x": 0.2508,
+          "y": 0.6324,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R1 D2.3",
+          "x": 0.3628,
+          "y": 0.5468,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R1 D2.4",
+          "x": 0.451,
+          "y": 0.5475,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R1 D2.5",
+          "x": 0.553,
+          "y": 0.5562,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R1 D2.6",
+          "x": 0.6348,
+          "y": 0.557,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R1 D4.1",
+          "x": 0.0482,
+          "y": 0.6237,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R1 D4.2",
+          "x": 0.9502,
+          "y": 0.6717,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        }
+      ]
+    },
+    {
+      "nom": "Remorque (Gauche-Impair) R1",
+      "image": "image24.png",
+      "categorie": "remorque",
+      "serie": "1N",
+      "zones": [
+        {
+          "nom": "R1 G1.1",
+          "x": 0.1586,
+          "y": 0.4791,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point1.png"
+        },
+        {
+          "nom": "R1 G1.2",
+          "x": 0.1651,
+          "y": 0.2201,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point1.png"
+        },
+        {
+          "nom": "R1 G2.1",
+          "x": 0.3774,
+          "y": 0.5338,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R1 G2.2",
+          "x": 0.4552,
+          "y": 0.5458,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R1 G2.3",
+          "x": 0.5533,
+          "y": 0.554,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R1 G2.4",
+          "x": 0.6429,
+          "y": 0.5435,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R1 G2.5",
+          "x": 0.7468,
+          "y": 0.5518,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R1 G2.6",
+          "x": 0.8413,
+          "y": 0.545,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R1 G4.1",
+          "x": 0.0293,
+          "y": 0.6589,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R1 G4.2",
+          "x": 0.9384,
+          "y": 0.6356,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        }
+      ]
+    },
+    {
+      "nom": "Remorque (Droit-Pair) R2",
+      "image": "image25.png",
+      "categorie": "remorque",
+      "serie": "1N",
+      "zones": [
+        {
+          "nom": "R2 D2.1",
+          "x": 0.1892,
+          "y": 0.5119,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R2 D2.2",
+          "x": 0.3109,
+          "y": 0.5008,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R2 D2.3",
+          "x": 0.4144,
+          "y": 0.5036,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R2 D2.4",
+          "x": 0.5367,
+          "y": 0.5098,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R2 D2.5",
+          "x": 0.6457,
+          "y": 0.5091,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R2 D2.6",
+          "x": 0.7191,
+          "y": 0.498,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R2 D4.1",
+          "x": 0.0381,
+          "y": 0.5968,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R2 D4.2",
+          "x": 0.9424,
+          "y": 0.6136,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        }
+      ]
+    },
+    {
+      "nom": "Remorque (Gauche-Impair) R2",
+      "image": "image26.png",
+      "categorie": "remorque",
+      "serie": "1N",
+      "zones": [
+        {
+          "nom": "R2 G2.1",
+          "x": 0.2605,
+          "y": 0.497,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R2 G2.2",
+          "x": 0.3666,
+          "y": 0.4997,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R2 G2.3",
+          "x": 0.485,
+          "y": 0.499,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R2 G2.4",
+          "x": 0.5986,
+          "y": 0.5085,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R2 G2.5",
+          "x": 0.7029,
+          "y": 0.5078,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R2 G2.6",
+          "x": 0.7927,
+          "y": 0.5105,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R2 G4.1",
+          "x": 0.0312,
+          "y": 0.593,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R2 G4.2",
+          "x": 0.9481,
+          "y": 0.5024,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        }
+      ]
+    },
+    {
+      "nom": "Remorque (Droit-Pair) R3",
+      "image": "image25.png",
+      "categorie": "remorque",
+      "serie": "1N",
+      "zones": [
+        {
+          "nom": "R3 D2.1",
+          "x": 0.1949,
+          "y": 0.5041,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R3 D2.2",
+          "x": 0.3044,
+          "y": 0.5048,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R3 D2.3",
+          "x": 0.4092,
+          "y": 0.502,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R3 D2.4",
+          "x": 0.5216,
+          "y": 0.5097,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R3 D2.5",
+          "x": 0.632,
+          "y": 0.5174,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R3 D2.6",
+          "x": 0.7169,
+          "y": 0.5076,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R3 D4.1",
+          "x": 0.0439,
+          "y": 0.6052,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R3 D4.2",
+          "x": 0.9427,
+          "y": 0.5729,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        }
+      ]
+    },
+    {
+      "nom": "Remorque (Gauche-Impair) R3",
+      "image": "image26.png",
+      "categorie": "remorque",
+      "serie": "1N",
+      "zones": [
+        {
+          "nom": "R3 G2.1",
+          "x": 0.2603,
+          "y": 0.5052,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R3 G2.2",
+          "x": 0.365,
+          "y": 0.5045,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R3 G2.3",
+          "x": 0.4789,
+          "y": 0.5113,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R3 G2.4",
+          "x": 0.5966,
+          "y": 0.5092,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R3 G2.5",
+          "x": 0.7169,
+          "y": 0.5065,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R3 G2.6",
+          "x": 0.8282,
+          "y": 0.5004,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R3 G4.1",
+          "x": 0.0344,
+          "y": 0.5797,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R3 G4.2",
+          "x": 0.9364,
+          "y": 0.5769,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        }
+      ]
+    },
+    {
+      "nom": "Remorque (Droit-Pair) R4",
+      "image": "image27.png",
+      "categorie": "remorque",
+      "serie": "1N",
+      "zones": [
+        {
+          "nom": "R4 D3.1",
+          "x": 0.1927,
+          "y": 0.4978,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point3.png"
+        },
+        {
+          "nom": "R4 D3.2",
+          "x": 0.3037,
+          "y": 0.4971,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point3.png"
+        },
+        {
+          "nom": "R4 D3.3",
+          "x": 0.3937,
+          "y": 0.1417,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point3.png"
+        },
+        {
+          "nom": "R4 D3.4",
+          "x": 0.4126,
+          "y": 0.4328,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point3.png"
+        },
+        {
+          "nom": "R4 D3.5",
+          "x": 0.5027,
+          "y": 0.1506,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point3.png"
+        },
+        {
+          "nom": "R4 D3.6",
+          "x": 0.5267,
+          "y": 0.4369,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point3.png"
+        },
+        {
+          "nom": "R4 D3.7",
+          "x": 0.6169,
+          "y": 0.1308,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point3.png"
+        },
+        {
+          "nom": "R4 D3.8",
+          "x": 0.6482,
+          "y": 0.4342,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point3.png"
+        },
+        {
+          "nom": "R4 D3.9",
+          "x": 0.7255,
+          "y": 0.1383,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point3.png"
+        },
+        {
+          "nom": "R4 D3.10",
+          "x": 0.763,
+          "y": 0.4246,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point3.png"
+        },
+        {
+          "nom": "R4 D4.1",
+          "x": 0.0375,
+          "y": 0.5941,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R4 D4.2",
+          "x": 0.9515,
+          "y": 0.5593,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        }
+      ]
+    },
+    {
+      "nom": "Remorque (Gauche-Impair) R4",
+      "image": "image28.png",
+      "categorie": "remorque",
+      "serie": "1N",
+      "zones": [
+        {
+          "nom": "R4 G3.1",
+          "x": 0.4656,
+          "y": 0.1253,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point3.png"
+        },
+        {
+          "nom": "R4 G3.2",
+          "x": 0.4876,
+          "y": 0.4596,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point3.png"
+        },
+        {
+          "nom": "R4 G3.3",
+          "x": 0.5544,
+          "y": 0.133,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point3.png"
+        },
+        {
+          "nom": "R4 G3.4",
+          "x": 0.5922,
+          "y": 0.4659,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point3.png"
+        },
+        {
+          "nom": "R4 G3.5",
+          "x": 0.7054,
+          "y": 0.5071,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point3.png"
+        },
+        {
+          "nom": "R4 G3.6",
+          "x": 0.8253,
+          "y": 0.5169,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point3.png"
+        },
+        {
+          "nom": "R4 G3.7",
+          "x": 0.9074,
+          "y": 0.3451,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point3.png"
+        },
+        {
+          "nom": "R4 G4.1",
+          "x": 0.046,
+          "y": 0.5839,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R4 G4.2",
+          "x": 0.9451,
+          "y": 0.5832,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        }
+      ]
+    },
+    {
+      "nom": "Remorque (Droit-Pair) R5",
+      "image": "image29.png",
+      "categorie": "remorque",
+      "serie": "1N",
+      "zones": [
+        {
+          "nom": "R5 D2.1",
+          "x": 0.1815,
+          "y": 0.4999,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R5 D2.2",
+          "x": 0.2954,
+          "y": 0.4957,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R5 D2.3",
+          "x": 0.4159,
+          "y": 0.4916,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R5 D2.4",
+          "x": 0.5222,
+          "y": 0.4944,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R5 D2.5",
+          "x": 0.6418,
+          "y": 0.5006,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R5 D2.6",
+          "x": 0.7073,
+          "y": 0.5034,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R5 D4.1",
+          "x": 0.044,
+          "y": 0.5872,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R5 D4.2",
+          "x": 0.9345,
+          "y": 0.5796,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        }
+      ]
+    },
+    {
+      "nom": "Remorque (Gauche-Impair) R5",
+      "image": "image30.png",
+      "categorie": "remorque",
+      "serie": "1N",
+      "zones": [
+        {
+          "nom": "R5 G2.1",
+          "x": 0.2536,
+          "y": 0.5008,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R5 G2.2",
+          "x": 0.374,
+          "y": 0.4981,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R5 G2.3",
+          "x": 0.4811,
+          "y": 0.4856,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R5 G2.4",
+          "x": 0.5935,
+          "y": 0.4896,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R5 G2.5",
+          "x": 0.7085,
+          "y": 0.5001,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R5 G2.6",
+          "x": 0.8183,
+          "y": 0.5008,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R5 G4.1",
+          "x": 0.0361,
+          "y": 0.5924,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R5 G4.2",
+          "x": 0.931,
+          "y": 0.6017,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        }
+      ]
+    },
+    {
+      "nom": "Remorque (Droit-Pair) R6",
+      "image": "image31.png",
+      "categorie": "remorque",
+      "serie": "1N",
+      "zones": [
+        {
+          "nom": "R6 D2.1",
+          "x": 0.2546,
+          "y": 0.5146,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R6 D2.2",
+          "x": 0.3637,
+          "y": 0.5069,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R6 D2.3",
+          "x": 0.4913,
+          "y": 0.5097,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R6 D2.4",
+          "x": 0.594,
+          "y": 0.509,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R6 D2.5",
+          "x": 0.6976,
+          "y": 0.5013,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R6 D2.6",
+          "x": 0.815,
+          "y": 0.5111,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R6 D4.1",
+          "x": 0.0405,
+          "y": 0.5947,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R6 D4.2",
+          "x": 0.9264,
+          "y": 0.5745,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        }
+      ]
+    },
+    {
+      "nom": "Remorque (Gauche-Impair) R6",
+      "image": "image32.png",
+      "categorie": "remorque",
+      "serie": "1N",
+      "zones": [
+        {
+          "nom": "R6 G2.1",
+          "x": 0.1864,
+          "y": 0.4955,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R6 G2.2",
+          "x": 0.3047,
+          "y": 0.4997,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R6 G2.3",
+          "x": 0.4193,
+          "y": 0.4969,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R6 G2.4",
+          "x": 0.5327,
+          "y": 0.508,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R6 G2.5",
+          "x": 0.6445,
+          "y": 0.5122,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R6 G2.6",
+          "x": 0.7498,
+          "y": 0.5059,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R6 G4.1",
+          "x": 0.0446,
+          "y": 0.6399,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R6 G4.2",
+          "x": 0.9529,
+          "y": 0.6149,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        }
+      ]
+    },
+    {
+      "nom": "Remorque (Droit-Pair) R7",
+      "image": "image31.png",
+      "categorie": "remorque",
+      "serie": "1N",
+      "zones": [
+        {
+          "nom": "R7 D2.1",
+          "x": 0.2729,
+          "y": 0.512,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R7 D2.2",
+          "x": 0.3693,
+          "y": 0.5009,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R7 D2.3",
+          "x": 0.4768,
+          "y": 0.5037,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R7 D2.4",
+          "x": 0.5944,
+          "y": 0.4995,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R7 D2.5",
+          "x": 0.6926,
+          "y": 0.5057,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R7 D2.6",
+          "x": 0.813,
+          "y": 0.5155,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R7 D4.1",
+          "x": 0.0399,
+          "y": 0.5949,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R7 D4.2",
+          "x": 0.9225,
+          "y": 0.6269,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        }
+      ]
+    },
+    {
+      "nom": "Remorque (Gauche-Impair) R7",
+      "image": "image32.png",
+      "categorie": "remorque",
+      "serie": "1N",
+      "zones": [
+        {
+          "nom": "R7 G2.1",
+          "x": 0.189,
+          "y": 0.5071,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R7 G2.2",
+          "x": 0.3042,
+          "y": 0.5111,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R7 G2.3",
+          "x": 0.4158,
+          "y": 0.5051,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R7 G2.4",
+          "x": 0.5239,
+          "y": 0.5058,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R7 G2.5",
+          "x": 0.6435,
+          "y": 0.5098,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R7 G2.6",
+          "x": 0.7221,
+          "y": 0.5171,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R7 G4.1",
+          "x": 0.0387,
+          "y": 0.6346,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R7 G4.2",
+          "x": 0.9469,
+          "y": 0.6007,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        }
+      ]
+    },
+    {
+      "nom": "Remorque (Droit-Pair) R8",
+      "image": "image33.png",
+      "categorie": "remorque",
+      "serie": "1N",
+      "zones": [
+        {
+          "nom": "R8 D1.1",
+          "x": 0.0881,
+          "y": 0.5243,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point1.png"
+        },
+        {
+          "nom": "R8 D1.2",
+          "x": 0.184,
+          "y": 0.5165,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point1.png"
+        },
+        {
+          "nom": "R8 D2.1",
+          "x": 0.3721,
+          "y": 0.5656,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R8 D2.2",
+          "x": 0.4662,
+          "y": 0.5685,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R8 D2.3",
+          "x": 0.5632,
+          "y": 0.5606,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R8 D2.4",
+          "x": 0.6601,
+          "y": 0.5528,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R8 D2.5",
+          "x": 0.7616,
+          "y": 0.5592,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R8 D2.6",
+          "x": 0.8462,
+          "y": 0.5549,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R8 D4.1",
+          "x": 0.0402,
+          "y": 0.6596,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R8 D4.2",
+          "x": 0.9526,
+          "y": 0.6461,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        }
+      ]
+    },
+    {
+      "nom": "Remorque (Gauche-Impair) R8",
+      "image": "image34.png",
+      "categorie": "remorque",
+      "serie": "1N",
+      "zones": [
+        {
+          "nom": "R8 G1.1",
+          "x": 0.8044,
+          "y": 0.5207,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point1.png"
+        },
+        {
+          "nom": "R8 G1.2",
+          "x": 0.8856,
+          "y": 0.5176,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point1.png"
+        },
+        {
+          "nom": "R8 G2.1",
+          "x": 0.1649,
+          "y": 0.5434,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R8 G2.2",
+          "x": 0.2731,
+          "y": 0.5519,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R8 G2.3",
+          "x": 0.3572,
+          "y": 0.5488,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R8 G2.4",
+          "x": 0.4489,
+          "y": 0.5457,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R8 G2.5",
+          "x": 0.5571,
+          "y": 0.5504,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R8 G2.6",
+          "x": 0.6047,
+          "y": 0.559,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/remorque1n_point2.png"
+        },
+        {
+          "nom": "R8 G4.1",
+          "x": 0.0377,
+          "y": 0.6471,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R8 G4.2",
+          "x": 0.9435,
+          "y": 0.6853,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        }
+      ]
+    },
+    {
+      "nom": "Motrice 1N (Droit-Pair) M1",
+      "image": "image35.png",
+      "categorie": "motrice",
+      "serie": "1N",
+      "zones": [
+        {
+          "nom": "M1 D1",
+          "x": 0.025,
+          "y": 0.663,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point4.png"
+        },
+        {
+          "nom": "M1 D2",
+          "x": 0.097,
+          "y": 0.712,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point4.png"
+        },
+        {
+          "nom": "M1 D3",
+          "x": 0.179,
+          "y": 0.711,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point4.png"
+        },
+        {
+          "nom": "M1 D4",
+          "x": 0.316,
+          "y": 0.84,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point5.png"
+        },
+        {
+          "nom": "M1 D5",
+          "x": 0.351,
+          "y": 0.652,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point5.png"
+        },
+        {
+          "nom": "M1 D6",
+          "x": 0.365,
+          "y": 0.242,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point5.png"
+        },
+        {
+          "nom": "M1 D7",
+          "x": 0.379,
+          "y": 0.849,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point5.png"
+        },
+        {
+          "nom": "M1 D8",
+          "x": 0.446,
+          "y": 0.849,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point5.png"
+        },
+        {
+          "nom": "M1 D9",
+          "x": 0.507,
+          "y": 0.857,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point4.png"
+        },
+        {
+          "nom": "M1 D10",
+          "x": 0.572,
+          "y": 0.849,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point4.png"
+        },
+        {
+          "nom": "M1 D11",
+          "x": 0.697,
+          "y": 0.712,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point5.png"
+        },
+        {
+          "nom": "M1 D12",
+          "x": 0.767,
+          "y": 0.639,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point5.png"
+        },
+        {
+          "nom": "M1 D13",
+          "x": 0.789,
+          "y": 0.088,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point3.png"
+        },
+        {
+          "nom": "M1 D14",
+          "x": 0.795,
+          "y": 0.345,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point2.png"
+        },
+        {
+          "nom": "M1 D15",
+          "x": 0.86,
+          "y": 0.302,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point2.png"
+        }
+      ]
+    },
+    {
+      "nom": "Motrice 1N (Gauche) M1",
+      "image": "image36.png",
+      "categorie": "motrice",
+      "serie": "1N",
+      "zones": [
+        {
+          "nom": "M1 G1",
+          "x": 0.117,
+          "y": 0.326,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point2.png"
+        },
+        {
+          "nom": "M1 G2",
+          "x": 0.193,
+          "y": 0.334,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point1.png"
+        },
+        {
+          "nom": "M1 G3",
+          "x": 0.211,
+          "y": 0.657,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point4.png"
+        },
+        {
+          "nom": "M1 G4",
+          "x": 0.272,
+          "y": 0.708,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point4.png"
+        },
+        {
+          "nom": "M1 G5",
+          "x": 0.406,
+          "y": 0.839,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point6.png"
+        },
+        {
+          "nom": "M1 G6",
+          "x": 0.47,
+          "y": 0.847,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point6.png"
+        },
+        {
+          "nom": "M1 G7",
+          "x": 0.53,
+          "y": 0.839,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point6.png"
+        },
+        {
+          "nom": "M1 G8",
+          "x": 0.566,
+          "y": 0.63,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point5.png"
+        },
+        {
+          "nom": "M1 G9",
+          "x": 0.583,
+          "y": 0.256,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point5.png"
+        },
+        {
+          "nom": "M1 G10",
+          "x": 0.594,
+          "y": 0.847,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point6.png"
+        },
+        {
+          "nom": "M1 G11",
+          "x": 0.663,
+          "y": 0.839,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point6.png"
+        },
+        {
+          "nom": "M1 G12",
+          "x": 0.792,
+          "y": 0.726,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point4.png"
+        },
+        {
+          "nom": "M1 G13",
+          "x": 0.878,
+          "y": 0.708,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point4.png"
+        },
+        {
+          "nom": "M1 G14",
+          "x": 0.949,
+          "y": 0.647,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point4.png"
+        }
+      ]
+    },
+    {
+      "nom": "Motrice 1N (Droit-Pair) M2",
+      "image": "image37.png",
+      "categorie": "motrice",
+      "serie": "1N",
+      "zones": [
+        {
+          "nom": "M2 D1",
+          "x": 0.116,
+          "y": 0.331,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point2.png"
+        },
+        {
+          "nom": "M2 D2",
+          "x": 0.177,
+          "y": 0.702,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point4.png"
+        },
+        {
+          "nom": "M2 D3",
+          "x": 0.181,
+          "y": 0.108,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point3.png"
+        },
+        {
+          "nom": "M2 D4",
+          "x": 0.184,
+          "y": 0.314,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point1.png"
+        },
+        {
+          "nom": "M2 D5",
+          "x": 0.215,
+          "y": 0.637,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point5.png"
+        },
+        {
+          "nom": "M2 D6",
+          "x": 0.262,
+          "y": 0.711,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point4.png"
+        },
+        {
+          "nom": "M2 D7",
+          "x": 0.4,
+          "y": 0.851,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point6.png"
+        },
+        {
+          "nom": "M2 D8",
+          "x": 0.468,
+          "y": 0.851,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point6.png"
+        },
+        {
+          "nom": "M2 D9",
+          "x": 0.494,
+          "y": 0.612,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point5.png"
+        },
+        {
+          "nom": "M2 D10",
+          "x": 0.531,
+          "y": 0.86,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point6.png"
+        },
+        {
+          "nom": "M2 D11",
+          "x": 0.535,
+          "y": 0.232,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point5.png"
+        },
+        {
+          "nom": "M2 D12",
+          "x": 0.598,
+          "y": 0.868,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point6.png"
+        },
+        {
+          "nom": "M2 D13",
+          "x": 0.663,
+          "y": 0.868,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point6.png"
+        },
+        {
+          "nom": "M2 D14",
+          "x": 0.8,
+          "y": 0.711,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point4.png"
+        },
+        {
+          "nom": "M2 D15",
+          "x": 0.881,
+          "y": 0.728,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point4.png"
+        },
+        {
+          "nom": "M2 D16",
+          "x": 0.958,
+          "y": 0.604,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point5.png"
+        }
+      ]
+    },
+    {
+      "nom": "Motrice 1N (Gauche-Impair) M2",
+      "image": "image38.png",
+      "categorie": "motrice",
+      "serie": "1N",
+      "zones": [
+        {
+          "nom": "M2 G1",
+          "x": 0.017,
+          "y": 0.68,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point5.png"
+        },
+        {
+          "nom": "M2 G2",
+          "x": 0.097,
+          "y": 0.745,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point4.png"
+        },
+        {
+          "nom": "M2 G3",
+          "x": 0.178,
+          "y": 0.744,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point4.png"
+        },
+        {
+          "nom": "M2 G4",
+          "x": 0.317,
+          "y": 0.876,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point6.png"
+        },
+        {
+          "nom": "M2 G5",
+          "x": 0.38,
+          "y": 0.868,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point6.png"
+        },
+        {
+          "nom": "M2 G6",
+          "x": 0.385,
+          "y": 0.673,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point5.png"
+        },
+        {
+          "nom": "M2 G7",
+          "x": 0.399,
+          "y": 0.339,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point5.png"
+        },
+        {
+          "nom": "M2 G8",
+          "x": 0.446,
+          "y": 0.868,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point6.png"
+        },
+        {
+          "nom": "M2 G9",
+          "x": 0.509,
+          "y": 0.868,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point6.png"
+        },
+        {
+          "nom": "M2 G10",
+          "x": 0.574,
+          "y": 0.861,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point6.png"
+        },
+        {
+          "nom": "M2 G11",
+          "x": 0.711,
+          "y": 0.745,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point4.png"
+        },
+        {
+          "nom": "M2 G12",
+          "x": 0.766,
+          "y": 0.687,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point5.png"
+        },
+        {
+          "nom": "M2 G13",
+          "x": 0.795,
+          "y": 0.745,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point4.png"
+        },
+        {
+          "nom": "M2 G14",
+          "x": 0.796,
+          "y": 0.419,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point2.png"
+        },
+        {
+          "nom": "M2 G15",
+          "x": 0.856,
+          "y": 0.397,
+          "largeur": 0.02,
+          "hauteur": 0.14,
+          "imageReference": "assets/reference/motrice1n_point2.png"
         }
       ]
     }

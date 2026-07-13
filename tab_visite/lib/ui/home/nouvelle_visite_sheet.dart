@@ -26,6 +26,7 @@ class _NouvelleVisiteForm extends StatefulWidget {
 
 class _NouvelleVisiteFormState extends State<_NouvelleVisiteForm> {
   String? _type;
+  String _niveau = Niveau.deux;
   final _rameCtrl = TextEditingController();
 
   bool get _valide =>
@@ -38,6 +39,7 @@ class _NouvelleVisiteFormState extends State<_NouvelleVisiteForm> {
       id: const Uuid().v4(),
       numeroRame: rame,
       typeVisite: _type!,
+      niveau: _niveau,
       dateVisite: now,
       dateCreation: now,
     );
@@ -72,6 +74,17 @@ class _NouvelleVisiteFormState extends State<_NouvelleVisiteForm> {
                   title: Text(TypeVisite.libelle(t)),
                   contentPadding: EdgeInsets.zero,
                 )),
+            const SizedBox(height: 12),
+            const Text('Niveau de la rame'),
+            const SizedBox(height: 8),
+            SegmentedButton<String>(
+              segments: Niveau.tous
+                  .map((n) => ButtonSegment<String>(
+                      value: n, label: Text(Niveau.libelle(n))))
+                  .toList(),
+              selected: {_niveau},
+              onSelectionChanged: (s) => setState(() => _niveau = s.first),
+            ),
             const SizedBox(height: 12),
             TextField(
               controller: _rameCtrl,

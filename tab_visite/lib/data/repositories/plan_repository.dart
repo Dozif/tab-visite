@@ -13,13 +13,13 @@ class PlanRepository {
     return rows.map(Plan.fromMap).toList();
   }
 
-  /// Plans à inspecter pour un type de visite :
-  /// MKBAM → les motrices ; MKBDR → les remorques série 2N ;
-  /// MKBAR → les remorques d'une autre série (aucune tant que non fournies).
-  Future<List<Plan>> forTypeVisite(String typeVisite) async {
+  /// Plans à inspecter pour un type de visite et un niveau de rame (1N/2N) :
+  /// MKBAM → les motrices de la série ; MKBDR → les remorques de la série ;
+  /// MKBAR → les remorques d'une autre série (legacy, ignore le niveau).
+  Future<List<Plan>> forTypeVisite(String typeVisite, String niveau) async {
     final (where, args) = switch (typeVisite) {
-      TypeVisite.mkbam => ("categorie = 'motrice'", <Object?>[]),
-      TypeVisite.mkbdr => ("categorie = 'remorque' AND serie = '2N'", <Object?>[]),
+      TypeVisite.mkbam => ("categorie = 'motrice' AND serie = ?", <Object?>[niveau]),
+      TypeVisite.mkbdr => ("categorie = 'remorque' AND serie = ?", <Object?>[niveau]),
       TypeVisite.mkbar => ("categorie = 'remorque' AND serie <> '2N'", <Object?>[]),
       _ => ('', <Object?>[]),
     };

@@ -27,7 +27,8 @@ class _SelectionVehiculeScreenState extends State<SelectionVehiculeScreen> {
   }
 
   Future<void> _load() async {
-    final plans = await ctx.plans.forTypeVisite(widget.visite.typeVisite);
+    final plans = await ctx.plans
+        .forTypeVisite(widget.visite.typeVisite, widget.visite.niveau);
     // Numéros distincts, triés numériquement (M1, M2 / R1..R8).
     final set = <String>{};
     for (final p in plans) {

@@ -4,7 +4,7 @@ class AppDatabase {
   static Future<Database> open({String? path}) async {
     return openDatabase(
       path ?? 'tab_visite.db',
-      version: 3,
+      version: 4,
       onConfigure: (db) => db.execute('PRAGMA foreign_keys = ON'),
       onCreate: (db, version) async {
         await db.execute('''
@@ -33,6 +33,7 @@ class AppDatabase {
             id TEXT PRIMARY KEY,
             numero_rame INTEGER NOT NULL,
             type_visite TEXT NOT NULL,
+            niveau TEXT NOT NULL DEFAULT '2N',
             date_visite INTEGER NOT NULL,
             date_creation INTEGER NOT NULL
           )''');
@@ -79,6 +80,12 @@ class AppDatabase {
         // v2 -> v3 : image de référence par zone (point de corrosion).
         if (oldVersion < 3) {
           await db.execute('ALTER TABLE zones ADD COLUMN image_reference TEXT');
+        }
+        // v3 -> v4 : niveau de rame (1N/2N) sur la visite ; les visites
+        // existantes sont considérées 2N.
+        if (oldVersion < 4) {
+          await db.execute(
+              "ALTER TABLE visites ADD COLUMN niveau TEXT NOT NULL DEFAULT '2N'");
         }
       },
     );

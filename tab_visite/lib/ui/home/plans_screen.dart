@@ -34,7 +34,8 @@ class _PlansScreenState extends State<PlansScreen> {
   Future<void> _load() async {
     var plans = widget.visite == null
         ? await ctx.plans.all()
-        : await ctx.plans.forTypeVisite(widget.visite!.typeVisite);
+        : await ctx.plans
+            .forTypeVisite(widget.visite!.typeVisite, widget.visite!.niveau);
     // Restreint à un véhicule précis si demandé (les 2 côtés de M1/M2 ou Rn).
     if (widget.numeroVehicule != null) {
       plans = plans

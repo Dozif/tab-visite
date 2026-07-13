@@ -89,7 +89,7 @@ class _AccueilScreenState extends State<AccueilScreen> {
                         ),
                         title: Text('Rame ${v.numeroRame}'),
                         subtitle: Text(
-                            '${TypeVisite.libelle(v.typeVisite)} • ${formatDate(v.dateVisite)}'),
+                            '${TypeVisite.libelle(v.typeVisite)} • ${v.niveau} • ${formatDate(v.dateVisite)}'),
                         trailing: const Icon(Icons.chevron_right),
                         onTap: () => _ouvrir(v),
                       );
