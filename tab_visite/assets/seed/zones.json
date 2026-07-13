@@ -3,7 +3,24 @@
     {
       "nom": "Motrice (Droit-Pair) M1",
       "image": "image2.png",
-      "zones": []
+      "zones": [
+        {
+          "nom": "M1 D1",
+          "x": 0.4,
+          "y": 0.72,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/motrice_point1.png"
+        },
+        {
+          "nom": "M1 D2",
+          "x": 0.48,
+          "y": 0.1,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/motrice_point2.png"
+        }
+      ]
     },
     {
       "nom": "Remorque (Droit-Pair) R1",
@@ -74,92 +91,92 @@
           "imageReference": "assets/reference/point8.png"
         },
         {
-          "nom": "R1 DL",
+          "nom": "R1 DM",
           "x": 0.075,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R1 DY",
+          "nom": "R1 DN",
           "x": 0.285,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R1 DM",
-          "x": 0.375,
-          "y": 0.36,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
-          "nom": "R1 DN",
-          "x": 0.465,
-          "y": 0.36,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
           "nom": "R1 DO",
-          "x": 0.56,
+          "x": 0.375,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
           "nom": "R1 DP",
-          "x": 0.655,
+          "x": 0.465,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
           "nom": "R1 DQ",
-          "x": 0.75,
+          "x": 0.56,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
           "nom": "R1 DR",
-          "x": 0.84,
+          "x": 0.655,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
           "nom": "R1 DS",
-          "x": 0.375,
-          "y": 0.71,
+          "x": 0.75,
+          "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
           "nom": "R1 DT",
-          "x": 0.465,
-          "y": 0.71,
+          "x": 0.84,
+          "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
           "nom": "R1 DU",
-          "x": 0.56,
+          "x": 0.285,
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
           "nom": "R1 DV",
-          "x": 0.655,
+          "x": 0.375,
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
           "nom": "R1 DW",
-          "x": 0.75,
+          "x": 0.465,
+          "y": 0.71,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R1 DX",
+          "x": 0.56,
+          "y": 0.71,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R1 DY",
+          "x": 0.655,
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07
@@ -495,155 +512,113 @@
         {
           "nom": "R4 D1",
           "x": 0.02,
-          "y": 0.6,
+          "y": 0.55,
           "largeur": 0.03,
           "hauteur": 0.07,
           "imageReference": "assets/reference/point1.png"
         },
         {
           "nom": "R4 D2",
-          "x": 0.84,
-          "y": 0.56,
+          "x": 0.94,
+          "y": 0.55,
           "largeur": 0.03,
           "hauteur": 0.07,
           "imageReference": "assets/reference/point2.png"
         },
         {
           "nom": "R4 D3",
-          "x": 0.95,
-          "y": 0.56,
+          "x": 0.98,
+          "y": 0.55,
           "largeur": 0.03,
           "hauteur": 0.07,
           "imageReference": "assets/reference/point3.png"
         },
         {
           "nom": "R4 D4",
-          "x": 0.78,
-          "y": 0.76,
+          "x": 0.88,
+          "y": 0.72,
           "largeur": 0.03,
           "hauteur": 0.07,
           "imageReference": "assets/reference/point4.png"
         },
         {
           "nom": "R4 D5",
-          "x": 0.1,
-          "y": 0.76,
+          "x": 0.13,
+          "y": 0.72,
           "largeur": 0.03,
           "hauteur": 0.07,
           "imageReference": "assets/reference/point5.png"
         },
         {
           "nom": "R4 D6",
-          "x": 0.04,
-          "y": 0.76,
+          "x": 0.05,
+          "y": 0.72,
           "largeur": 0.03,
           "hauteur": 0.07,
           "imageReference": "assets/reference/point6.png"
         },
         {
           "nom": "R4 D7",
-          "x": 0.45,
-          "y": 0.78,
+          "x": 0.35,
+          "y": 0.75,
           "largeur": 0.03,
           "hauteur": 0.07,
           "imageReference": "assets/reference/point7.png"
         },
         {
           "nom": "R4 D8",
-          "x": 0.7,
-          "y": 0.71,
+          "x": 0.6,
+          "y": 0.75,
           "largeur": 0.03,
           "hauteur": 0.07,
           "imageReference": "assets/reference/point8.png"
         },
         {
-          "nom": "R4 DL",
-          "x": 0.075,
-          "y": 0.36,
+          "nom": "R4 DA",
+          "x": 0.1,
+          "y": 0.17,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R4 DY",
-          "x": 0.285,
-          "y": 0.36,
+          "nom": "R4 DB",
+          "x": 0.2,
+          "y": 0.17,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R4 DM",
-          "x": 0.375,
-          "y": 0.36,
+          "nom": "R4 DC",
+          "x": 0.3,
+          "y": 0.17,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R4 DN",
-          "x": 0.465,
-          "y": 0.36,
+          "nom": "R4 DD",
+          "x": 0.4,
+          "y": 0.17,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R4 DO",
-          "x": 0.56,
-          "y": 0.36,
+          "nom": "R4 DE",
+          "x": 0.51,
+          "y": 0.17,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R4 DP",
-          "x": 0.655,
-          "y": 0.36,
+          "nom": "R4 DF",
+          "x": 0.8,
+          "y": 0.17,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R4 DQ",
-          "x": 0.75,
-          "y": 0.36,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
-          "nom": "R4 DR",
-          "x": 0.84,
-          "y": 0.36,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
-          "nom": "R4 DS",
-          "x": 0.375,
-          "y": 0.71,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
-          "nom": "R4 DT",
-          "x": 0.465,
-          "y": 0.71,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
-          "nom": "R4 DU",
-          "x": 0.56,
-          "y": 0.71,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
-          "nom": "R4 DV",
-          "x": 0.655,
-          "y": 0.71,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
-          "nom": "R4 DW",
-          "x": 0.75,
-          "y": 0.71,
+          "nom": "R4 DG",
+          "x": 0.9,
+          "y": 0.17,
           "largeur": 0.03,
           "hauteur": 0.07
         }
@@ -655,7 +630,7 @@
       "zones": [
         {
           "nom": "R5 D1",
-          "x": 0.02,
+          "x": 0.98,
           "y": 0.6,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -663,7 +638,7 @@
         },
         {
           "nom": "R5 D2",
-          "x": 0.84,
+          "x": 0.16,
           "y": 0.56,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -671,7 +646,7 @@
         },
         {
           "nom": "R5 D3",
-          "x": 0.95,
+          "x": 0.05,
           "y": 0.56,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -679,7 +654,7 @@
         },
         {
           "nom": "R5 D4",
-          "x": 0.78,
+          "x": 0.22,
           "y": 0.76,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -687,7 +662,7 @@
         },
         {
           "nom": "R5 D5",
-          "x": 0.1,
+          "x": 0.9,
           "y": 0.76,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -695,7 +670,7 @@
         },
         {
           "nom": "R5 D6",
-          "x": 0.04,
+          "x": 0.96,
           "y": 0.76,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -703,7 +678,7 @@
         },
         {
           "nom": "R5 D7",
-          "x": 0.45,
+          "x": 0.55,
           "y": 0.78,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -711,99 +686,85 @@
         },
         {
           "nom": "R5 D8",
-          "x": 0.7,
+          "x": 0.3,
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07,
           "imageReference": "assets/reference/point8.png"
         },
         {
-          "nom": "R5 DL",
-          "x": 0.075,
+          "nom": "R5 DA",
+          "x": 0.15,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R5 DY",
-          "x": 0.285,
+          "nom": "R5 DB",
+          "x": 0.26,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R5 DM",
-          "x": 0.375,
+          "nom": "R5 DC",
+          "x": 0.37,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R5 DN",
-          "x": 0.465,
+          "nom": "R5 DD",
+          "x": 0.47,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R5 DO",
-          "x": 0.56,
+          "nom": "R5 DE",
+          "x": 0.57,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R5 DP",
-          "x": 0.655,
+          "nom": "R5 DF",
+          "x": 0.67,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R5 DQ",
-          "x": 0.75,
-          "y": 0.36,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
-          "nom": "R5 DR",
-          "x": 0.84,
-          "y": 0.36,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
-          "nom": "R5 DS",
-          "x": 0.375,
+          "nom": "R5 DG",
+          "x": 0.24,
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R5 DT",
-          "x": 0.465,
+          "nom": "R5 DH",
+          "x": 0.35,
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R5 DU",
+          "nom": "R5 DI",
+          "x": 0.46,
+          "y": 0.71,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R5 DJ",
           "x": 0.56,
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R5 DV",
-          "x": 0.655,
-          "y": 0.71,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
-          "nom": "R5 DW",
-          "x": 0.75,
+          "nom": "R5 DK",
+          "x": 0.67,
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07
@@ -816,7 +777,7 @@
       "zones": [
         {
           "nom": "R6 D1",
-          "x": 0.02,
+          "x": 0.98,
           "y": 0.6,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -824,7 +785,7 @@
         },
         {
           "nom": "R6 D2",
-          "x": 0.84,
+          "x": 0.16,
           "y": 0.56,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -832,7 +793,7 @@
         },
         {
           "nom": "R6 D3",
-          "x": 0.95,
+          "x": 0.05,
           "y": 0.56,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -840,7 +801,7 @@
         },
         {
           "nom": "R6 D4",
-          "x": 0.78,
+          "x": 0.22,
           "y": 0.76,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -848,7 +809,7 @@
         },
         {
           "nom": "R6 D5",
-          "x": 0.1,
+          "x": 0.9,
           "y": 0.76,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -856,7 +817,7 @@
         },
         {
           "nom": "R6 D6",
-          "x": 0.04,
+          "x": 0.96,
           "y": 0.76,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -864,7 +825,7 @@
         },
         {
           "nom": "R6 D7",
-          "x": 0.45,
+          "x": 0.55,
           "y": 0.78,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -872,99 +833,85 @@
         },
         {
           "nom": "R6 D8",
-          "x": 0.7,
+          "x": 0.3,
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07,
           "imageReference": "assets/reference/point8.png"
         },
         {
-          "nom": "R6 DL",
-          "x": 0.075,
+          "nom": "R6 DA",
+          "x": 0.15,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R6 DY",
-          "x": 0.285,
+          "nom": "R6 DB",
+          "x": 0.26,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R6 DM",
-          "x": 0.375,
+          "nom": "R6 DC",
+          "x": 0.37,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R6 DN",
-          "x": 0.465,
+          "nom": "R6 DD",
+          "x": 0.47,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R6 DO",
-          "x": 0.56,
+          "nom": "R6 DE",
+          "x": 0.57,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R6 DP",
-          "x": 0.655,
+          "nom": "R6 DF",
+          "x": 0.67,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R6 DQ",
-          "x": 0.75,
-          "y": 0.36,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
-          "nom": "R6 DR",
-          "x": 0.84,
-          "y": 0.36,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
-          "nom": "R6 DS",
-          "x": 0.375,
+          "nom": "R6 DG",
+          "x": 0.24,
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R6 DT",
-          "x": 0.465,
+          "nom": "R6 DH",
+          "x": 0.35,
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R6 DU",
+          "nom": "R6 DI",
+          "x": 0.46,
+          "y": 0.71,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R6 DJ",
           "x": 0.56,
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R6 DV",
-          "x": 0.655,
-          "y": 0.71,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
-          "nom": "R6 DW",
-          "x": 0.75,
+          "nom": "R6 DK",
+          "x": 0.67,
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07
@@ -977,7 +924,7 @@
       "zones": [
         {
           "nom": "R7 D1",
-          "x": 0.02,
+          "x": 0.98,
           "y": 0.6,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -985,7 +932,7 @@
         },
         {
           "nom": "R7 D2",
-          "x": 0.84,
+          "x": 0.16,
           "y": 0.56,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -993,7 +940,7 @@
         },
         {
           "nom": "R7 D3",
-          "x": 0.95,
+          "x": 0.05,
           "y": 0.56,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -1001,7 +948,7 @@
         },
         {
           "nom": "R7 D4",
-          "x": 0.78,
+          "x": 0.22,
           "y": 0.76,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -1009,7 +956,7 @@
         },
         {
           "nom": "R7 D5",
-          "x": 0.1,
+          "x": 0.9,
           "y": 0.76,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -1017,7 +964,7 @@
         },
         {
           "nom": "R7 D6",
-          "x": 0.04,
+          "x": 0.96,
           "y": 0.76,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -1025,7 +972,7 @@
         },
         {
           "nom": "R7 D7",
-          "x": 0.45,
+          "x": 0.55,
           "y": 0.78,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -1033,99 +980,85 @@
         },
         {
           "nom": "R7 D8",
-          "x": 0.7,
+          "x": 0.3,
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07,
           "imageReference": "assets/reference/point8.png"
         },
         {
-          "nom": "R7 DL",
-          "x": 0.075,
+          "nom": "R7 DA",
+          "x": 0.15,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R7 DY",
-          "x": 0.285,
+          "nom": "R7 DB",
+          "x": 0.26,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R7 DM",
-          "x": 0.375,
+          "nom": "R7 DC",
+          "x": 0.37,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R7 DN",
-          "x": 0.465,
+          "nom": "R7 DD",
+          "x": 0.47,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R7 DO",
-          "x": 0.56,
+          "nom": "R7 DE",
+          "x": 0.57,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R7 DP",
-          "x": 0.655,
+          "nom": "R7 DF",
+          "x": 0.67,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R7 DQ",
-          "x": 0.75,
-          "y": 0.36,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
-          "nom": "R7 DR",
-          "x": 0.84,
-          "y": 0.36,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
-          "nom": "R7 DS",
-          "x": 0.375,
+          "nom": "R7 DG",
+          "x": 0.24,
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R7 DT",
-          "x": 0.465,
+          "nom": "R7 DH",
+          "x": 0.35,
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R7 DU",
+          "nom": "R7 DI",
+          "x": 0.46,
+          "y": 0.71,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R7 DJ",
           "x": 0.56,
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R7 DV",
-          "x": 0.655,
-          "y": 0.71,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
-          "nom": "R7 DW",
-          "x": 0.75,
+          "nom": "R7 DK",
+          "x": 0.67,
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07
@@ -1138,7 +1071,7 @@
       "zones": [
         {
           "nom": "R8 D1",
-          "x": 0.02,
+          "x": 0.98,
           "y": 0.6,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -1146,7 +1079,7 @@
         },
         {
           "nom": "R8 D2",
-          "x": 0.84,
+          "x": 0.16,
           "y": 0.56,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -1154,7 +1087,7 @@
         },
         {
           "nom": "R8 D3",
-          "x": 0.95,
+          "x": 0.05,
           "y": 0.56,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -1162,7 +1095,7 @@
         },
         {
           "nom": "R8 D4",
-          "x": 0.78,
+          "x": 0.22,
           "y": 0.76,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -1170,7 +1103,7 @@
         },
         {
           "nom": "R8 D5",
-          "x": 0.1,
+          "x": 0.9,
           "y": 0.76,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -1178,7 +1111,7 @@
         },
         {
           "nom": "R8 D6",
-          "x": 0.04,
+          "x": 0.96,
           "y": 0.76,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -1186,7 +1119,7 @@
         },
         {
           "nom": "R8 D7",
-          "x": 0.45,
+          "x": 0.55,
           "y": 0.78,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -1194,99 +1127,92 @@
         },
         {
           "nom": "R8 D8",
-          "x": 0.7,
+          "x": 0.3,
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07,
           "imageReference": "assets/reference/point8.png"
         },
         {
+          "nom": "R8 DA",
+          "x": 0.135,
+          "y": 0.36,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R8 DB",
+          "x": 0.22,
+          "y": 0.36,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R8 DC",
+          "x": 0.31,
+          "y": 0.36,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R8 DD",
+          "x": 0.405,
+          "y": 0.36,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R8 DE",
+          "x": 0.5,
+          "y": 0.36,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R8 DF",
+          "x": 0.595,
+          "y": 0.36,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R8 DG",
+          "x": 0.695,
+          "y": 0.36,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R8 DH",
+          "x": 0.31,
+          "y": 0.71,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R8 DI",
+          "x": 0.405,
+          "y": 0.71,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R8 DJ",
+          "x": 0.5,
+          "y": 0.71,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R8 DK",
+          "x": 0.595,
+          "y": 0.71,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
           "nom": "R8 DL",
-          "x": 0.075,
-          "y": 0.36,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
-          "nom": "R8 DY",
-          "x": 0.285,
-          "y": 0.36,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
-          "nom": "R8 DM",
-          "x": 0.375,
-          "y": 0.36,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
-          "nom": "R8 DN",
-          "x": 0.465,
-          "y": 0.36,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
-          "nom": "R8 DO",
-          "x": 0.56,
-          "y": 0.36,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
-          "nom": "R8 DP",
-          "x": 0.655,
-          "y": 0.36,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
-          "nom": "R8 DQ",
-          "x": 0.75,
-          "y": 0.36,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
-          "nom": "R8 DR",
-          "x": 0.84,
-          "y": 0.36,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
-          "nom": "R8 DS",
-          "x": 0.375,
-          "y": 0.71,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
-          "nom": "R8 DT",
-          "x": 0.465,
-          "y": 0.71,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
-          "nom": "R8 DU",
-          "x": 0.56,
-          "y": 0.71,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
-          "nom": "R8 DV",
-          "x": 0.655,
-          "y": 0.71,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
-          "nom": "R8 DW",
-          "x": 0.75,
+          "x": 0.695,
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07
@@ -1296,12 +1222,46 @@
     {
       "nom": "Motrice (Droit-Pair) M2",
       "image": "image9.png",
-      "zones": []
+      "zones": [
+        {
+          "nom": "M2 D1",
+          "x": 0.4,
+          "y": 0.72,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/motrice_point1.png"
+        },
+        {
+          "nom": "M2 D2",
+          "x": 0.48,
+          "y": 0.1,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/motrice_point2.png"
+        }
+      ]
     },
     {
       "nom": "Motrice (Gauche-Impair) M2",
-      "image": "image2.png",
-      "zones": []
+      "image": "image19.png",
+      "zones": [
+        {
+          "nom": "M2 G1",
+          "x": 0.55,
+          "y": 0.72,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/motrice_point1.png"
+        },
+        {
+          "nom": "M2 G2",
+          "x": 0.48,
+          "y": 0.1,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/motrice_point2.png"
+        }
+      ]
     },
     {
       "nom": "Remorque (Gauche-Impair) R8",
@@ -1309,7 +1269,7 @@
       "zones": [
         {
           "nom": "R8 G1",
-          "x": 0.98,
+          "x": 0.02,
           "y": 0.6,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -1317,7 +1277,7 @@
         },
         {
           "nom": "R8 G2",
-          "x": 0.16,
+          "x": 0.84,
           "y": 0.56,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -1325,7 +1285,7 @@
         },
         {
           "nom": "R8 G3",
-          "x": 0.05,
+          "x": 0.95,
           "y": 0.56,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -1333,7 +1293,7 @@
         },
         {
           "nom": "R8 G4",
-          "x": 0.22,
+          "x": 0.78,
           "y": 0.76,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -1341,7 +1301,7 @@
         },
         {
           "nom": "R8 G5",
-          "x": 0.9,
+          "x": 0.1,
           "y": 0.76,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -1349,7 +1309,7 @@
         },
         {
           "nom": "R8 G6",
-          "x": 0.96,
+          "x": 0.04,
           "y": 0.76,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -1357,7 +1317,7 @@
         },
         {
           "nom": "R8 G7",
-          "x": 0.55,
+          "x": 0.45,
           "y": 0.78,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -1365,92 +1325,99 @@
         },
         {
           "nom": "R8 G8",
-          "x": 0.3,
+          "x": 0.7,
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07,
           "imageReference": "assets/reference/point8.png"
         },
         {
-          "nom": "R8 GA",
-          "x": 0.135,
+          "nom": "R8 GM",
+          "x": 0.075,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R8 GB",
-          "x": 0.22,
+          "nom": "R8 GN",
+          "x": 0.285,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R8 GC",
-          "x": 0.31,
+          "nom": "R8 GO",
+          "x": 0.375,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R8 GD",
-          "x": 0.405,
+          "nom": "R8 GP",
+          "x": 0.465,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R8 GE",
-          "x": 0.5,
+          "nom": "R8 GQ",
+          "x": 0.56,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R8 GF",
-          "x": 0.595,
+          "nom": "R8 GR",
+          "x": 0.655,
           "y": 0.36,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R8 GS",
+          "x": 0.75,
+          "y": 0.36,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R8 GT",
+          "x": 0.84,
+          "y": 0.36,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R8 GU",
+          "x": 0.285,
+          "y": 0.71,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R8 GV",
+          "x": 0.375,
+          "y": 0.71,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R8 GW",
+          "x": 0.465,
+          "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
           "nom": "R8 GX",
-          "x": 0.695,
-          "y": 0.36,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
-          "nom": "R8 GG",
-          "x": 0.215,
+          "x": 0.56,
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R8 GH",
-          "x": 0.31,
-          "y": 0.71,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
-          "nom": "R8 GI",
-          "x": 0.405,
-          "y": 0.71,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
-          "nom": "R8 GJ",
-          "x": 0.5,
-          "y": 0.71,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
-          "nom": "R8 GK",
-          "x": 0.595,
+          "nom": "R8 GY",
+          "x": 0.655,
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07
@@ -1463,7 +1430,7 @@
       "zones": [
         {
           "nom": "R7 G1",
-          "x": 0.98,
+          "x": 0.02,
           "y": 0.6,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -1471,7 +1438,7 @@
         },
         {
           "nom": "R7 G2",
-          "x": 0.16,
+          "x": 0.84,
           "y": 0.56,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -1479,7 +1446,7 @@
         },
         {
           "nom": "R7 G3",
-          "x": 0.05,
+          "x": 0.95,
           "y": 0.56,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -1487,7 +1454,7 @@
         },
         {
           "nom": "R7 G4",
-          "x": 0.22,
+          "x": 0.78,
           "y": 0.76,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -1495,7 +1462,7 @@
         },
         {
           "nom": "R7 G5",
-          "x": 0.9,
+          "x": 0.1,
           "y": 0.76,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -1503,7 +1470,7 @@
         },
         {
           "nom": "R7 G6",
-          "x": 0.96,
+          "x": 0.04,
           "y": 0.76,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -1511,7 +1478,7 @@
         },
         {
           "nom": "R7 G7",
-          "x": 0.55,
+          "x": 0.45,
           "y": 0.78,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -1519,92 +1486,92 @@
         },
         {
           "nom": "R7 G8",
-          "x": 0.3,
+          "x": 0.7,
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07,
           "imageReference": "assets/reference/point8.png"
         },
         {
-          "nom": "R7 GA",
-          "x": 0.135,
+          "nom": "R7 GL",
+          "x": 0.075,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R7 GB",
-          "x": 0.22,
+          "nom": "R7 GM",
+          "x": 0.375,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R7 GC",
-          "x": 0.31,
+          "nom": "R7 GN",
+          "x": 0.465,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R7 GD",
-          "x": 0.405,
+          "nom": "R7 GO",
+          "x": 0.56,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R7 GE",
-          "x": 0.5,
+          "nom": "R7 GP",
+          "x": 0.655,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R7 GF",
-          "x": 0.595,
+          "nom": "R7 GQ",
+          "x": 0.75,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R7 GX",
-          "x": 0.695,
+          "nom": "R7 GR",
+          "x": 0.84,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R7 GG",
-          "x": 0.215,
+          "nom": "R7 GS",
+          "x": 0.375,
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R7 GH",
-          "x": 0.31,
+          "nom": "R7 GT",
+          "x": 0.465,
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R7 GI",
-          "x": 0.405,
+          "nom": "R7 GU",
+          "x": 0.56,
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R7 GJ",
-          "x": 0.5,
+          "nom": "R7 GV",
+          "x": 0.655,
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R7 GK",
-          "x": 0.595,
+          "nom": "R7 GW",
+          "x": 0.75,
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07
@@ -1617,7 +1584,7 @@
       "zones": [
         {
           "nom": "R6 G1",
-          "x": 0.98,
+          "x": 0.02,
           "y": 0.6,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -1625,7 +1592,7 @@
         },
         {
           "nom": "R6 G2",
-          "x": 0.16,
+          "x": 0.84,
           "y": 0.56,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -1633,7 +1600,7 @@
         },
         {
           "nom": "R6 G3",
-          "x": 0.05,
+          "x": 0.95,
           "y": 0.56,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -1641,7 +1608,7 @@
         },
         {
           "nom": "R6 G4",
-          "x": 0.22,
+          "x": 0.78,
           "y": 0.76,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -1649,7 +1616,7 @@
         },
         {
           "nom": "R6 G5",
-          "x": 0.9,
+          "x": 0.1,
           "y": 0.76,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -1657,7 +1624,7 @@
         },
         {
           "nom": "R6 G6",
-          "x": 0.96,
+          "x": 0.04,
           "y": 0.76,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -1665,7 +1632,7 @@
         },
         {
           "nom": "R6 G7",
-          "x": 0.55,
+          "x": 0.45,
           "y": 0.78,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -1673,92 +1640,92 @@
         },
         {
           "nom": "R6 G8",
-          "x": 0.3,
+          "x": 0.7,
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07,
           "imageReference": "assets/reference/point8.png"
         },
         {
-          "nom": "R6 GA",
-          "x": 0.135,
+          "nom": "R6 GL",
+          "x": 0.075,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R6 GB",
-          "x": 0.22,
+          "nom": "R6 GM",
+          "x": 0.375,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R6 GC",
-          "x": 0.31,
+          "nom": "R6 GN",
+          "x": 0.465,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R6 GD",
-          "x": 0.405,
+          "nom": "R6 GO",
+          "x": 0.56,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R6 GE",
-          "x": 0.5,
+          "nom": "R6 GP",
+          "x": 0.655,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R6 GF",
-          "x": 0.595,
+          "nom": "R6 GQ",
+          "x": 0.75,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R6 GX",
-          "x": 0.695,
+          "nom": "R6 GR",
+          "x": 0.84,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R6 GG",
-          "x": 0.215,
+          "nom": "R6 GS",
+          "x": 0.375,
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R6 GH",
-          "x": 0.31,
+          "nom": "R6 GT",
+          "x": 0.465,
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R6 GI",
-          "x": 0.405,
+          "nom": "R6 GU",
+          "x": 0.56,
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R6 GJ",
-          "x": 0.5,
+          "nom": "R6 GV",
+          "x": 0.655,
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R6 GK",
-          "x": 0.595,
+          "nom": "R6 GW",
+          "x": 0.75,
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07
@@ -1771,7 +1738,7 @@
       "zones": [
         {
           "nom": "R5 G1",
-          "x": 0.98,
+          "x": 0.02,
           "y": 0.6,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -1779,7 +1746,7 @@
         },
         {
           "nom": "R5 G2",
-          "x": 0.16,
+          "x": 0.84,
           "y": 0.56,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -1787,7 +1754,7 @@
         },
         {
           "nom": "R5 G3",
-          "x": 0.05,
+          "x": 0.95,
           "y": 0.56,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -1795,7 +1762,7 @@
         },
         {
           "nom": "R5 G4",
-          "x": 0.22,
+          "x": 0.78,
           "y": 0.76,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -1803,7 +1770,7 @@
         },
         {
           "nom": "R5 G5",
-          "x": 0.9,
+          "x": 0.1,
           "y": 0.76,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -1811,7 +1778,7 @@
         },
         {
           "nom": "R5 G6",
-          "x": 0.96,
+          "x": 0.04,
           "y": 0.76,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -1819,7 +1786,7 @@
         },
         {
           "nom": "R5 G7",
-          "x": 0.55,
+          "x": 0.45,
           "y": 0.78,
           "largeur": 0.03,
           "hauteur": 0.07,
@@ -1827,92 +1794,92 @@
         },
         {
           "nom": "R5 G8",
-          "x": 0.3,
+          "x": 0.7,
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07,
           "imageReference": "assets/reference/point8.png"
         },
         {
-          "nom": "R5 GA",
-          "x": 0.135,
+          "nom": "R5 GL",
+          "x": 0.075,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R5 GB",
-          "x": 0.22,
+          "nom": "R5 GM",
+          "x": 0.375,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R5 GC",
-          "x": 0.31,
+          "nom": "R5 GN",
+          "x": 0.465,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R5 GD",
-          "x": 0.405,
+          "nom": "R5 GO",
+          "x": 0.56,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R5 GE",
-          "x": 0.5,
+          "nom": "R5 GP",
+          "x": 0.655,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R5 GF",
-          "x": 0.595,
+          "nom": "R5 GQ",
+          "x": 0.75,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R5 GX",
-          "x": 0.695,
+          "nom": "R5 GR",
+          "x": 0.84,
           "y": 0.36,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R5 GG",
-          "x": 0.215,
+          "nom": "R5 GS",
+          "x": 0.375,
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R5 GH",
-          "x": 0.31,
+          "nom": "R5 GT",
+          "x": 0.465,
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R5 GI",
-          "x": 0.405,
+          "nom": "R5 GU",
+          "x": 0.56,
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R5 GJ",
-          "x": 0.5,
+          "nom": "R5 GV",
+          "x": 0.655,
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
-          "nom": "R5 GK",
-          "x": 0.595,
+          "nom": "R5 GW",
+          "x": 0.75,
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07
@@ -1926,148 +1893,92 @@
         {
           "nom": "R4 G1",
           "x": 0.98,
-          "y": 0.6,
+          "y": 0.55,
           "largeur": 0.03,
           "hauteur": 0.07,
           "imageReference": "assets/reference/point1.png"
         },
         {
           "nom": "R4 G2",
-          "x": 0.16,
-          "y": 0.56,
+          "x": 0.05,
+          "y": 0.55,
           "largeur": 0.03,
           "hauteur": 0.07,
           "imageReference": "assets/reference/point2.png"
         },
         {
           "nom": "R4 G3",
-          "x": 0.05,
-          "y": 0.56,
+          "x": 0.02,
+          "y": 0.55,
           "largeur": 0.03,
           "hauteur": 0.07,
           "imageReference": "assets/reference/point3.png"
         },
         {
           "nom": "R4 G4",
-          "x": 0.22,
-          "y": 0.76,
+          "x": 0.12,
+          "y": 0.72,
           "largeur": 0.03,
           "hauteur": 0.07,
           "imageReference": "assets/reference/point4.png"
         },
         {
           "nom": "R4 G5",
-          "x": 0.9,
-          "y": 0.76,
+          "x": 0.87,
+          "y": 0.72,
           "largeur": 0.03,
           "hauteur": 0.07,
           "imageReference": "assets/reference/point5.png"
         },
         {
           "nom": "R4 G6",
-          "x": 0.96,
-          "y": 0.76,
+          "x": 0.95,
+          "y": 0.72,
           "largeur": 0.03,
           "hauteur": 0.07,
           "imageReference": "assets/reference/point6.png"
         },
         {
           "nom": "R4 G7",
-          "x": 0.55,
-          "y": 0.78,
+          "x": 0.65,
+          "y": 0.75,
           "largeur": 0.03,
           "hauteur": 0.07,
           "imageReference": "assets/reference/point7.png"
         },
         {
           "nom": "R4 G8",
-          "x": 0.3,
-          "y": 0.71,
+          "x": 0.4,
+          "y": 0.75,
           "largeur": 0.03,
           "hauteur": 0.07,
           "imageReference": "assets/reference/point8.png"
         },
         {
-          "nom": "R4 GA",
-          "x": 0.135,
-          "y": 0.36,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
-          "nom": "R4 GB",
-          "x": 0.22,
-          "y": 0.36,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
-          "nom": "R4 GC",
-          "x": 0.31,
-          "y": 0.36,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
-          "nom": "R4 GD",
-          "x": 0.405,
-          "y": 0.36,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
-          "nom": "R4 GE",
-          "x": 0.5,
-          "y": 0.36,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
-          "nom": "R4 GF",
-          "x": 0.595,
-          "y": 0.36,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
-          "nom": "R4 GX",
-          "x": 0.695,
-          "y": 0.36,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
-          "nom": "R4 GG",
-          "x": 0.215,
-          "y": 0.71,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
           "nom": "R4 GH",
-          "x": 0.31,
-          "y": 0.71,
+          "x": 0.18,
+          "y": 0.17,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
           "nom": "R4 GI",
-          "x": 0.405,
-          "y": 0.71,
+          "x": 0.66,
+          "y": 0.17,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
           "nom": "R4 GJ",
-          "x": 0.5,
-          "y": 0.71,
+          "x": 0.78,
+          "y": 0.17,
           "largeur": 0.03,
           "hauteur": 0.07
         },
         {
           "nom": "R4 GK",
-          "x": 0.595,
-          "y": 0.71,
+          "x": 0.89,
+          "y": 0.17,
           "largeur": 0.03,
           "hauteur": 0.07
         }
@@ -2492,16 +2403,9 @@
           "hauteur": 0.07
         },
         {
-          "nom": "R1 GX",
+          "nom": "R1 GG",
           "x": 0.695,
           "y": 0.36,
-          "largeur": 0.03,
-          "hauteur": 0.07
-        },
-        {
-          "nom": "R1 GG",
-          "x": 0.215,
-          "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07
         },
@@ -2532,13 +2436,37 @@
           "y": 0.71,
           "largeur": 0.03,
           "hauteur": 0.07
+        },
+        {
+          "nom": "R1 GL",
+          "x": 0.695,
+          "y": 0.71,
+          "largeur": 0.03,
+          "hauteur": 0.07
         }
       ]
     },
     {
       "nom": "Motrice M1 Côté Gauche",
       "image": "image18.png",
-      "zones": []
+      "zones": [
+        {
+          "nom": "M1 G1",
+          "x": 0.55,
+          "y": 0.72,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/motrice_point1.png"
+        },
+        {
+          "nom": "M1 G2",
+          "x": 0.48,
+          "y": 0.1,
+          "largeur": 0.03,
+          "hauteur": 0.07,
+          "imageReference": "assets/reference/motrice_point2.png"
+        }
+      ]
     }
   ]
 }
