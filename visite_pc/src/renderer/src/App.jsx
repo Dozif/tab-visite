@@ -14,10 +14,15 @@ export default function App() {
   useEffect(() => { refresh() }, [])
 
   async function importer() {
-    const res = await window.api.importDialog()
-    if (res) {
-      setMessage(`Import : ${res.visites} visite(s), ${res.photos} photo(s).`)
-      await refresh()
+    try {
+      const res = await window.api.importDialog()
+      if (res) {
+        setMessage(`Import : ${res.visites} visite(s), ${res.photos} photo(s).`)
+        await refresh()
+      }
+    } catch (e) {
+      // ZIP invalide (data.xlsx absent, etc.) : signaler au lieu d'échouer en silence.
+      setMessage(`Échec de l'import : ${e?.message ?? e}`)
     }
   }
 

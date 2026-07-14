@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { photosForVisite } from '../model.js'
 import Lightbox from '../components/Lightbox.jsx'
 
@@ -42,10 +42,17 @@ export default function PhotosScreen({ lib, visiteId, onBack }) {
 
 function Vignette({ photo, onClick }) {
   const [url, setUrl] = useState(null)
-  React.useEffect(() => { window.api.photoUrl(photo.chemin).then(setUrl) }, [photo.chemin])
+  const [erreur, setErreur] = useState(false)
+  useEffect(() => {
+    setErreur(false)
+    window.api.photoUrl(photo.chemin).then(setUrl)
+  }, [photo.chemin])
   return (
     <button className="vignette" onClick={onClick} title={photo.datePrise}>
-      {url && <img src={url} alt={photo.zone} />}
+      {url && !erreur && (
+        <img src={url} alt={photo.zone} onError={() => setErreur(true)} />
+      )}
+      {erreur && <span className="img-manquante">Image manquante</span>}
     </button>
   )
 }
