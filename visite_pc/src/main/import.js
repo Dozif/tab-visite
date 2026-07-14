@@ -1,4 +1,8 @@
 import * as XLSX from 'xlsx'
+import AdmZip from 'adm-zip'
+import { mkdirSync, writeFileSync, rmSync } from 'node:fs'
+import { join } from 'node:path'
+import { loadLibrary, saveLibrary, photosDir } from './library.js'
 
 export function parseDataXlsx(buffer) {
   const wb = XLSX.read(buffer, { type: 'buffer' })
@@ -47,4 +51,29 @@ export function upsertLibrary(lib, rows) {
     lib: { version: 1, visites, photos },
     resume: { visites: seenVisite.size, photos: rows.length }
   }
+}
+
+export function importZip(zipPath, libraryDir) {
+  const zip = new AdmZip(zipPath)
+  const dataEntry = zip.getEntry('data.xlsx')
+  if (!dataEntry) throw new Error('data.xlsx introuvable dans le ZIP')
+  const rows = parseDataXlsx(dataEntry.getData())
+
+  // Supprimer les dossiers photos des visites ré-importées (remplacement).
+  for (const visiteId of new Set(rows.map((r) => r.visiteId))) {
+    rmSync(join(photosDir(libraryDir), visiteId), { recursive: true, force: true })
+  }
+
+  // Copier chaque photo présente dans le ZIP vers photos/<visiteId>/<photoId>.jpg.
+  for (const r of rows) {
+    const entry = zip.getEntry(r.cheminPhoto)
+    if (!entry) continue // photo absente du ZIP : ignorée
+    const dest = join(photosDir(libraryDir), r.visiteId, `${r.photoId}.jpg`)
+    mkdirSync(join(photosDir(libraryDir), r.visiteId), { recursive: true })
+    writeFileSync(dest, entry.getData())
+  }
+
+  const { lib, resume } = upsertLibrary(loadLibrary(libraryDir), rows)
+  saveLibrary(libraryDir, lib)
+  return resume
 }
