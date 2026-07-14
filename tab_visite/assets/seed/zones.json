@@ -2655,6 +2655,62 @@
           "y": 0.6717,
           "largeur": 0.03,
           "hauteur": 0.07
+        },
+        {
+          "nom": "R1 DI",
+          "x": 0.14,
+          "y": 0.405,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R1 DJ",
+          "x": 0.238,
+          "y": 0.405,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R1 DK",
+          "x": 0.335,
+          "y": 0.405,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R1 DL",
+          "x": 0.432,
+          "y": 0.405,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R1 DM",
+          "x": 0.53,
+          "y": 0.405,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R1 DN",
+          "x": 0.61,
+          "y": 0.405,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R1 DO",
+          "x": 0.84,
+          "y": 0.305,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R1 DP",
+          "x": 0.84,
+          "y": 0.425,
+          "largeur": 0.03,
+          "hauteur": 0.07
         }
       ]
     },
@@ -2741,6 +2797,62 @@
           "y": 0.6356,
           "largeur": 0.03,
           "hauteur": 0.07
+        },
+        {
+          "nom": "R1 GA",
+          "x": 0.14,
+          "y": 0.365,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R1 GB",
+          "x": 0.14,
+          "y": 0.485,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R1 GC",
+          "x": 0.36,
+          "y": 0.465,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R1 GD",
+          "x": 0.45,
+          "y": 0.465,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R1 GE",
+          "x": 0.55,
+          "y": 0.465,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R1 GF",
+          "x": 0.65,
+          "y": 0.465,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R1 GG",
+          "x": 0.76,
+          "y": 0.465,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R1 GH",
+          "x": 0.85,
+          "y": 0.465,
+          "largeur": 0.03,
+          "hauteur": 0.07
         }
       ]
     },
@@ -2809,6 +2921,48 @@
           "nom": "R2 D4.2",
           "x": 0.9424,
           "y": 0.6136,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R2 DG",
+          "x": 0.16,
+          "y": 0.385,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R2 DH",
+          "x": 0.285,
+          "y": 0.385,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R2 DI",
+          "x": 0.4,
+          "y": 0.385,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R2 DJ",
+          "x": 0.51,
+          "y": 0.385,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R2 DK",
+          "x": 0.63,
+          "y": 0.385,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R2 DL",
+          "x": 0.75,
+          "y": 0.385,
           "largeur": 0.03,
           "hauteur": 0.07
         }
@@ -2881,6 +3035,48 @@
           "y": 0.5024,
           "largeur": 0.03,
           "hauteur": 0.07
+        },
+        {
+          "nom": "R2 GA",
+          "x": 0.23,
+          "y": 0.385,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R2 GB",
+          "x": 0.35,
+          "y": 0.385,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R2 GC",
+          "x": 0.46,
+          "y": 0.385,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R2 GD",
+          "x": 0.58,
+          "y": 0.385,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R2 GE",
+          "x": 0.695,
+          "y": 0.385,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R2 GF",
+          "x": 0.81,
+          "y": 0.385,
+          "largeur": 0.03,
+          "hauteur": 0.07
         }
       ]
     },
@@ -2951,6 +3147,48 @@
           "y": 0.5729,
           "largeur": 0.03,
           "hauteur": 0.07
+        },
+        {
+          "nom": "R3 DG",
+          "x": 0.16,
+          "y": 0.385,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R3 DH",
+          "x": 0.285,
+          "y": 0.385,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R3 DI",
+          "x": 0.4,
+          "y": 0.385,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R3 DJ",
+          "x": 0.51,
+          "y": 0.385,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R3 DK",
+          "x": 0.63,
+          "y": 0.385,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R3 DL",
+          "x": 0.75,
+          "y": 0.385,
+          "largeur": 0.03,
+          "hauteur": 0.07
         }
       ]
     },
@@ -3019,6 +3257,48 @@
           "nom": "R3 G4.2",
           "x": 0.9364,
           "y": 0.5769,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R3 GA",
+          "x": 0.23,
+          "y": 0.385,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R3 GB",
+          "x": 0.35,
+          "y": 0.385,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R3 GC",
+          "x": 0.46,
+          "y": 0.385,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R3 GD",
+          "x": 0.58,
+          "y": 0.385,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R3 GE",
+          "x": 0.695,
+          "y": 0.385,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R3 GF",
+          "x": 0.81,
+          "y": 0.385,
           "largeur": 0.03,
           "hauteur": 0.07
         }
@@ -3123,6 +3403,76 @@
           "y": 0.5593,
           "largeur": 0.03,
           "hauteur": 0.07
+        },
+        {
+          "nom": "R4 DH",
+          "x": 0.16,
+          "y": 0.465,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R4 DI",
+          "x": 0.27,
+          "y": 0.465,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R4 DJ",
+          "x": 0.395,
+          "y": 0.365,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R4 DK",
+          "x": 0.395,
+          "y": 0.465,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R4 DL",
+          "x": 0.51,
+          "y": 0.365,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R4 DM",
+          "x": 0.51,
+          "y": 0.465,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R4 DN",
+          "x": 0.625,
+          "y": 0.365,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R4 DO",
+          "x": 0.625,
+          "y": 0.465,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R4 DP",
+          "x": 0.74,
+          "y": 0.365,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R4 DQ",
+          "x": 0.74,
+          "y": 0.465,
+          "largeur": 0.03,
+          "hauteur": 0.07
         }
       ]
     },
@@ -3201,6 +3551,55 @@
           "y": 0.5832,
           "largeur": 0.03,
           "hauteur": 0.07
+        },
+        {
+          "nom": "R4 GA",
+          "x": 0.46,
+          "y": 0.365,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R4 GB",
+          "x": 0.46,
+          "y": 0.485,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R4 GC",
+          "x": 0.57,
+          "y": 0.365,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R4 GD",
+          "x": 0.57,
+          "y": 0.485,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R4 GE",
+          "x": 0.685,
+          "y": 0.445,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R4 GF",
+          "x": 0.8,
+          "y": 0.445,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R4 GG",
+          "x": 0.93,
+          "y": 0.385,
+          "largeur": 0.03,
+          "hauteur": 0.07
         }
       ]
     },
@@ -3269,6 +3668,48 @@
           "nom": "R5 D4.2",
           "x": 0.9345,
           "y": 0.5796,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R5 DG",
+          "x": 0.16,
+          "y": 0.405,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R5 DH",
+          "x": 0.27,
+          "y": 0.405,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R5 DI",
+          "x": 0.38,
+          "y": 0.405,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R5 DJ",
+          "x": 0.49,
+          "y": 0.405,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R5 DK",
+          "x": 0.6,
+          "y": 0.405,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R5 DL",
+          "x": 0.71,
+          "y": 0.405,
           "largeur": 0.03,
           "hauteur": 0.07
         }
@@ -3341,6 +3782,48 @@
           "y": 0.6017,
           "largeur": 0.03,
           "hauteur": 0.07
+        },
+        {
+          "nom": "R5 GA",
+          "x": 0.23,
+          "y": 0.425,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R5 GB",
+          "x": 0.34,
+          "y": 0.425,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R5 GC",
+          "x": 0.45,
+          "y": 0.425,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R5 GD",
+          "x": 0.56,
+          "y": 0.425,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R5 GE",
+          "x": 0.67,
+          "y": 0.425,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R5 GF",
+          "x": 0.78,
+          "y": 0.425,
+          "largeur": 0.03,
+          "hauteur": 0.07
         }
       ]
     },
@@ -3409,6 +3892,48 @@
           "nom": "R6 D4.2",
           "x": 0.9264,
           "y": 0.5745,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R6 DA",
+          "x": 0.23,
+          "y": 0.425,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R6 DB",
+          "x": 0.34,
+          "y": 0.425,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R6 DC",
+          "x": 0.45,
+          "y": 0.425,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R6 DD",
+          "x": 0.56,
+          "y": 0.425,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R6 DE",
+          "x": 0.67,
+          "y": 0.425,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R6 DF",
+          "x": 0.78,
+          "y": 0.425,
           "largeur": 0.03,
           "hauteur": 0.07
         }
@@ -3481,6 +4006,48 @@
           "y": 0.6149,
           "largeur": 0.03,
           "hauteur": 0.07
+        },
+        {
+          "nom": "R6 GG",
+          "x": 0.17,
+          "y": 0.425,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R6 GH",
+          "x": 0.28,
+          "y": 0.425,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R6 GI",
+          "x": 0.39,
+          "y": 0.425,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R6 GJ",
+          "x": 0.5,
+          "y": 0.425,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R6 GK",
+          "x": 0.61,
+          "y": 0.425,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R6 GL",
+          "x": 0.72,
+          "y": 0.425,
+          "largeur": 0.03,
+          "hauteur": 0.07
         }
       ]
     },
@@ -3551,6 +4118,48 @@
           "y": 0.6269,
           "largeur": 0.03,
           "hauteur": 0.07
+        },
+        {
+          "nom": "R7 DA",
+          "x": 0.23,
+          "y": 0.425,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R7 DB",
+          "x": 0.34,
+          "y": 0.425,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R7 DC",
+          "x": 0.45,
+          "y": 0.425,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R7 DD",
+          "x": 0.56,
+          "y": 0.425,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R7 DE",
+          "x": 0.67,
+          "y": 0.425,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R7 DF",
+          "x": 0.78,
+          "y": 0.425,
+          "largeur": 0.03,
+          "hauteur": 0.07
         }
       ]
     },
@@ -3619,6 +4228,48 @@
           "nom": "R7 G4.2",
           "x": 0.9469,
           "y": 0.6007,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R7 GG",
+          "x": 0.17,
+          "y": 0.425,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R7 GH",
+          "x": 0.28,
+          "y": 0.425,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R7 GI",
+          "x": 0.39,
+          "y": 0.425,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R7 GJ",
+          "x": 0.5,
+          "y": 0.425,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R7 GK",
+          "x": 0.61,
+          "y": 0.425,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R7 GL",
+          "x": 0.72,
+          "y": 0.425,
           "largeur": 0.03,
           "hauteur": 0.07
         }
@@ -3707,6 +4358,76 @@
           "y": 0.6461,
           "largeur": 0.03,
           "hauteur": 0.07
+        },
+        {
+          "nom": "R8 DA",
+          "x": 0.07,
+          "y": 0.405,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R8 DB",
+          "x": 0.07,
+          "y": 0.485,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R8 DC",
+          "x": 0.16,
+          "y": 0.405,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R8 DD",
+          "x": 0.16,
+          "y": 0.485,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R8 DE",
+          "x": 0.34,
+          "y": 0.465,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R8 DF",
+          "x": 0.45,
+          "y": 0.465,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R8 DG",
+          "x": 0.56,
+          "y": 0.465,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R8 DH",
+          "x": 0.67,
+          "y": 0.465,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R8 DI",
+          "x": 0.78,
+          "y": 0.465,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R8 DJ",
+          "x": 0.89,
+          "y": 0.465,
+          "largeur": 0.03,
+          "hauteur": 0.07
         }
       ]
     },
@@ -3791,6 +4512,76 @@
           "nom": "R8 G4.2",
           "x": 0.9435,
           "y": 0.6853,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R8 GK",
+          "x": 0.14,
+          "y": 0.465,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R8 GL",
+          "x": 0.25,
+          "y": 0.465,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R8 GM",
+          "x": 0.34,
+          "y": 0.465,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R8 GN",
+          "x": 0.45,
+          "y": 0.465,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R8 GO",
+          "x": 0.56,
+          "y": 0.465,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R8 GP",
+          "x": 0.66,
+          "y": 0.465,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R8 GQ",
+          "x": 0.83,
+          "y": 0.405,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R8 GR",
+          "x": 0.83,
+          "y": 0.485,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R8 GS",
+          "x": 0.93,
+          "y": 0.405,
+          "largeur": 0.03,
+          "hauteur": 0.07
+        },
+        {
+          "nom": "R8 GT",
+          "x": 0.93,
+          "y": 0.485,
           "largeur": 0.03,
           "hauteur": 0.07
         }
