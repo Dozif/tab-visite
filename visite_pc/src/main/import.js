@@ -18,3 +18,33 @@ export function parseDataXlsx(buffer) {
     photoId: String(r['Photo ID'])
   }))
 }
+
+export function upsertLibrary(lib, rows) {
+  const touchedVisites = new Set(rows.map((r) => r.visiteId))
+
+  // On repart des visites/photos NON concernées par cet import.
+  const visites = lib.visites.filter((v) => !touchedVisites.has(v.id))
+  const photos = lib.photos.filter((p) => !touchedVisites.has(p.visiteId))
+
+  const importeLe = new Date().toISOString()
+  const seenVisite = new Set()
+  for (const r of rows) {
+    if (!seenVisite.has(r.visiteId)) {
+      seenVisite.add(r.visiteId)
+      visites.push({
+        id: r.visiteId, rame: r.rame, type: r.type,
+        niveau: r.niveau, dateVisite: r.dateVisite, importeLe
+      })
+    }
+    photos.push({
+      id: r.photoId, visiteId: r.visiteId, plan: r.plan, zone: r.zone,
+      datePrise: r.datePrise, traitee: r.traitee,
+      chemin: `photos/${r.visiteId}/${r.photoId}.jpg`
+    })
+  }
+
+  return {
+    lib: { version: 1, visites, photos },
+    resume: { visites: seenVisite.size, photos: rows.length }
+  }
+}
