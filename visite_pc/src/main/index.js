@@ -1,5 +1,6 @@
 import { app, BrowserWindow } from 'electron'
 import { join } from 'node:path'
+import { registerIpc } from './ipc.js'
 
 // NB: electron-vite compile le main en CJS → __dirname est disponible
 // (ne pas utiliser import.meta.dirname ici).
@@ -22,6 +23,7 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
+  registerIpc(join(app.getPath('userData'), 'library'))
   createWindow()
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
