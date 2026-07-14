@@ -21,6 +21,7 @@ class ExportService {
   static const _entetes = [
     'Rame', 'Type', 'Niveau', 'Date visite',
     'Plan', 'Zone', 'Date prise', 'Traitée', 'Chemin photo',
+    'Visite ID', 'Photo ID',
   ];
 
   String _safe(String s) => s.replaceAll(RegExp(r'[^A-Za-z0-9_\- ]'), '_');
@@ -46,6 +47,7 @@ class ExportService {
         '${v.numeroRame}', v.typeVisite, v.niveau, formatDate(v.dateVisite),
         r['plan_nom'] as String, r['zone_nom'] as String,
         formatDateHeure(datePrise), _ouiNon(r['traitee']), chemin,
+        v.id, r['id'] as String,
       ]);
     }
     _addXlsx(archive, data);
@@ -76,6 +78,7 @@ class ExportService {
         '$rame', type, niveau, formatDate(r['date_visite'] as int),
         r['plan_nom'] as String, r['zone_nom'] as String,
         formatDateHeure(datePrise), _ouiNon(r['traitee']), chemin,
+        r['visite_id'] as String, r['id'] as String,
       ]);
     }
     _addXlsx(archive, data);

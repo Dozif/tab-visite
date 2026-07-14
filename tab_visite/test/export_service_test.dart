@@ -43,6 +43,8 @@ void main() {
     final book = xls.Excel.decodeBytes(data.content as List<int>);
     final rows = book.tables['Photos']!.rows;
     expect(rows.length, 2);
+    // 11 colonnes attendues (9 + Visite ID + Photo ID).
+    expect(book.tables['Photos']!.rows.first.length, 11);
     await db.close();
     root.deleteSync(recursive: true);
   });
