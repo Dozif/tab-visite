@@ -13,9 +13,10 @@ class PhotoCaptureService {
   PhotoCaptureService(this.photoRepo, this.storage, {ImagePicker? picker})
       : picker = picker ?? ImagePicker();
 
-  /// Ouvre l'appareil photo, enregistre la photo et l'associe à [zoneId].
+  /// Ouvre l'appareil photo, enregistre la photo et l'associe à [zoneId]
+  /// (et à la visite [visiteId] si la prise se fait dans le cadre d'une visite).
   /// Renvoie null si l'utilisateur annule.
-  Future<Photo?> capture(String zoneId, int nowMs) async {
+  Future<Photo?> capture(String zoneId, int nowMs, {String? visiteId}) async {
     final x = await picker.pickImage(source: ImageSource.camera, imageQuality: 85);
     if (x == null) return null;
     final rel = await storage.importImage(File(x.path), 'photos', 'jpg');
@@ -25,6 +26,7 @@ class PhotoCaptureService {
       cheminFichier: rel,
       datePrise: nowMs,
       dateCreation: nowMs,
+      visiteId: visiteId,
     );
     await photoRepo.insert(photo);
     return photo;

@@ -29,4 +29,32 @@ class PhotoRepository {
       WHERE z.plan_id = ? GROUP BY p.zone_id''', [planId]);
     return { for (final r in rows) r['zid'] as String : r['n'] as int };
   }
+
+  /// Photos d'une visite, jointes à leur zone et leur plan, prêtes pour l'export
+  /// (colonnes : id, date_prise, traitee, chemin_fichier, zone_nom, plan_nom).
+  Future<List<Map<String, Object?>>> joinedForVisite(String visiteId) {
+    return db.rawQuery('''
+      SELECT ph.id, ph.date_prise, ph.traitee, ph.chemin_fichier,
+             z.nom AS zone_nom, pl.nom AS plan_nom, pl.ordre AS plan_ordre
+      FROM photos ph
+      JOIN zones z ON z.id = ph.zone_id
+      JOIN plans pl ON pl.id = z.plan_id
+      WHERE ph.visite_id = ?
+      ORDER BY pl.ordre, z.nom, ph.date_prise''', [visiteId]);
+  }
+
+  /// Toutes les photos rattachées à une visite, avec les infos de la visite
+  /// (rame, type, niveau, date) — pour l'export global. Les photos sans visite
+  /// sont exclues (jointure interne sur visites).
+  Future<List<Map<String, Object?>>> joinedAllByVisite() {
+    return db.rawQuery('''
+      SELECT ph.id, ph.date_prise, ph.traitee, ph.chemin_fichier,
+             z.nom AS zone_nom, pl.nom AS plan_nom, pl.ordre AS plan_ordre,
+             vi.numero_rame, vi.type_visite, vi.niveau, vi.date_visite
+      FROM photos ph
+      JOIN zones z ON z.id = ph.zone_id
+      JOIN plans pl ON pl.id = z.plan_id
+      JOIN visites vi ON vi.id = ph.visite_id
+      ORDER BY vi.date_visite DESC, pl.ordre, z.nom, ph.date_prise''');
+  }
 }

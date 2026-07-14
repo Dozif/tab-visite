@@ -16,7 +16,8 @@ import 'zone_editor_controller.dart';
 
 class PlanViewScreen extends StatefulWidget {
   final Plan plan;
-  const PlanViewScreen({super.key, required this.plan});
+  final String? visiteId; // visite en cours (null hors d'une visite)
+  const PlanViewScreen({super.key, required this.plan, this.visiteId});
   @override
   State<PlanViewScreen> createState() => _PlanViewScreenState();
 }
@@ -67,7 +68,7 @@ class _PlanViewScreenState extends State<PlanViewScreen> {
     await showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      builder: (_) => ZoneSheet(ctx: ctx, zone: z),
+      builder: (_) => ZoneSheet(ctx: ctx, zone: z, visiteId: widget.visiteId),
     );
     _load();
   }

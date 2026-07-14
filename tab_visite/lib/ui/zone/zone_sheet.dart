@@ -9,7 +9,9 @@ import '../widgets/date_format.dart';
 class ZoneSheet extends StatefulWidget {
   final AppContext ctx;
   final Zone zone;
-  const ZoneSheet({super.key, required this.ctx, required this.zone});
+  final String? visiteId; // visite en cours (null hors d'une visite)
+  const ZoneSheet(
+      {super.key, required this.ctx, required this.zone, this.visiteId});
 
   @override
   State<ZoneSheet> createState() => _ZoneSheetState();
@@ -28,7 +30,8 @@ class _ZoneSheetState extends State<ZoneSheet> {
 
   Future<void> _ajouterPhoto() async {
     final service = PhotoCaptureService(widget.ctx.photos, widget.ctx.storage);
-    await service.capture(widget.zone.id, DateTime.now().millisecondsSinceEpoch);
+    await service.capture(widget.zone.id, DateTime.now().millisecondsSinceEpoch,
+        visiteId: widget.visiteId);
     await _load();
   }
 

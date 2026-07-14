@@ -118,8 +118,11 @@ class _PlansScreenState extends State<PlansScreen> {
                   subtitle: Text('${_zoneCounts[plan.id] ?? 0} zone(s)'),
                   trailing: const Icon(Icons.chevron_right),
                   onTap: () async {
-                    await Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => PlanViewScreen(plan: plan)));
+                    await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => PlanViewScreen(
+                                plan: plan, visiteId: widget.visite?.id)));
                     _load();
                   },
                   onLongPress: () async {
