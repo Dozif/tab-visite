@@ -26,15 +26,17 @@ void main() {
     await repo.insert(Plan(id: 'm2', nom: 'Motrice 1N M1', cheminImage: 'a1', ordre: 4, dateCreation: 0, categorie: 'motrice', serie: '1N'));
     await repo.insert(Plan(id: 'r1', nom: 'Remorque R1', cheminImage: 'b', ordre: 1, dateCreation: 0, categorie: 'remorque', serie: '2N'));
     await repo.insert(Plan(id: 'r2', nom: 'Remorque R2', cheminImage: 'c', ordre: 2, dateCreation: 0, categorie: 'remorque', serie: '2N'));
-    await repo.insert(Plan(id: 'x1', nom: 'Remorque autre', cheminImage: 'd', ordre: 3, dateCreation: 0, categorie: 'remorque', serie: 'AUTRE'));
+    await repo.insert(Plan(id: 'r1n', nom: 'Remorque 1N R1', cheminImage: 'd', ordre: 3, dateCreation: 0, categorie: 'remorque', serie: '1N'));
 
     // MKBAM filtre les motrices de la série choisie (niveau).
     expect((await repo.forTypeVisite(TypeVisite.mkbam, Niveau.deux)).map((p) => p.id).toList(), ['m1']);
     expect((await repo.forTypeVisite(TypeVisite.mkbam, Niveau.un)).map((p) => p.id).toList(), ['m2']);
-    // MKBDR filtre les remorques de la série choisie.
+    // MKBDR filtre les remorques de la série choisie (dispo en 2N comme en 1N).
     expect((await repo.forTypeVisite(TypeVisite.mkbdr, Niveau.deux)).map((p) => p.id).toList(), ['r1', 'r2']);
-    // MKBAR (legacy) : remorques d'une autre série, indépendant du niveau.
-    expect((await repo.forTypeVisite(TypeVisite.mkbar, Niveau.deux)).map((p) => p.id).toList(), ['x1']);
+    expect((await repo.forTypeVisite(TypeVisite.mkbdr, Niveau.un)).map((p) => p.id).toList(), ['r1n']);
+    // MKBAR : remorques non-2N de la série → les remorques 1N en 1N, VIDE en 2N.
+    expect((await repo.forTypeVisite(TypeVisite.mkbar, Niveau.un)).map((p) => p.id).toList(), ['r1n']);
+    expect((await repo.forTypeVisite(TypeVisite.mkbar, Niveau.deux)), isEmpty);
     await db.close();
   });
 }

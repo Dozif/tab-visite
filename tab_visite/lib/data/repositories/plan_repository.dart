@@ -15,12 +15,16 @@ class PlanRepository {
 
   /// Plans à inspecter pour un type de visite et un niveau de rame (1N/2N) :
   /// MKBAM → les motrices de la série ; MKBDR → les remorques de la série ;
-  /// MKBAR → les remorques d'une autre série (legacy, ignore le niveau).
+  /// MKBAR → les remorques d'une autre série (non-2N) de la série choisie :
+  /// concrètement les remorques 1N, donc **vide en 2N**.
   Future<List<Plan>> forTypeVisite(String typeVisite, String niveau) async {
     final (where, args) = switch (typeVisite) {
       TypeVisite.mkbam => ("categorie = 'motrice' AND serie = ?", <Object?>[niveau]),
       TypeVisite.mkbdr => ("categorie = 'remorque' AND serie = ?", <Object?>[niveau]),
-      TypeVisite.mkbar => ("categorie = 'remorque' AND serie <> '2N'", <Object?>[]),
+      TypeVisite.mkbar => (
+          "categorie = 'remorque' AND serie <> '2N' AND serie = ?",
+          <Object?>[niveau]
+        ),
       _ => ('', <Object?>[]),
     };
     final rows = await db.query('plans',
