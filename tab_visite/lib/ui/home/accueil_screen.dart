@@ -4,7 +4,9 @@ import 'package:share_plus/share_plus.dart';
 import '../../data/models/visite.dart';
 import '../../services/app_context.dart';
 import '../../services/export_service.dart';
+import '../../services/reset_service.dart';
 import '../widgets/date_format.dart';
+import '../widgets/photo_image.dart';
 import 'nouvelle_visite_sheet.dart';
 import 'selection_vehicule_screen.dart';
 
@@ -79,6 +81,38 @@ class _AccueilScreenState extends State<AccueilScreen> {
     }
   }
 
+  /// Efface visites + photos (après envoi du ZIP). Garde les plans de référence.
+  Future<void> _effacerDonnees() async {
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text('Effacer les données ?'),
+        content: const Text(
+            'Toutes les visites et leurs photos seront supprimées de la '
+            'tablette. Les plans de référence sont conservés.\n\n'
+            'À faire seulement après avoir envoyé le ZIP.'),
+        actions: [
+          TextButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: const Text('Annuler')),
+          FilledButton(
+            style: FilledButton.styleFrom(backgroundColor: Colors.red),
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text('Effacer'),
+          ),
+        ],
+      ),
+    );
+    if (ok != true) return;
+    await ResetService(ctx.db, ctx.storage).clearVisitesEtPhotos();
+    PhotoImage.clearCache();
+    await _load();
+    if (mounted) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Données effacées.')));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -106,10 +140,21 @@ class _AccueilScreenState extends State<AccueilScreen> {
               children: [
                 const Text('Visites',
                     style: TextStyle(fontWeight: FontWeight.bold)),
-                TextButton.icon(
-                  onPressed: _visites.isEmpty ? null : _exporterTout,
-                  icon: const Icon(Icons.archive_outlined, size: 18),
-                  label: const Text('Tout exporter'),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TextButton.icon(
+                      onPressed: _visites.isEmpty ? null : _exporterTout,
+                      icon: const Icon(Icons.archive_outlined, size: 18),
+                      label: const Text('Tout exporter'),
+                    ),
+                    TextButton.icon(
+                      onPressed: _visites.isEmpty ? null : _effacerDonnees,
+                      style: TextButton.styleFrom(foregroundColor: Colors.red),
+                      icon: const Icon(Icons.delete_outline, size: 18),
+                      label: const Text('Effacer'),
+                    ),
+                  ],
                 ),
               ],
             ),

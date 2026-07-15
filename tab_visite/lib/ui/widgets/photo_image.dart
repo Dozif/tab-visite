@@ -28,6 +28,9 @@ class PhotoImage extends StatefulWidget {
   /// Retire une clé du cache mémoire (à appeler après suppression).
   static void evict(String key) => _cache.remove(key);
 
+  /// Vide entièrement le cache mémoire (après une remise à zéro des données).
+  static void clearCache() => _cache.clear();
+
   static final Map<String, Uint8List> _cache = {};
 
   @override
