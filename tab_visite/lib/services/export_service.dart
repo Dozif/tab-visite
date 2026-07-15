@@ -1,14 +1,16 @@
-import 'dart:io';
-import 'package:archive/archive_io.dart';
+import 'dart:typed_data';
+import 'package:archive/archive.dart';
 import 'package:excel/excel.dart' as xls;
 import 'package:intl/intl.dart';
-import 'package:path/path.dart' as p;
 import '../data/models/visite.dart';
 import '../data/repositories/plan_repository.dart';
 import '../data/repositories/zone_repository.dart';
 import '../data/repositories/photo_repository.dart';
 import '../ui/widgets/date_format.dart';
 import 'photo_store.dart';
+
+/// Résultat d'un export : les octets du ZIP + un nom de fichier suggéré.
+typedef ZipExport = ({Uint8List bytes, String filename});
 
 class ExportService {
   final PlanRepository planRepo;
@@ -30,11 +32,14 @@ class ExportService {
   String _ouiNon(Object? traitee) =>
       (traitee is int ? traitee != 0 : traitee == true) ? 'oui' : 'non';
 
+  Uint8List _zip(Archive archive) =>
+      Uint8List.fromList(ZipEncoder().encode(archive)!);
+
   // --- Export par visite / global (photos + data.xlsx) -----------------------
 
   /// Exporte le dossier d'une visite : toutes ses photos + un récapitulatif
   /// Excel. Arborescence du ZIP : `photos/<plan>/<zone>/<date>_<id>.jpg`.
-  Future<File> exportVisiteToZip(Visite v, Directory outDir) async {
+  Future<ZipExport> exportVisiteToZip(Visite v) async {
     final archive = Archive();
     final data = <List<String>>[];
     for (final r in await photoRepo.joinedForVisite(v.id)) {
@@ -53,14 +58,12 @@ class ExportService {
     _addXlsx(archive, data);
     final nom =
         'visite_R${v.numeroRame}_${v.typeVisite}_${v.niveau}_${_jour(v.dateVisite)}';
-    final out = File(p.join(outDir.path, '${_safe(nom)}.zip'));
-    out.writeAsBytesSync(ZipEncoder().encode(archive)!);
-    return out;
+    return (bytes: _zip(archive), filename: '${_safe(nom)}.zip');
   }
 
   /// Exporte toutes les visites : photos préfixées par visite pour éviter les
   /// collisions (`photos/R<rame>_<type>_<niveau>/<plan>/<zone>/...`) + récap.
-  Future<File> exportAllVisitesToZip(Directory outDir) async {
+  Future<ZipExport> exportAllVisitesToZip() async {
     final archive = Archive();
     final data = <List<String>>[];
     for (final r in await photoRepo.joinedAllByVisite()) {
@@ -82,10 +85,10 @@ class ExportService {
       ]);
     }
     _addXlsx(archive, data);
-    final out = File(p.join(outDir.path,
-        'toutes_visites_${_jour(DateTime.now().millisecondsSinceEpoch)}.zip'));
-    out.writeAsBytesSync(ZipEncoder().encode(archive)!);
-    return out;
+    return (
+      bytes: _zip(archive),
+      filename: 'toutes_visites_${_jour(DateTime.now().millisecondsSinceEpoch)}.zip',
+    );
   }
 
   Future<void> _addPhoto(
@@ -109,7 +112,7 @@ class ExportService {
 
   // --- Export par plan (existant) --------------------------------------------
 
-  Future<File> exportPlanToZip(String planId, Directory outDir) async {
+  Future<ZipExport> exportPlanToZip(String planId) async {
     final plans = await planRepo.all();
     final plan = plans.firstWhere((p) => p.id == planId);
     final archive = Archive();
@@ -121,12 +124,10 @@ class ExportService {
         archive.addFile(ArchiveFile(name, bytes.length, bytes));
       }
     }
-    final out = File(p.join(outDir.path, 'export_${_safe(plan.nom)}.zip'));
-    out.writeAsBytesSync(ZipEncoder().encode(archive)!);
-    return out;
+    return (bytes: _zip(archive), filename: 'export_${_safe(plan.nom)}.zip');
   }
 
-  Future<File> exportAllToZip(Directory outDir) async {
+  Future<ZipExport> exportAllToZip() async {
     final archive = Archive();
     for (final plan in await planRepo.all()) {
       for (final z in await zoneRepo.forPlan(plan.id)) {
@@ -138,8 +139,6 @@ class ExportService {
         }
       }
     }
-    final out = File(p.join(outDir.path, 'export_toutes_photos.zip'));
-    out.writeAsBytesSync(ZipEncoder().encode(archive)!);
-    return out;
+    return (bytes: _zip(archive), filename: 'export_toutes_photos.zip');
   }
 }

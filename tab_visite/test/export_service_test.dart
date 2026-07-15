@@ -32,11 +32,10 @@ void main() {
       ..writeAsBytesSync([1, 2, 3]);
     await ctx.photos.insert(Photo(id: 'f1', zoneId: 'z1', cheminFichier: 'photos/a.jpg', datePrise: 0, dateCreation: 0, visiteId: 'v1'));
 
-    final zip = await ExportService(ctx.plans, ctx.zones, ctx.photos, ctx.storage)
-        .exportVisiteToZip(
-            (await ctx.visites.all()).first, root);
-    expect(zip.existsSync(), isTrue);
-    final archive = ZipDecoder().decodeBytes(zip.readAsBytesSync());
+    final res = await ExportService(ctx.plans, ctx.zones, ctx.photos, ctx.storage)
+        .exportVisiteToZip((await ctx.visites.all()).first);
+    expect(res.filename.endsWith('.zip'), isTrue);
+    final archive = ZipDecoder().decodeBytes(res.bytes);
     // La photo est rangée sous photos/<plan>/<zone>/...
     expect(archive.files.any((f) =>
         f.name.startsWith('photos/Remorque R3/R3 D1/')), isTrue);
@@ -67,9 +66,9 @@ void main() {
       await ctx.photos.insert(Photo(id: 'f$r', zoneId: 'z1', cheminFichier: 'photos/p$r.jpg', datePrise: r, dateCreation: r, visiteId: 'v$r'));
     }
 
-    final zip = await ExportService(ctx.plans, ctx.zones, ctx.photos, ctx.storage)
-        .exportAllVisitesToZip(root);
-    final archive = ZipDecoder().decodeBytes(zip.readAsBytesSync());
+    final res = await ExportService(ctx.plans, ctx.zones, ctx.photos, ctx.storage)
+        .exportAllVisitesToZip();
+    final archive = ZipDecoder().decodeBytes(res.bytes);
     final photos = archive.files.map((f) => f.name).where((n) => n.startsWith('photos/')).toList();
     expect(photos.length, 2);
     expect(photos.any((n) => n.startsWith('photos/R1_MKBDR_2N/')), isTrue);
@@ -92,9 +91,9 @@ void main() {
     await ctx.photos.insert(Photo(id: 'f1', zoneId: 'z1', cheminFichier: 'photos/a.jpg', datePrise: 0, dateCreation: 0));
 
     final service = ExportService(ctx.plans, ctx.zones, ctx.photos, ctx.storage);
-    final zip = await service.exportPlanToZip('p1', root);
-    expect(zip.existsSync(), isTrue);
-    final archive = ZipDecoder().decodeBytes(zip.readAsBytesSync());
+    final res = await service.exportPlanToZip('p1');
+    expect(res.filename.endsWith('.zip'), isTrue);
+    final archive = ZipDecoder().decodeBytes(res.bytes);
     expect(archive.files.any((f) => f.name.contains('Voiture') && f.name.contains('M')), isTrue);
     await db.close();
     root.deleteSync(recursive: true);

@@ -1,6 +1,4 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../data/models/visite.dart';
@@ -51,26 +49,27 @@ class _AccueilScreenState extends State<AccueilScreen> {
   ExportService get _export =>
       ExportService(ctx.plans, ctx.zones, ctx.photos, ctx.storage);
 
-  Future<void> _exporterVisite(Visite v) => _exporter(
-      (dir) => _export.exportVisiteToZip(v, dir), 'Export de la visite');
+  Future<void> _exporterVisite(Visite v) =>
+      _exporter(() => _export.exportVisiteToZip(v), 'Export de la visite');
 
   Future<void> _exporterTout() => _exporter(
-      (dir) => _export.exportAllVisitesToZip(dir), 'Export de toutes les visites');
+      () => _export.exportAllVisitesToZip(), 'Export de toutes les visites');
 
-  /// Génère le ZIP (avec un indicateur d'attente) puis ouvre le partage Android
-  /// pour l'envoyer vers le PC. Affiche un message en cas d'échec.
-  Future<void> _exporter(
-      Future<File> Function(Directory outDir) run, String libelle) async {
+  /// Génère le ZIP (avec un indicateur d'attente) puis ouvre le partage
+  /// (feuille native / téléchargement) pour l'envoyer. Message en cas d'échec.
+  Future<void> _exporter(Future<ZipExport> Function() run, String libelle) async {
     showDialog<void>(
       context: context,
       barrierDismissible: false,
       builder: (_) => const Center(child: CircularProgressIndicator()),
     );
     try {
-      final dir = await getTemporaryDirectory();
-      final zip = await run(dir);
+      final res = await run();
       if (mounted) Navigator.of(context).pop(); // ferme l'indicateur
-      await Share.shareXFiles([XFile(zip.path)]);
+      await Share.shareXFiles([
+        XFile.fromData(res.bytes,
+            name: res.filename, mimeType: 'application/zip')
+      ], fileNameOverrides: [res.filename]);
     } catch (e) {
       if (mounted) Navigator.of(context).pop();
       if (mounted) {

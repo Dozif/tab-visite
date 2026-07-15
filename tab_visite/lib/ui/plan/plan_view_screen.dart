@@ -2,7 +2,6 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:printing/printing.dart';
 import '../../data/models/plan.dart';
@@ -128,10 +127,12 @@ class _PlanViewScreenState extends State<PlanViewScreen> {
             icon: const Icon(Icons.folder_zip),
             tooltip: 'Exporter les photos',
             onPressed: () async {
-              final dir = await getTemporaryDirectory();
-              final zip = await ExportService(ctx.plans, ctx.zones, ctx.photos, ctx.storage)
-                  .exportPlanToZip(widget.plan.id, dir);
-              await Share.shareXFiles([XFile(zip.path)]);
+              final res = await ExportService(ctx.plans, ctx.zones, ctx.photos, ctx.storage)
+                  .exportPlanToZip(widget.plan.id);
+              await Share.shareXFiles([
+                XFile.fromData(res.bytes,
+                    name: res.filename, mimeType: 'application/zip')
+              ], fileNameOverrides: [res.filename]);
             },
           ),
           IconButton(
