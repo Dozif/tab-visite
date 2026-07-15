@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -8,6 +7,7 @@ import '../../services/app_context.dart';
 import '../../services/plan_import_service.dart';
 import '../plan/plan_view_screen.dart';
 import '../search/search_screen.dart';
+import '../widgets/photo_image.dart';
 
 class PlansScreen extends StatefulWidget {
   /// Visite en cours (dossier de rame). Null = accès direct sans visite.
@@ -55,8 +55,9 @@ class _PlansScreenState extends State<PlansScreen> {
     if (x == null) return;
     final nom = await _demanderNom();
     if (nom == null) return;
-    await PlanImportService(ctx.plans, ctx.storage)
-        .importFromFile(File(x.path), nom, DateTime.now().millisecondsSinceEpoch);
+    final ext = x.name.contains('.') ? x.name.split('.').last.toLowerCase() : 'png';
+    await PlanImportService(ctx.plans, ctx.storage).importFromBytes(
+        await x.readAsBytes(), ext, nom, DateTime.now().millisecondsSinceEpoch);
     await _load();
   }
 
@@ -107,10 +108,11 @@ class _PlansScreenState extends State<PlansScreen> {
                 return ListTile(
                   leading: SizedBox(
                     width: 64,
-                    child: Image.file(
-                      ctx.storage.resolve(plan.cheminImage),
+                    child: PhotoImage(
+                      store: ctx.storage,
+                      storageKey: plan.cheminImage,
                       fit: BoxFit.cover,
-                      errorBuilder: (_, __, ___) =>
+                      errorBuilder: (_) =>
                           const Icon(Icons.broken_image, color: Colors.grey),
                     ),
                   ),
@@ -137,10 +139,12 @@ class _PlansScreenState extends State<PlansScreen> {
                     if (ok != true) return;
                     for (final z in await ctx.zones.forPlan(plan.id)) {
                       for (final ph in await ctx.photos.forZone(z.id)) {
-                        await ctx.storage.deleteRelative(ph.cheminFichier);
+                        await ctx.storage.delete(ph.cheminFichier);
+                        PhotoImage.evict(ph.cheminFichier);
                       }
                     }
-                    await ctx.storage.deleteRelative(plan.cheminImage);
+                    await ctx.storage.delete(plan.cheminImage);
+                    PhotoImage.evict(plan.cheminImage);
                     await ctx.plans.delete(plan.id);
                     _load();
                   },

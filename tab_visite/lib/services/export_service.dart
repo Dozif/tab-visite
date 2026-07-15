@@ -8,13 +8,13 @@ import '../data/repositories/plan_repository.dart';
 import '../data/repositories/zone_repository.dart';
 import '../data/repositories/photo_repository.dart';
 import '../ui/widgets/date_format.dart';
-import 'file_storage.dart';
+import 'photo_store.dart';
 
 class ExportService {
   final PlanRepository planRepo;
   final ZoneRepository zoneRepo;
   final PhotoRepository photoRepo;
-  final FileStorage storage;
+  final PhotoStore storage;
   ExportService(this.planRepo, this.zoneRepo, this.photoRepo, this.storage);
 
   /// Colonnes du récapitulatif `data.xlsx` (une ligne par photo).
@@ -42,7 +42,7 @@ class ExportService {
       final chemin = 'photos/${_safe(r['plan_nom'] as String)}'
           '/${_safe(r['zone_nom'] as String)}'
           '/${datePrise}_${r['id']}.jpg';
-      _addPhoto(archive, r['chemin_fichier'] as String, chemin);
+      await _addPhoto(archive, r['chemin_fichier'] as String, chemin);
       data.add([
         '${v.numeroRame}', v.typeVisite, v.niveau, formatDate(v.dateVisite),
         r['plan_nom'] as String, r['zone_nom'] as String,
@@ -73,7 +73,7 @@ class ExportService {
           '/${_safe(r['plan_nom'] as String)}'
           '/${_safe(r['zone_nom'] as String)}'
           '/${datePrise}_${r['id']}.jpg';
-      _addPhoto(archive, r['chemin_fichier'] as String, chemin);
+      await _addPhoto(archive, r['chemin_fichier'] as String, chemin);
       data.add([
         '$rame', type, niveau, formatDate(r['date_visite'] as int),
         r['plan_nom'] as String, r['zone_nom'] as String,
@@ -88,10 +88,10 @@ class ExportService {
     return out;
   }
 
-  void _addPhoto(Archive archive, String cheminRelatif, String pathInZip) {
-    final f = storage.resolve(cheminRelatif);
-    if (!f.existsSync()) return; // photo manquante : ignorée silencieusement
-    final bytes = f.readAsBytesSync();
+  Future<void> _addPhoto(
+      Archive archive, String cheminRelatif, String pathInZip) async {
+    final bytes = await storage.readBytes(cheminRelatif);
+    if (bytes == null) return; // photo manquante : ignorée silencieusement
     archive.addFile(ArchiveFile(pathInZip, bytes.length, bytes));
   }
 
@@ -115,9 +115,8 @@ class ExportService {
     final archive = Archive();
     for (final z in await zoneRepo.forPlan(planId)) {
       for (final ph in await photoRepo.forZone(z.id)) {
-        final f = storage.resolve(ph.cheminFichier);
-        if (!f.existsSync()) continue;
-        final bytes = f.readAsBytesSync();
+        final bytes = await storage.readBytes(ph.cheminFichier);
+        if (bytes == null) continue;
         final name = '${_safe(plan.nom)}/${_safe(z.nom)}/${ph.datePrise}_${ph.id}.jpg';
         archive.addFile(ArchiveFile(name, bytes.length, bytes));
       }
@@ -132,9 +131,8 @@ class ExportService {
     for (final plan in await planRepo.all()) {
       for (final z in await zoneRepo.forPlan(plan.id)) {
         for (final ph in await photoRepo.forZone(z.id)) {
-          final f = storage.resolve(ph.cheminFichier);
-          if (!f.existsSync()) continue;
-          final bytes = f.readAsBytesSync();
+          final bytes = await storage.readBytes(ph.cheminFichier);
+          if (bytes == null) continue;
           final name = '${_safe(plan.nom)}/${_safe(z.nom)}/${ph.datePrise}_${ph.id}.jpg';
           archive.addFile(ArchiveFile(name, bytes.length, bytes));
         }

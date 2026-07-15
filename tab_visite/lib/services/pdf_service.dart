@@ -4,14 +4,14 @@ import 'package:pdf/widgets.dart' as pw;
 import '../data/repositories/plan_repository.dart';
 import '../data/repositories/zone_repository.dart';
 import '../data/repositories/photo_repository.dart';
-import '../services/file_storage.dart';
+import '../services/photo_store.dart';
 import '../ui/widgets/date_format.dart';
 
 class PdfService {
   final PlanRepository planRepo;
   final ZoneRepository zoneRepo;
   final PhotoRepository photoRepo;
-  final FileStorage storage;
+  final PhotoStore storage;
   PdfService(this.planRepo, this.zoneRepo, this.photoRepo, this.storage);
 
   Future<Uint8List> buildPlanReport(String planId) async {
@@ -19,12 +19,13 @@ class PdfService {
     final plan = plans.firstWhere((p) => p.id == planId);
     final doc = pw.Document();
 
-    final planImg = pw.MemoryImage(storage.resolve(plan.cheminImage).readAsBytesSync());
+    final planBytes = await storage.readBytes(plan.cheminImage);
     final zones = await zoneRepo.forPlan(planId);
 
     final widgets = <pw.Widget>[
       pw.Header(level: 0, child: pw.Text('Rapport de visite — ${plan.nom}')),
-      pw.Center(child: pw.Image(planImg, height: 180)),
+      if (planBytes != null)
+        pw.Center(child: pw.Image(pw.MemoryImage(planBytes), height: 180)),
       pw.SizedBox(height: 12),
     ];
 
@@ -34,13 +35,17 @@ class PdfService {
       if (photos.isEmpty) {
         widgets.add(pw.Text('Aucune photo', style: const pw.TextStyle(fontSize: 10)));
       } else {
-        widgets.add(pw.Wrap(spacing: 8, runSpacing: 8, children: photos.map((ph) {
-          final img = pw.MemoryImage(storage.resolve(ph.cheminFichier).readAsBytesSync());
-          return pw.Column(children: [
-            pw.Image(img, width: 150, height: 110, fit: pw.BoxFit.cover),
+        // Pré-charge les octets de chaque photo (lecture asynchrone du store).
+        final tuiles = <pw.Widget>[];
+        for (final ph in photos) {
+          final bytes = await storage.readBytes(ph.cheminFichier);
+          if (bytes == null) continue;
+          tuiles.add(pw.Column(children: [
+            pw.Image(pw.MemoryImage(bytes), width: 150, height: 110, fit: pw.BoxFit.cover),
             pw.Text(formatDateHeure(ph.datePrise), style: const pw.TextStyle(fontSize: 8)),
-          ]);
-        }).toList()));
+          ]));
+        }
+        widgets.add(pw.Wrap(spacing: 8, runSpacing: 8, children: tuiles));
       }
       widgets.add(pw.SizedBox(height: 10));
     }

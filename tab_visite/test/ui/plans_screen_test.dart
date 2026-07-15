@@ -6,7 +6,7 @@ import 'dart:io';
 import 'package:tab_visite/data/database.dart';
 import 'package:tab_visite/data/models/plan.dart';
 import 'package:tab_visite/services/app_context.dart';
-import 'package:tab_visite/services/file_storage.dart';
+import 'package:tab_visite/services/photo_store_io.dart';
 import 'package:tab_visite/ui/home/plans_screen.dart';
 
 void main() {
@@ -18,7 +18,7 @@ void main() {
   testWidgets('affiche les plans existants', skip: true, (tester) async {
     final db = await AppDatabase.open(path: inMemoryDatabasePath);
     final root = Directory.systemTemp.createTempSync('tv_ui');
-    final ctx = AppContext(db, FileStorage(root));
+    final ctx = AppContext(db, PhotoStoreIo(root));
     await ctx.plans.insert(Plan(id: 'p1', nom: 'Voiture M–Y', cheminImage: 'plans/x.png', ordre: 0, dateCreation: 0));
 
     // runAsync laisse les vraies I/O (base sqflite_ffi) s'exécuter ; on évite

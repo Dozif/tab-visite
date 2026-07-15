@@ -1,13 +1,15 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import '../../data/models/photo.dart';
+import '../../services/photo_store.dart';
 import '../widgets/date_format.dart';
+import '../widgets/photo_image.dart';
 
 class PhotoViewer extends StatelessWidget {
-  final File file;
+  final PhotoStore store;
+  final String storageKey;
   final Photo photo;
   final Future<void> Function() onDelete;
-  const PhotoViewer({super.key, required this.file, required this.photo, required this.onDelete});
+  const PhotoViewer({super.key, required this.store, required this.storageKey, required this.photo, required this.onDelete});
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +45,10 @@ class PhotoViewer extends StatelessWidget {
       body: Center(
         child: InteractiveViewer(
           maxScale: 5,
-          child: Image.file(
-            file,
-            errorBuilder: (_, __, ___) => const Icon(Icons.broken_image,
+          child: PhotoImage(
+            store: store,
+            storageKey: storageKey,
+            errorBuilder: (_) => const Icon(Icons.broken_image,
                 color: Colors.grey, size: 64),
           ),
         ),

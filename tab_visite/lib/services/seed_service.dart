@@ -1,22 +1,23 @@
 import 'dart:convert';
+import 'dart:typed_data';
 import 'package:uuid/uuid.dart';
 import '../data/models/plan.dart';
 import '../data/models/zone.dart';
 import '../data/repositories/plan_repository.dart';
 import '../data/repositories/zone_repository.dart';
-import 'file_storage.dart';
+import 'photo_store.dart';
 
 class SeedService {
   final PlanRepository planRepo;
   final ZoneRepository zoneRepo;
-  final FileStorage storage;
+  final PhotoStore storage;
   final Uuid _uuid = const Uuid();
   SeedService(this.planRepo, this.zoneRepo, this.storage);
 
   Future<void> seedIfEmpty(
       String zonesJson, Future<List<int>> Function(String asset) loadAsset) async {
     if ((await planRepo.all()).isNotEmpty) return;
-    await storage.ensureDirs();
+    await storage.ensureReady();
 
     final data = jsonDecode(zonesJson) as Map<String, Object?>;
     final plans = (data['plans'] as List).cast<Map<String, Object?>>();
@@ -24,10 +25,8 @@ class SeedService {
     // NB: pas de Date.now() — dateCreation dérivée de l'ordre (déterministe).
     for (final entry in plans) {
       final bytes = await loadAsset(entry['image'] as String);
-      final rel = 'plans/${_uuid.v4()}.png';
-      final dest = storage.resolve(rel);
-      await dest.parent.create(recursive: true);
-      await dest.writeAsBytes(bytes);
+      final rel = await storage.importBytes(
+          Uint8List.fromList(bytes), 'plans', 'png');
 
       final planId = _uuid.v4();
       final nom = entry['nom'] as String;

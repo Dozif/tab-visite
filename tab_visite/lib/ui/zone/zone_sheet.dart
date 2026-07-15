@@ -5,6 +5,7 @@ import '../../services/app_context.dart';
 import '../../services/photo_capture_service.dart';
 import '../photo/photo_viewer.dart';
 import '../widgets/date_format.dart';
+import '../widgets/photo_image.dart';
 
 class ZoneSheet extends StatefulWidget {
   final AppContext ctx;
@@ -38,10 +39,12 @@ class _ZoneSheetState extends State<ZoneSheet> {
   Future<void> _ouvrir(Photo p) async {
     await Navigator.push(context, MaterialPageRoute(
       builder: (_) => PhotoViewer(
-        file: widget.ctx.storage.resolve(p.cheminFichier),
+        store: widget.ctx.storage,
+        storageKey: p.cheminFichier,
         photo: p,
         onDelete: () async {
-          await widget.ctx.storage.deleteRelative(p.cheminFichier);
+          await widget.ctx.storage.delete(p.cheminFichier);
+          PhotoImage.evict(p.cheminFichier);
           await widget.ctx.photos.delete(p.id);
         },
       ),
@@ -134,10 +137,11 @@ class _ZoneSheetState extends State<ZoneSheet> {
                                 style: const TextStyle(color: Colors.white, fontSize: 10),
                                 textAlign: TextAlign.center),
                           ),
-                          child: Image.file(
-                              widget.ctx.storage.resolve(p.cheminFichier),
+                          child: PhotoImage(
+                              store: widget.ctx.storage,
+                              storageKey: p.cheminFichier,
                               fit: BoxFit.cover,
-                              errorBuilder: (_, __, ___) => const ColoredBox(
+                              errorBuilder: (_) => const ColoredBox(
                                   color: Colors.black12,
                                   child: Icon(Icons.broken_image,
                                       color: Colors.grey))),
