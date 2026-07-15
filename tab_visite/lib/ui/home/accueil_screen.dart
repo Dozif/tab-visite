@@ -1,12 +1,12 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../data/models/visite.dart';
 import '../../services/app_context.dart';
 import '../../services/export_service.dart';
+import '../../services/reset_service.dart';
 import '../widgets/date_format.dart';
+import '../widgets/photo_image.dart';
 import 'nouvelle_visite_sheet.dart';
 import 'selection_vehicule_screen.dart';
 
@@ -51,32 +51,65 @@ class _AccueilScreenState extends State<AccueilScreen> {
   ExportService get _export =>
       ExportService(ctx.plans, ctx.zones, ctx.photos, ctx.storage);
 
-  Future<void> _exporterVisite(Visite v) => _exporter(
-      (dir) => _export.exportVisiteToZip(v, dir), 'Export de la visite');
+  Future<void> _exporterVisite(Visite v) =>
+      _exporter(() => _export.exportVisiteToZip(v), 'Export de la visite');
 
   Future<void> _exporterTout() => _exporter(
-      (dir) => _export.exportAllVisitesToZip(dir), 'Export de toutes les visites');
+      () => _export.exportAllVisitesToZip(), 'Export de toutes les visites');
 
-  /// Génère le ZIP (avec un indicateur d'attente) puis ouvre le partage Android
-  /// pour l'envoyer vers le PC. Affiche un message en cas d'échec.
-  Future<void> _exporter(
-      Future<File> Function(Directory outDir) run, String libelle) async {
+  /// Génère le ZIP (avec un indicateur d'attente) puis ouvre le partage
+  /// (feuille native / téléchargement) pour l'envoyer. Message en cas d'échec.
+  Future<void> _exporter(Future<ZipExport> Function() run, String libelle) async {
     showDialog<void>(
       context: context,
       barrierDismissible: false,
       builder: (_) => const Center(child: CircularProgressIndicator()),
     );
     try {
-      final dir = await getTemporaryDirectory();
-      final zip = await run(dir);
+      final res = await run();
       if (mounted) Navigator.of(context).pop(); // ferme l'indicateur
-      await Share.shareXFiles([XFile(zip.path)]);
+      await Share.shareXFiles([
+        XFile.fromData(res.bytes,
+            name: res.filename, mimeType: 'application/zip')
+      ], fileNameOverrides: [res.filename]);
     } catch (e) {
       if (mounted) Navigator.of(context).pop();
       if (mounted) {
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text('$libelle : échec ($e)')));
       }
+    }
+  }
+
+  /// Efface visites + photos (après envoi du ZIP). Garde les plans de référence.
+  Future<void> _effacerDonnees() async {
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text('Effacer les données ?'),
+        content: const Text(
+            'Toutes les visites et leurs photos seront supprimées de la '
+            'tablette. Les plans de référence sont conservés.\n\n'
+            'À faire seulement après avoir envoyé le ZIP.'),
+        actions: [
+          TextButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: const Text('Annuler')),
+          FilledButton(
+            style: FilledButton.styleFrom(backgroundColor: Colors.red),
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text('Effacer'),
+          ),
+        ],
+      ),
+    );
+    if (ok != true) return;
+    await ResetService(ctx.db, ctx.storage).clearVisitesEtPhotos();
+    PhotoImage.clearCache();
+    await _load();
+    if (mounted) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Données effacées.')));
     }
   }
 
@@ -107,10 +140,21 @@ class _AccueilScreenState extends State<AccueilScreen> {
               children: [
                 const Text('Visites',
                     style: TextStyle(fontWeight: FontWeight.bold)),
-                TextButton.icon(
-                  onPressed: _visites.isEmpty ? null : _exporterTout,
-                  icon: const Icon(Icons.archive_outlined, size: 18),
-                  label: const Text('Tout exporter'),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TextButton.icon(
+                      onPressed: _visites.isEmpty ? null : _exporterTout,
+                      icon: const Icon(Icons.archive_outlined, size: 18),
+                      label: const Text('Tout exporter'),
+                    ),
+                    TextButton.icon(
+                      onPressed: _visites.isEmpty ? null : _effacerDonnees,
+                      style: TextButton.styleFrom(foregroundColor: Colors.red),
+                      icon: const Icon(Icons.delete_outline, size: 18),
+                      label: const Text('Effacer'),
+                    ),
+                  ],
                 ),
               ],
             ),

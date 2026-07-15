@@ -2,7 +2,6 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:printing/printing.dart';
 import '../../data/models/plan.dart';
@@ -11,6 +10,7 @@ import '../../services/app_context.dart';
 import '../../services/export_service.dart';
 import '../../services/pdf_service.dart';
 import '../zone/zone_sheet.dart';
+import '../widgets/photo_image.dart';
 import 'zone_overlay.dart';
 import 'zone_editor_controller.dart';
 
@@ -38,8 +38,8 @@ class _PlanViewScreenState extends State<PlanViewScreen> {
   }
 
   Future<void> _resolveImageSize() async {
-    final file = ctx.storage.resolve(widget.plan.cheminImage);
-    final bytes = await file.readAsBytes();
+    final bytes = await ctx.storage.readBytes(widget.plan.cheminImage);
+    if (bytes == null) return;
     final codec = await ui.instantiateImageCodec(bytes);
     final frame = await codec.getNextFrame();
     if (mounted) {
@@ -127,10 +127,12 @@ class _PlanViewScreenState extends State<PlanViewScreen> {
             icon: const Icon(Icons.folder_zip),
             tooltip: 'Exporter les photos',
             onPressed: () async {
-              final dir = await getTemporaryDirectory();
-              final zip = await ExportService(ctx.plans, ctx.zones, ctx.photos, ctx.storage)
-                  .exportPlanToZip(widget.plan.id, dir);
-              await Share.shareXFiles([XFile(zip.path)]);
+              final res = await ExportService(ctx.plans, ctx.zones, ctx.photos, ctx.storage)
+                  .exportPlanToZip(widget.plan.id);
+              await Share.shareXFiles([
+                XFile.fromData(res.bytes,
+                    name: res.filename, mimeType: 'application/zip')
+              ], fileNameOverrides: [res.filename]);
             },
           ),
           IconButton(
@@ -162,9 +164,11 @@ class _PlanViewScreenState extends State<PlanViewScreen> {
                       return Stack(
                         fit: StackFit.expand,
                         children: [
-                          Image.file(ctx.storage.resolve(widget.plan.cheminImage),
+                          PhotoImage(
+                              store: ctx.storage,
+                              storageKey: widget.plan.cheminImage,
                               fit: BoxFit.fill,
-                              errorBuilder: (_, __, ___) => const ColoredBox(
+                              errorBuilder: (_) => const ColoredBox(
                                   color: Colors.black12,
                                   child: Center(
                                       child: Icon(Icons.broken_image,

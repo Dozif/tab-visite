@@ -4,7 +4,7 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:tab_visite/data/database.dart';
 import 'package:tab_visite/data/repositories/plan_repository.dart';
 import 'package:tab_visite/data/repositories/zone_repository.dart';
-import 'package:tab_visite/services/file_storage.dart';
+import 'package:tab_visite/services/photo_store_io.dart';
 import 'package:tab_visite/services/seed_service.dart';
 
 void main() {
@@ -13,7 +13,8 @@ void main() {
   test('seedIfEmpty crée plans + zones une seule fois', () async {
     final db = await AppDatabase.open(path: inMemoryDatabasePath);
     final root = Directory.systemTemp.createTempSync('tv_seed');
-    final storage = FileStorage(root)..ensureDirs();
+    final storage = PhotoStoreIo(root);
+    await storage.ensureReady();
     final planRepo = PlanRepository(db);
     final service = SeedService(planRepo, ZoneRepository(db), storage);
 
@@ -26,7 +27,7 @@ void main() {
 
     final plans = await planRepo.all();
     expect(plans.length, 1);
-    expect(storage.resolve(plans.first.cheminImage).existsSync(), isTrue);
+    expect(await storage.readBytes(plans.first.cheminImage), isNotNull);
     root.deleteSync(recursive: true);
   });
 }

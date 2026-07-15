@@ -1,0 +1,38 @@
+name: Deploy Web (GitHub Pages)
+
+# Construit l'app Flutter Web et la publie sur la branche gh-pages à chaque
+# push sur master (ou manuellement). URL : https://dozif.github.io/tab-visite/
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'tab_visite/**'
+      - '.github/workflows/deploy-web.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: 3.44.6
+
+      - name: Build web
+        working-directory: tab_visite
+        run: |
+          flutter pub get
+          flutter build web --release --base-href /tab-visite/
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: tab_visite/build/web
+          publish_branch: gh-pages

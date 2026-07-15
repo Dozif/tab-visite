@@ -12,7 +12,6 @@ tab_visite/ios/
 tab_visite/linux/
 tab_visite/macos/
 tab_visite/windows/
-tab_visite/web/
 tab_visite/.dart_tool/
 tab_visite/build/
 tab_visite/.flutter-plugins*
