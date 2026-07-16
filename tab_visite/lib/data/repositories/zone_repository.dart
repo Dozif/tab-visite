@@ -19,6 +19,13 @@ class ZoneRepository {
   Future<void> delete(String id) =>
       db.delete('zones', where: 'id = ?', whereArgs: [id]);
 
+  /// La zone existe-t-elle encore ? (utile avant de rattacher une photo récupérée)
+  Future<bool> exists(String id) async {
+    final rows =
+        await db.query('zones', columns: ['id'], where: 'id = ?', whereArgs: [id], limit: 1);
+    return rows.isNotEmpty;
+  }
+
   Future<List<Zone>> searchByName(String q) async {
     final rows = await db.query('zones',
         where: 'nom LIKE ?', whereArgs: ['%$q%'], orderBy: 'nom ASC');

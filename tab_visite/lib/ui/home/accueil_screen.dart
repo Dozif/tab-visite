@@ -4,6 +4,7 @@ import 'package:share_plus/share_plus.dart';
 import '../../data/models/visite.dart';
 import '../../services/app_context.dart';
 import '../../services/export_service.dart';
+import '../../services/photo_capture_service.dart';
 import '../../services/reset_service.dart';
 import '../widgets/date_format.dart';
 import '../widgets/photo_image.dart';
@@ -25,11 +26,26 @@ class _AccueilScreenState extends State<AccueilScreen> {
   void initState() {
     super.initState();
     _load();
+    _recupererPhotoPerdue();
   }
 
   Future<void> _load() async {
     final v = await ctx.visites.all();
     if (mounted) setState(() => _visites = v);
+  }
+
+  /// Récupère une photo dont l'app a été tuée par Android pendant la prise de
+  /// vue (voir [PhotoCaptureService.recoverLostPhoto]). Android uniquement.
+  Future<void> _recupererPhotoPerdue() async {
+    final service = PhotoCaptureService(
+        ctx.photos, ctx.storage, ctx.zones, ctx.visites, ctx.pending);
+    final recuperee = await service
+        .recoverLostPhoto(DateTime.now().millisecondsSinceEpoch);
+    if (recuperee && mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Une photo prise a été récupérée et enregistrée.')));
+      await _load();
+    }
   }
 
   Future<void> _nouvelleVisite() async {

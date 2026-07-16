@@ -30,9 +30,19 @@ class _ZoneSheetState extends State<ZoneSheet> {
   }
 
   Future<void> _ajouterPhoto() async {
-    final service = PhotoCaptureService(widget.ctx.photos, widget.ctx.storage);
-    await service.capture(widget.zone.id, DateTime.now().millisecondsSinceEpoch,
-        visiteId: widget.visiteId);
+    final service = PhotoCaptureService(widget.ctx.photos, widget.ctx.storage,
+        widget.ctx.zones, widget.ctx.visites, widget.ctx.pending);
+    try {
+      await service.capture(
+          widget.zone.id, DateTime.now().millisecondsSinceEpoch,
+          visiteId: widget.visiteId);
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content:
+                Text('Échec de l\'enregistrement de la photo. Réessayez.')));
+      }
+    }
     await _load();
   }
 
