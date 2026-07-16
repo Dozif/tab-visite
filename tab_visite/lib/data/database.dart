@@ -4,7 +4,7 @@ class AppDatabase {
   static Future<Database> open({String? path}) async {
     return openDatabase(
       path ?? 'tab_visite.db',
-      version: 4,
+      version: 5,
       onConfigure: (db) => db.execute('PRAGMA foreign_keys = ON'),
       onCreate: (db, version) async {
         await db.execute('''
@@ -49,6 +49,16 @@ class AppDatabase {
             FOREIGN KEY(zone_id) REFERENCES zones(id) ON DELETE CASCADE,
             FOREIGN KEY(visite_id) REFERENCES visites(id) ON DELETE CASCADE
           )''');
+        // Contexte de la capture photo en cours (zone/visite), persisté avant
+        // de lancer la caméra pour survivre à une éventuelle destruction de
+        // l'app par Android ; une seule ligne à la fois.
+        await db.execute('''
+          CREATE TABLE pending_capture(
+            id INTEGER PRIMARY KEY,
+            zone_id TEXT NOT NULL,
+            visite_id TEXT,
+            date INTEGER NOT NULL
+          )''');
         await db.execute('CREATE INDEX idx_zones_plan ON zones(plan_id)');
         await db.execute('CREATE INDEX idx_photos_zone ON photos(zone_id)');
         await db.execute('CREATE INDEX idx_photos_visite ON photos(visite_id)');
@@ -86,6 +96,17 @@ class AppDatabase {
         if (oldVersion < 4) {
           await db.execute(
               "ALTER TABLE visites ADD COLUMN niveau TEXT NOT NULL DEFAULT '2N'");
+        }
+        // v4 -> v5 : contexte de capture en attente (récupération d'une photo
+        // dont l'app a été tuée par Android pendant la prise de vue).
+        if (oldVersion < 5) {
+          await db.execute('''
+            CREATE TABLE pending_capture(
+              id INTEGER PRIMARY KEY,
+              zone_id TEXT NOT NULL,
+              visite_id TEXT,
+              date INTEGER NOT NULL
+            )''');
         }
       },
     );

@@ -34,6 +34,11 @@ jobs:
         run: |
           sed -i 's#<application#<uses-feature android:name="android.hardware.camera" android:required="false"/>\n    <application#' android/app/src/main/AndroidManifest.xml
 
+      - name: Enable largeHeap (réduit les kills pendant la caméra)
+        working-directory: tab_visite
+        run: |
+          sed -i 's#android:label="tab_visite"#android:label="tab_visite" android:largeHeap="true"#' android/app/src/main/AndroidManifest.xml
+
       - run: flutter pub get
         working-directory: tab_visite
 

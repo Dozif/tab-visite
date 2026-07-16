@@ -124,7 +124,7 @@ class _PlansScreenState extends State<PlansScreen> {
                         context,
                         MaterialPageRoute(
                             builder: (_) => PlanViewScreen(
-                                plan: plan, visiteId: widget.visite?.id)));
+                                plan: plan, visite: widget.visite)));
                     _load();
                   },
                   onLongPress: () async {

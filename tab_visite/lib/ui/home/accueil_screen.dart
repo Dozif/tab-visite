@@ -4,9 +4,11 @@ import 'package:share_plus/share_plus.dart';
 import '../../data/models/visite.dart';
 import '../../services/app_context.dart';
 import '../../services/export_service.dart';
+import '../../services/photo_capture_service.dart';
 import '../../services/reset_service.dart';
 import '../widgets/date_format.dart';
 import '../widgets/photo_image.dart';
+import '../settings/parametrage_plans_screen.dart';
 import 'nouvelle_visite_sheet.dart';
 import 'selection_vehicule_screen.dart';
 
@@ -25,6 +27,7 @@ class _AccueilScreenState extends State<AccueilScreen> {
   void initState() {
     super.initState();
     _load();
+    _recupererPhotoPerdue();
   }
 
   Future<void> _load() async {
@@ -32,11 +35,27 @@ class _AccueilScreenState extends State<AccueilScreen> {
     if (mounted) setState(() => _visites = v);
   }
 
+  /// Récupère une photo dont l'app a été tuée par Android pendant la prise de
+  /// vue (voir [PhotoCaptureService.recoverLostPhoto]). Android uniquement.
+  Future<void> _recupererPhotoPerdue() async {
+    final service = PhotoCaptureService(
+        ctx.photos, ctx.storage, ctx.zones, ctx.visites, ctx.pending);
+    final recuperee = await service
+        .recoverLostPhoto(DateTime.now().millisecondsSinceEpoch);
+    if (recuperee && mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Une photo prise a été récupérée et enregistrée.')));
+      await _load();
+    }
+  }
+
   Future<void> _nouvelleVisite() async {
-    final visite = await showNouvelleVisite(context, ctx);
-    if (visite == null) return;
+    final visites = await showNouvelleVisite(context, ctx);
+    if (visites.isEmpty) return;
     await _load();
-    _ouvrir(visite);
+    // Une seule visite : on l'ouvre directement (choix véhicule → plans).
+    // Plusieurs : on reste sur l'accueil, elles apparaissent dans la liste.
+    if (visites.length == 1) _ouvrir(visites.first);
   }
 
   Future<void> _ouvrir(Visite v) async {
@@ -81,6 +100,41 @@ class _AccueilScreenState extends State<AccueilScreen> {
     }
   }
 
+  /// Supprime une seule visite et ses photos (après confirmation).
+  Future<void> _supprimerVisite(Visite v) async {
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text('Supprimer cette visite ?'),
+        content: Text(
+            'La visite « Rame ${v.numeroRame} — ${TypeVisite.libelle(v.typeVisite)} '
+            '(${v.niveau}) » et toutes ses photos seront supprimées de la '
+            'tablette. Les autres visites sont conservées.\n\n'
+            'Cette action est irréversible.'),
+        actions: [
+          TextButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: const Text('Annuler')),
+          FilledButton(
+            style: FilledButton.styleFrom(backgroundColor: Colors.red),
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text('Supprimer'),
+          ),
+        ],
+      ),
+    );
+    if (ok != true) return;
+    final cles = await ResetService(ctx.db, ctx.storage).deleteVisite(v.id);
+    for (final k in cles) {
+      PhotoImage.evict(k);
+    }
+    await _load();
+    if (mounted) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Visite supprimée.')));
+    }
+  }
+
   /// Efface visites + photos (après envoi du ZIP). Garde les plans de référence.
   Future<void> _effacerDonnees() async {
     final ok = await showDialog<bool>(
@@ -118,7 +172,25 @@ class _AccueilScreenState extends State<AccueilScreen> {
     return Scaffold(
       body: Column(
         children: [
-          const _Banniere(),
+          Stack(
+            children: [
+              const _Banniere(),
+              Positioned(
+                top: 0,
+                right: 0,
+                child: SafeArea(
+                  child: IconButton(
+                    icon: const Icon(Icons.settings, color: Colors.white),
+                    tooltip: 'Paramétrage des points',
+                    onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => const ParametragePlansScreen())),
+                  ),
+                ),
+              ),
+            ],
+          ),
           Padding(
             padding: const EdgeInsets.all(16),
             child: SizedBox(
@@ -181,11 +253,16 @@ class _AccueilScreenState extends State<AccueilScreen> {
                         trailing: PopupMenuButton<String>(
                           onSelected: (s) {
                             if (s == 'export') _exporterVisite(v);
+                            if (s == 'supprimer') _supprimerVisite(v);
                           },
                           itemBuilder: (_) => const [
                             PopupMenuItem(
                                 value: 'export',
                                 child: Text('Exporter cette visite')),
+                            PopupMenuItem(
+                                value: 'supprimer',
+                                child: Text('Supprimer cette visite',
+                                    style: TextStyle(color: Colors.red))),
                           ],
                         ),
                         onTap: () => _ouvrir(v),

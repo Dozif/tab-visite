@@ -24,4 +24,11 @@ class VisiteRepository {
 
   Future<void> delete(String id) =>
       db.delete('visites', where: 'id = ?', whereArgs: [id]);
+
+  /// La visite existe-t-elle encore ? (utile avant de rattacher une photo récupérée)
+  Future<bool> exists(String id) async {
+    final rows = await db.query('visites',
+        columns: ['id'], where: 'id = ?', whereArgs: [id], limit: 1);
+    return rows.isNotEmpty;
+  }
 }
