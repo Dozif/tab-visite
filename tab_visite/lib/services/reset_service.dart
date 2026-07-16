@@ -26,4 +26,25 @@ class ResetService {
     await db.delete('visites');
     return cles;
   }
+
+  /// Supprime **une seule** visite et ses photos (fichiers/blobs + lignes),
+  /// sans toucher aux autres visites. Renvoie les clés des images supprimées
+  /// (pour vider un cache d'affichage).
+  Future<List<String>> deleteVisite(String visiteId) async {
+    final rows = await db.query('photos',
+        columns: ['chemin_fichier'],
+        where: 'visite_id = ?',
+        whereArgs: [visiteId]);
+    final cles = <String>[];
+    for (final r in rows) {
+      final key = r['chemin_fichier'] as String?;
+      if (key != null) {
+        await storage.delete(key);
+        cles.add(key);
+      }
+    }
+    await db.delete('photos', where: 'visite_id = ?', whereArgs: [visiteId]);
+    await db.delete('visites', where: 'id = ?', whereArgs: [visiteId]);
+    return cles;
+  }
 }

@@ -5,6 +5,7 @@ import 'package:uuid/uuid.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:printing/printing.dart';
 import '../../data/models/plan.dart';
+import '../../data/models/visite.dart';
 import '../../data/models/zone.dart';
 import '../../services/app_context.dart';
 import '../../services/export_service.dart';
@@ -16,8 +17,8 @@ import 'zone_editor_controller.dart';
 
 class PlanViewScreen extends StatefulWidget {
   final Plan plan;
-  final String? visiteId; // visite en cours (null hors d'une visite)
-  const PlanViewScreen({super.key, required this.plan, this.visiteId});
+  final Visite? visite; // visite en cours (null hors d'une visite)
+  const PlanViewScreen({super.key, required this.plan, this.visite});
   @override
   State<PlanViewScreen> createState() => _PlanViewScreenState();
 }
@@ -25,6 +26,9 @@ class PlanViewScreen extends StatefulWidget {
 class _PlanViewScreenState extends State<PlanViewScreen> {
   late final AppContext ctx = context.read<AppContext>();
   final ZoneEditorController editor = ZoneEditorController();
+  late Plan _plan = widget.plan; // dessin courant (change avec ◀ ▶)
+  List<Plan> _freres = []; // tous les dessins de la visite, dans l'ordre
+  int _index = 0; // position de _plan dans _freres
   List<Zone> _zones = [];
   Set<String> _avecPhotos = {};
   Size? _imageSize;
@@ -33,12 +37,44 @@ class _PlanViewScreenState extends State<PlanViewScreen> {
   void initState() {
     super.initState();
     editor.addListener(() => setState(() {}));
+    _chargerFreres();
     _resolveImageSize();
     _load();
   }
 
+  /// Charge la liste ordonnée des dessins parcourables avec ◀ ▶ : ceux de la
+  /// visite (type + niveau), ou tous les plans en accès direct.
+  Future<void> _chargerFreres() async {
+    final freres = widget.visite == null
+        ? await ctx.plans.all()
+        : await ctx.plans
+            .forTypeVisite(widget.visite!.typeVisite, widget.visite!.niveau);
+    final idx = freres.indexWhere((p) => p.id == _plan.id);
+    if (mounted) {
+      setState(() {
+        _freres = freres;
+        _index = idx < 0 ? 0 : idx;
+      });
+    }
+  }
+
+  /// Bascule vers le dessin d'index [i] (recharge image + zones).
+  Future<void> _allerVers(int i) async {
+    if (i < 0 || i >= _freres.length) return;
+    if (editor.editing) editor.toggle(); // sort du mode édition avant de changer
+    setState(() {
+      _index = i;
+      _plan = _freres[i];
+      _imageSize = null;
+      _zones = [];
+      _avecPhotos = {};
+    });
+    await _resolveImageSize();
+    await _load();
+  }
+
   Future<void> _resolveImageSize() async {
-    final bytes = await ctx.storage.readBytes(widget.plan.cheminImage);
+    final bytes = await ctx.storage.readBytes(_plan.cheminImage);
     if (bytes == null) return;
     final codec = await ui.instantiateImageCodec(bytes);
     final frame = await codec.getNextFrame();
@@ -48,9 +84,23 @@ class _PlanViewScreenState extends State<PlanViewScreen> {
     }
   }
 
+  /// Persiste tous les points du dessin courant et confirme. Les déplacements
+  /// sont déjà sauvegardés au fil de l'eau ; ce bouton garantit l'écriture de
+  /// l'état final et donne un retour visuel « enregistré ».
+  Future<void> _enregistrerPoints() async {
+    for (final z in _zones) {
+      await ctx.zones.update(z);
+    }
+    editor.toggle(); // sort du mode édition
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('✓ Points enregistrés')));
+    }
+  }
+
   Future<void> _load() async {
-    final zones = await ctx.zones.forPlan(widget.plan.id);
-    final counts = await ctx.photos.countsForPlanZones(widget.plan.id);
+    final zones = await ctx.zones.forPlan(_plan.id);
+    final counts = await ctx.photos.countsForPlanZones(_plan.id);
     if (mounted) {
       setState(() {
         _zones = zones;
@@ -68,7 +118,7 @@ class _PlanViewScreenState extends State<PlanViewScreen> {
     await showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      builder: (_) => ZoneSheet(ctx: ctx, zone: z, visiteId: widget.visiteId),
+      builder: (_) => ZoneSheet(ctx: ctx, zone: z, visiteId: widget.visite?.id),
     );
     _load();
   }
@@ -114,21 +164,41 @@ class _PlanViewScreenState extends State<PlanViewScreen> {
   @override
   Widget build(BuildContext context) {
     final size = _imageSize;
+    final aPrecedent = _index > 0;
+    final aSuivant = _index < _freres.length - 1;
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.plan.nom),
+        title: Text(_plan.nom),
         actions: [
           IconButton(
-            icon: Icon(editor.editing ? Icons.check : Icons.edit_location_alt),
-            tooltip: editor.editing ? 'Terminer l\'édition' : 'Mode édition',
-            onPressed: editor.toggle,
+            icon: const Icon(Icons.home),
+            tooltip: 'Retour à l\'accueil',
+            onPressed: () => Navigator.of(context).popUntil((r) => r.isFirst),
+          ),
+          const SizedBox(width: 8),
+          IconButton(
+            icon: const Icon(Icons.chevron_left),
+            tooltip: 'Dessin précédent',
+            onPressed: aPrecedent ? () => _allerVers(_index - 1) : null,
+          ),
+          IconButton(
+            icon: const Icon(Icons.chevron_right),
+            tooltip: 'Dessin suivant',
+            onPressed: aSuivant ? () => _allerVers(_index + 1) : null,
+          ),
+          const SizedBox(width: 8),
+          IconButton(
+            icon: Icon(editor.editing ? Icons.save : Icons.edit_location_alt),
+            tooltip:
+                editor.editing ? 'Enregistrer les points' : 'Modifier les points',
+            onPressed: editor.editing ? _enregistrerPoints : editor.toggle,
           ),
           IconButton(
             icon: const Icon(Icons.folder_zip),
             tooltip: 'Exporter les photos',
             onPressed: () async {
               final res = await ExportService(ctx.plans, ctx.zones, ctx.photos, ctx.storage)
-                  .exportPlanToZip(widget.plan.id);
+                  .exportPlanToZip(_plan.id);
               await Share.shareXFiles([
                 XFile.fromData(res.bytes,
                     name: res.filename, mimeType: 'application/zip')
@@ -140,8 +210,8 @@ class _PlanViewScreenState extends State<PlanViewScreen> {
             tooltip: 'Rapport PDF',
             onPressed: () async {
               final bytes = await PdfService(ctx.plans, ctx.zones, ctx.photos, ctx.storage)
-                  .buildPlanReport(widget.plan.id);
-              await Printing.sharePdf(bytes: bytes, filename: 'rapport_${widget.plan.nom}.pdf');
+                  .buildPlanReport(_plan.id);
+              await Printing.sharePdf(bytes: bytes, filename: 'rapport_${_plan.nom}.pdf');
             },
           ),
         ],
@@ -166,7 +236,7 @@ class _PlanViewScreenState extends State<PlanViewScreen> {
                         children: [
                           PhotoImage(
                               store: ctx.storage,
-                              storageKey: widget.plan.cheminImage,
+                              storageKey: _plan.cheminImage,
                               fit: BoxFit.fill,
                               errorBuilder: (_) => const ColoredBox(
                                   color: Colors.black12,
@@ -221,7 +291,7 @@ class _PlanViewScreenState extends State<PlanViewScreen> {
     if (nom == null || nom.isEmpty) return;
     final now = DateTime.now().millisecondsSinceEpoch;
     await ctx.zones.insert(Zone(
-      id: const Uuid().v4(), planId: widget.plan.id, nom: nom,
+      id: const Uuid().v4(), planId: _plan.id, nom: nom,
       x: 0.45, y: 0.45, largeur: 0.1, hauteur: 0.1, dateCreation: now,
     ));
     _load();

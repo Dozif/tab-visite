@@ -26,15 +26,38 @@ class ZoneOverlay extends StatelessWidget {
     required this.onCommit,
   });
 
+  /// Libellé du point (nom de la zone) : lettres noires nettes + contour blanc
+  /// (halo) pour rester lisible même sur les zones chargées du dessin.
+  Widget _label(String nom) {
+    return FittedBox(
+      child: Stack(
+        children: [
+          Text(nom,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                foreground: Paint()
+                  ..style = PaintingStyle.stroke
+                  ..strokeWidth = 3
+                  ..strokeJoin = StrokeJoin.round
+                  ..color = Colors.white,
+              )),
+          Text(nom,
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold, color: Colors.black)),
+        ],
+      ),
+    );
+  }
+
   Widget _buildZone(Zone z, Color color, bool selected) {
     final body = Container(
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: color.withOpacity(0.25),
+        color: color.withValues(alpha: 0.25),
         border: Border.all(color: selected ? Colors.blue : color, width: selected ? 3 : 2),
         borderRadius: BorderRadius.circular(4),
       ),
-      child: FittedBox(child: Text(z.nom, style: const TextStyle(fontWeight: FontWeight.bold))),
+      child: _label(z.nom),
     );
     if (!editing) {
       return GestureDetector(onTap: () => onTap(z), child: body);
