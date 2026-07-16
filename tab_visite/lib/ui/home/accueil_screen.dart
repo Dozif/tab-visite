@@ -49,10 +49,12 @@ class _AccueilScreenState extends State<AccueilScreen> {
   }
 
   Future<void> _nouvelleVisite() async {
-    final visite = await showNouvelleVisite(context, ctx);
-    if (visite == null) return;
+    final visites = await showNouvelleVisite(context, ctx);
+    if (visites.isEmpty) return;
     await _load();
-    _ouvrir(visite);
+    // Une seule visite : on l'ouvre directement (choix véhicule → plans).
+    // Plusieurs : on reste sur l'accueil, elles apparaissent dans la liste.
+    if (visites.length == 1) _ouvrir(visites.first);
   }
 
   Future<void> _ouvrir(Visite v) async {
