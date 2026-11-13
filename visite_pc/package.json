@@ -1,6 +1,6 @@
 {
   "name": "visite-pc",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Consultation/archivage des visites de corrosion (import des exports tablette).",
   "author": "Franck",
   "main": "./out/main/index.js",
