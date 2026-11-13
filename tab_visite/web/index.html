@@ -39,6 +39,17 @@
       navigator.storage.persist();
     }
   </script>
+  <!-- Service worker hors-ligne (généré au build par tool/generate_sw.dart) :
+       met toute l'app en cache pour qu'elle démarre sans réseau. -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('sw.js').catch(function (e) {
+          console.warn('Service worker non enregistré :', e);
+        });
+      });
+    }
+  </script>
 </head>
 <body>
   <!--
