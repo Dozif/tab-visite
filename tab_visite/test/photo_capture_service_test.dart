@@ -89,6 +89,23 @@ void main() {
     expect(await pending.get(), isNull);
   });
 
+  test('enregistrer (caméra intégrée web) : stocke les octets et rattache zone/visite',
+      () async {
+    final (service, picker, photos, pending) = await build();
+
+    final photo = await service.enregistrer(
+        Uint8List.fromList([7, 8, 9]), 'z1', 2000, visiteId: null);
+
+    expect(photo.zoneId, 'z1');
+    expect(photo.datePrise, 2000);
+    final enBase = await photos.forZone('z1');
+    expect(enBase.single.id, photo.id);
+    expect(await service.storage.readBytes(photo.cheminFichier),
+        Uint8List.fromList([7, 8, 9]));
+    // N'utilise pas le pending (pas d'appli caméra externe).
+    expect(await pending.get(), isNull);
+  });
+
   test('annulation (pickImage null) vide le pending et renvoie null', () async {
     final (service, picker, photos, pending) = await build();
     picker.pickResult = null; // utilisateur annule

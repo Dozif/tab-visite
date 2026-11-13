@@ -1,3 +1,4 @@
+import 'dart:typed_data';
 import 'package:flutter/foundation.dart'
     show kIsWeb, defaultTargetPlatform, TargetPlatform;
 import 'package:image_picker/image_picker.dart';
@@ -45,7 +46,18 @@ class PhotoCaptureService {
       await pending.clear(); // annulation : rien à récupérer
       return null;
     }
-    final rel = await storage.importBytes(await x.readAsBytes(), 'photos', 'jpg');
+    final photo = await enregistrer(await x.readAsBytes(), zoneId, nowMs,
+        visiteId: visiteId);
+    await pending.clear();
+    return photo;
+  }
+
+  /// Enregistre une photo déjà prise ([bytes] JPEG) et l'associe à [zoneId]
+  /// (et à [visiteId]). Utilisé tel quel par la caméra intégrée du web, qui ne
+  /// passe pas par l'appli Appareil photo d'Android (donc pas de pending).
+  Future<Photo> enregistrer(Uint8List bytes, String zoneId, int nowMs,
+      {String? visiteId}) async {
+    final rel = await storage.importBytes(bytes, 'photos', 'jpg');
     final photo = Photo(
       id: _uuid.v4(),
       zoneId: zoneId,
@@ -55,7 +67,6 @@ class PhotoCaptureService {
       visiteId: visiteId,
     );
     await photoRepo.insert(photo);
-    await pending.clear();
     return photo;
   }
 

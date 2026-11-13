@@ -1,8 +1,10 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import '../../data/models/photo.dart';
 import '../../data/models/zone.dart';
 import '../../services/app_context.dart';
 import '../../services/photo_capture_service.dart';
+import '../photo/camera_capture_screen.dart';
 import '../photo/photo_viewer.dart';
 import '../widgets/date_format.dart';
 import '../widgets/photo_image.dart';
@@ -33,6 +35,26 @@ class _ZoneSheetState extends State<ZoneSheet> {
     final service = PhotoCaptureService(widget.ctx.photos, widget.ctx.storage,
         widget.ctx.zones, widget.ctx.visites, widget.ctx.pending);
     try {
+      if (kIsWeb) {
+        // Web : caméra intégrée à la page (voir CameraCaptureScreen), pour ne
+        // pas dépendre de l'appli Appareil photo d'Android.
+        final res = await Navigator.push<CameraCaptureResult>(context,
+            MaterialPageRoute(builder: (_) => const CameraCaptureScreen()));
+        if (res == null) return; // fermé sans photo
+        final bytes = res.bytes;
+        if (bytes != null) {
+          await service.enregistrer(
+              bytes, widget.zone.id, DateTime.now().millisecondsSinceEpoch,
+              visiteId: widget.visiteId);
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content: Text('Photo enregistrée.'),
+                duration: Duration(seconds: 2)));
+          }
+          return;
+        }
+        // Repli : caméra intégrée indisponible -> appareil photo du système.
+      }
       await service.capture(
           widget.zone.id, DateTime.now().millisecondsSinceEpoch,
           visiteId: widget.visiteId);
@@ -42,8 +64,9 @@ class _ZoneSheetState extends State<ZoneSheet> {
             content:
                 Text('Échec de l\'enregistrement de la photo. Réessayez.')));
       }
+    } finally {
+      await _load();
     }
-    await _load();
   }
 
   Future<void> _ouvrir(Photo p) async {
