@@ -4,7 +4,7 @@ import { join } from 'node:path'
 import { writeFileSync } from 'node:fs'
 import { importZip } from './import.js'
 import { loadLibrary, saveLibrary } from './library.js'
-import { setPoint, numeroRapport, buildRapport } from '../shared/rapport.js'
+import { setPoint, setPhotoExclue, numeroRapport, buildRapport } from '../shared/rapport.js'
 import { renderRapportHtml, footerTemplate } from './rapportHtml.js'
 import { genererPdf, ouvrirApercu } from './rapportPdf.js'
 
@@ -61,6 +61,9 @@ export function registerIpc(libraryDir) {
     else delete legendes[photoId]
     return { ...lib, legendes }
   }))
+
+  ipcMain.handle('photo:exclure', (_e, { photoId, exclue }) =>
+    modifier((lib) => setPhotoExclue(lib, photoId, exclue)))
 
   ipcMain.handle('rapport:apercu', async (_e, opts) => {
     const { rapport } = preparer(opts)

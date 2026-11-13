@@ -4,7 +4,7 @@ import RameScreen from './screens/RameScreen.jsx'
 import './styles.css'
 
 export default function App() {
-  const [lib, setLib] = useState({ version: 2, visites: [], photos: [], points: [], legendes: {}, reglages: {} })
+  const [lib, setLib] = useState({ version: 2, visites: [], photos: [], points: [], legendes: {}, photosExclues: [], reglages: {} })
   const [rame, setRame] = useState(null)
   const [message, setMessage] = useState('')
 

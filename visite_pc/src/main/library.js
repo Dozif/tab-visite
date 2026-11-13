@@ -5,8 +5,9 @@ import { join } from 'node:path'
 // réimport de visite (qui remplace ses photos) ne les efface jamais.
 //   points   : [{ visiteId, plan, zone, gravite, tempsChaud, tempsPeinture, commentaire, inclusion, marque }]
 //   legendes : { <photoId>: texte }
+//   photosExclues : [<photoId>] photos décochées « Dans le rapport »
 //   reglages : { redacteur, dernierNumero: { <prefixe>: n } }
-const EMPTY = { version: 3, visites: [], photos: [], points: [], legendes: {}, reglages: {} }
+const EMPTY = { version: 3, visites: [], photos: [], points: [], legendes: {}, photosExclues: [], reglages: {} }
 
 export function libraryFile(libraryDir) {
   return join(libraryDir, 'library.json')
@@ -43,6 +44,7 @@ export function migrateLibrary(lib) {
     photos: lib.photos ?? [],
     points: (lib.points ?? []).map(migrerPoint),
     legendes: lib.legendes ?? {},
+    photosExclues: lib.photosExclues ?? [],
     reglages: lib.reglages ?? {}
   }
 }
