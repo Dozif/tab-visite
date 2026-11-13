@@ -1,7 +1,7 @@
 // Généré par tool/generate_sw.dart — ne pas modifier à la main.
 'use strict';
 
-const VERSION = 'c035c0aa';
+const VERSION = '222367b9';
 const CACHE = 'tab-visite-' + VERSION;
 const RUNTIME = 'tab-visite-runtime';
 const ASSETS = [
