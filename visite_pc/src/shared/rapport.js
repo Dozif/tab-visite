@@ -1,0 +1,177 @@
+// Modèle du rapport de corrosion : saisies par point, inclusion, tri,
+// totaux, numérotation. Module PUR (aucun accès disque, aucune API Electron) :
+// utilisé par le processus principal (génération PDF) et par l'interface.
+
+export const GRAVITES = ['critique', 'moyenne', 'mineure']
+
+export const LIBELLE_GRAVITE = {
+  critique: 'Critique', moyenne: 'Moyenne', mineure: 'Mineure'
+}
+
+export const PERIMETRE = {
+  MKBAM: 'Motrices', MKBDR: 'Remorques', MKBAR: 'Remorques (autre série)'
+}
+
+const ORDRE_TYPE = ['MKBAM', 'MKBDR', 'MKBAR']
+
+const rang = (liste, v) => {
+  const i = liste.indexOf(v)
+  return i < 0 ? liste.length : i
+}
+
+// 'dd/MM/yyyy' -> Date (pour comparer/trier).
+function parseFr(d) {
+  const [j, m, a] = String(d).split(' ')[0].split('/').map(Number)
+  return new Date(a || 1970, (m || 1) - 1, j || 1)
+}
+
+const deux = (n) => String(n).padStart(2, '0')
+const dateFr = (d) => `${deux(d.getDate())}/${deux(d.getMonth() + 1)}/${d.getFullYear()}`
+
+const memePoint = (p, visiteId, plan, zone) =>
+  p.visiteId === visiteId && p.plan === plan && p.zone === zone
+
+export function findPoint(lib, visiteId, plan, zone) {
+  return (lib.points ?? []).find((p) => memePoint(p, visiteId, plan, zone)) ?? null
+}
+
+/** Crée ou met à jour un point ; renvoie une NOUVELLE bibliothèque. */
+export function setPoint(lib, { visiteId, plan, zone, ...patch }) {
+  const points = [...(lib.points ?? [])]
+  const i = points.findIndex((p) => memePoint(p, visiteId, plan, zone))
+  const avant = i >= 0 ? points[i] : {
+    visiteId, plan, zone, gravite: null, tempsH: null, commentaire: '', inclusion: 'auto'
+  }
+  const apres = { ...avant, ...patch }
+  if (i >= 0) points[i] = apres
+  else points.push(apres)
+  return { ...lib, points }
+}
+
+const aTemps = (p) => p?.tempsH !== null && p?.tempsH !== undefined && Number.isFinite(p.tempsH)
+
+/** Le point part-il dans le rapport ? */
+export function estInclus(point) {
+  if (!point) return false
+  if (point.inclusion === 'oui') return true
+  if (point.inclusion === 'non') return false
+  return !!point.gravite && aTemps(point)
+}
+
+/** Points (zones photographiées) d'une visite, dans l'ordre d'import. */
+export function pointsDeVisite(lib, visiteId) {
+  const parCle = new Map()
+  const photos = lib.photos
+    .filter((p) => p.visiteId === visiteId)
+    .sort((a, b) => (a.ordre ?? 0) - (b.ordre ?? 0))
+  for (const ph of photos) {
+    const cle = `${ph.plan}\u0000${ph.zone}`
+    if (!parCle.has(cle)) {
+      parCle.set(cle, {
+        plan: ph.plan, zone: ph.zone, ordre: ph.ordre ?? 0, photos: [],
+        point: findPoint(lib, visiteId, ph.plan, ph.zone)
+      })
+    }
+    parCle.get(cle).photos.push(ph)
+  }
+  return [...parCle.values()]
+}
+
+export function resumeVisite(lib, visiteId) {
+  const inclus = pointsDeVisite(lib, visiteId).filter((p) => estInclus(p.point))
+  return {
+    nbPoints: inclus.length,
+    heures: inclus.reduce((s, p) => s + (aTemps(p.point) ? p.point.tempsH : 0), 0)
+  }
+}
+
+/** Visites cochées par défaut : celles de la date la plus récente de la rame. */
+export function visitesParDefaut(lib, rame) {
+  const visites = lib.visites.filter((v) => v.rame === rame)
+  if (visites.length === 0) return []
+  const max = Math.max(...visites.map((v) => parseFr(v.dateVisite).getTime()))
+  return visites.filter((v) => parseFr(v.dateVisite).getTime() === max).map((v) => v.id)
+}
+
+/** Prochain numéro de rapport ; renvoie aussi les réglages mis à jour. */
+export function numeroRapport(reglages, rame, date) {
+  const prefixe = `RC-${rame}-${date.getFullYear()}${deux(date.getMonth() + 1)}${deux(date.getDate())}`
+  const compteurs = { ...(reglages?.dernierNumero ?? {}) }
+  const n = (compteurs[prefixe] ?? 0) + 1
+  compteurs[prefixe] = n
+  return {
+    numero: n === 1 ? prefixe : `${prefixe}-${n}`,
+    reglages: { ...(reglages ?? {}), dernierNumero: compteurs }
+  }
+}
+
+const uniques = (xs) => [...new Set(xs)]
+
+export function buildRapport(lib, { rame, visiteIds, redacteur, dateEdition, numero }) {
+  const visites = lib.visites
+    .filter((v) => v.rame === rame && visiteIds.includes(v.id))
+    .sort((a, b) => rang(ORDRE_TYPE, a.type) - rang(ORDRE_TYPE, b.type) ||
+      parseFr(a.dateVisite) - parseFr(b.dateVisite))
+
+  const brut = []
+  visites.forEach((v, iv) => {
+    for (const p of pointsDeVisite(lib, v.id)) {
+      if (!estInclus(p.point)) continue
+      brut.push({ v, iv, p })
+    }
+  })
+  if (brut.length === 0) throw new Error('Aucun point à inclure')
+
+  brut.sort((a, b) =>
+    rang(GRAVITES, a.p.point.gravite) - rang(GRAVITES, b.p.point.gravite) ||
+    a.iv - b.iv ||
+    a.p.ordre - b.p.ordre ||
+    a.p.zone.localeCompare(b.p.zone, 'fr'))
+
+  const legendes = lib.legendes ?? {}
+  const points = brut.map(({ v, p }, i) => ({
+    n: i + 1,
+    zone: p.zone,
+    plan: p.plan,
+    typeVisite: v.type,
+    gravite: p.point.gravite ?? null,
+    tempsH: aTemps(p.point) ? p.point.tempsH : null,
+    commentaire: p.point.commentaire ?? '',
+    photos: p.photos.map((ph) => ({
+      chemin: ph.chemin, datePrise: ph.datePrise, legende: legendes[ph.id] ?? ''
+    })),
+    dessin: p.photos.find((ph) => ph.dessin)?.dessin ?? null,
+    zoneRect: p.photos.find((ph) => ph.zoneRect)?.zoneRect ?? null
+  }))
+
+  const heures = (pts) => pts.reduce((s, p) => s + (p.tempsH ?? 0), 0)
+  const parGravite = {}
+  for (const g of GRAVITES) {
+    const pts = points.filter((p) => p.gravite === g)
+    parGravite[g] = { n: pts.length, h: heures(pts) }
+  }
+
+  return {
+    numero,
+    rame,
+    niveaux: uniques(visites.map((v) => v.niveau)).join(' / '),
+    datesVisite: uniques(visites.map((v) => v.dateVisite)).join(', '),
+    redacteur: redacteur ?? '',
+    editeLe: dateFr(dateEdition),
+    visites: visites.map((v) => {
+      const pts = points.filter((p) => brut[p.n - 1].v.id === v.id)
+      return {
+        type: v.type, perimetre: PERIMETRE[v.type] ?? v.type, niveau: v.niveau,
+        dateVisite: v.dateVisite, nbPoints: pts.length, heures: heures(pts)
+      }
+    }),
+    synthese: { nbPoints: points.length, heures: heures(points), parGravite },
+    points
+  }
+}
+
+/** 1.5 -> '1,5 h' ; null -> '—'. */
+export function formatHeures(h) {
+  if (h === null || h === undefined || !Number.isFinite(h)) return '—'
+  return `${h.toFixed(1).replace('.', ',')} h`
+}
