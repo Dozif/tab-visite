@@ -109,7 +109,7 @@ class _AccueilScreenState extends State<AccueilScreen> {
   /// où le trouver. Les destinataires sont modifiables et mémorisés.
   Future<void> _proposerMail(String fichier, String libelle) async {
     final adresses = TextEditingController(
-        text: (await ctx.reglages.destinataires()).join(', '));
+        text: (await ctx.reglages.destinataires()).join('; '));
     if (!mounted) return;
     final envoyer = await showDialog<bool>(
       context: context,
@@ -131,7 +131,7 @@ class _AccueilScreenState extends State<AccueilScreen> {
                 keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(
                   labelText: 'Destinataires',
-                  helperText: 'Séparés par des virgules — mémorisés',
+                  helperText: 'Séparés par des points-virgules — mémorisés',
                   border: OutlineInputBorder(),
                 ),
               ),
