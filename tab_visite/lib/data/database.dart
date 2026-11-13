@@ -1,10 +1,14 @@
 import 'package:sqflite/sqflite.dart';
 
 class AppDatabase {
+  // Réglages de l'app (clé/valeur), conservés par « Effacer les données ».
+  static const _reglages =
+      'CREATE TABLE reglages(cle TEXT PRIMARY KEY, valeur TEXT NOT NULL)';
+
   static Future<Database> open({String? path}) async {
     return openDatabase(
       path ?? 'tab_visite.db',
-      version: 5,
+      version: 6,
       onConfigure: (db) => db.execute('PRAGMA foreign_keys = ON'),
       onCreate: (db, version) async {
         await db.execute('''
@@ -59,6 +63,7 @@ class AppDatabase {
             visite_id TEXT,
             date INTEGER NOT NULL
           )''');
+        await db.execute(_reglages);
         await db.execute('CREATE INDEX idx_zones_plan ON zones(plan_id)');
         await db.execute('CREATE INDEX idx_photos_zone ON photos(zone_id)');
         await db.execute('CREATE INDEX idx_photos_visite ON photos(visite_id)');
@@ -107,6 +112,10 @@ class AppDatabase {
               visite_id TEXT,
               date INTEGER NOT NULL
             )''');
+        }
+        // v5 -> v6 : réglages clé/valeur (destinataires du mail d'export).
+        if (oldVersion < 6) {
+          await db.execute(_reglages);
         }
       },
     );

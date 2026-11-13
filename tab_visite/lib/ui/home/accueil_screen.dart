@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
+import '../../data/repositories/reglages_repository.dart';
+import '../../services/mail_export.dart';
 import '../../data/models/visite.dart';
 import '../../services/app_context.dart';
 import '../../services/export_service.dart';
@@ -91,12 +94,79 @@ class _AccueilScreenState extends State<AccueilScreen> {
         XFile.fromData(res.bytes,
             name: res.filename, mimeType: 'application/zip')
       ], fileNameOverrides: [res.filename]);
+      if (mounted) await _proposerMail(res.filename, libelle);
     } catch (e) {
       if (mounted) Navigator.of(context).pop();
       if (mounted) {
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text('$libelle : échec ($e)')));
       }
+    }
+  }
+
+  /// Après l'export : propose d'ouvrir un nouveau mail (Outlook, Gmail…)
+  /// pré-rempli. Le navigateur ne permet pas d'y joindre le ZIP : on rappelle
+  /// où le trouver. Les destinataires sont modifiables et mémorisés.
+  Future<void> _proposerMail(String fichier, String libelle) async {
+    final adresses = TextEditingController(
+        text: (await ctx.reglages.destinataires()).join(', '));
+    if (!mounted) return;
+    final envoyer = await showDialog<bool>(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text('Envoyer par mail'),
+        content: SizedBox(
+          width: 480,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Le fichier « $fichier » est enregistré dans '
+                  'Téléchargements.'),
+              const SizedBox(height: 16),
+              TextField(
+                controller: adresses,
+                minLines: 1,
+                maxLines: 4,
+                keyboardType: TextInputType.emailAddress,
+                decoration: const InputDecoration(
+                  labelText: 'Destinataires',
+                  helperText: 'Séparés par des virgules — mémorisés',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 12),
+              const Text(
+                  'Dans le mail, touche le trombone 📎 et choisis le fichier '
+                  'dans Téléchargements (le plus récent).',
+                  style: TextStyle(color: Colors.grey)),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: const Text('Fermer')),
+          FilledButton.icon(
+            icon: const Icon(Icons.mail_outline),
+            onPressed: () => Navigator.pop(context, true),
+            label: const Text('Envoyer par mail'),
+          ),
+        ],
+      ),
+    );
+    if (envoyer != true) return;
+    final liste = parseAdresses(adresses.text);
+    await ctx.reglages.setDestinataires(liste);
+    final ok = await launchUrl(mailtoExport(
+      destinataires: liste,
+      objet: '$libelle – ${formatDate(DateTime.now().millisecondsSinceEpoch)}',
+      corps: 'Bonjour,\n\nCi-joint : $libelle (visites de corrosion).\n'
+          'Pièce jointe : $fichier\n\nCordialement',
+    ));
+    if (!ok && mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Aucune application mail n'a pu être ouverte.")));
     }
   }
 

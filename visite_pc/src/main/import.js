@@ -75,7 +75,7 @@ export function upsertLibrary(lib, rows) {
   })
 
   return {
-    // points / legendes / reglages : JAMAIS touchés par un import.
+    // points / legendes / photosExclues / reglages : JAMAIS touchés par un import.
     lib: { ...base, visites, photos },
     resume: { visites: seenVisite.size, photos: rows.length }
   }

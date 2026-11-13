@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import {
   setPoint, findPoint, estInclus, pointsDeVisite, resumeVisite,
-  visitesParDefaut, numeroRapport, buildRapport, formatHeures
+  visitesParDefaut, numeroRapport, buildRapport, formatHeures, setPhotoExclue
 } from '../src/shared/rapport.js'
 
 // Bibliothèque d'exemple : rame 123, deux visites le 13/11, une le 02/10.
@@ -197,5 +197,26 @@ describe('rapport', () => {
     l = setPoint(l, { visiteId: 'vR', plan: 'Remorque R1', zone: 'R1 D1', marque: null })
     const r2 = buildRapport(l, { rame: 123, visiteIds: ['vR'], redacteur: '', dateEdition: new Date(2026, 10, 14), numero: 'X' })
     expect(r2.points.find((p) => p.zone === 'R1 D1')).toMatchObject({ dessin: 'dessins/vR/a.png', marque: null })
+  })
+})
+
+describe('photos exclues du rapport', () => {
+  it('setPhotoExclue ajoute puis retire, sans doublon ni mutation', () => {
+    const l0 = lib()
+    let l = setPhotoExclue(l0, 'r2', true)
+    l = setPhotoExclue(l, 'r2', true)
+    expect(l.photosExclues).toEqual(['r2'])
+    expect(l0.photosExclues).toBeUndefined()
+    l = setPhotoExclue(l, 'r2', false)
+    expect(l.photosExclues).toEqual([])
+  })
+
+  it('le rapport ignore les photos décochées mais garde le dessin du point', () => {
+    let l = setPhotoExclue(annote(lib()), 'r1', true)
+    const r = buildRapport(l, { rame: 123, visiteIds: ['vR'], dateEdition: new Date(2026, 10, 13), numero: 'X' })
+    const p = r.points.find((x) => x.zone === 'R1 D1')
+    expect(p.photos.map((ph) => ph.chemin)).toEqual(['photos/vR/r2.jpg'])
+    expect(p.dessin).toBe('dessins/vR/a.png')
+    expect(p.zoneRect).toEqual({ x: 0.1, y: 0.2, l: 0.03, h: 0.07 })
   })
 })

@@ -12,7 +12,7 @@ afterEach(() => { rmSync(dir, { recursive: true, force: true }) })
 describe('library', () => {
   it('loadLibrary renvoie une structure vide si absent', () => {
     expect(loadLibrary(dir)).toEqual({
-      version: 3, visites: [], photos: [], points: [], legendes: {}, reglages: {}
+      version: 3, visites: [], photos: [], points: [], legendes: {}, photosExclues: [], reglages: {}
     })
   })
 
@@ -21,7 +21,7 @@ describe('library', () => {
       version: 3, visites: [{ id: 'v1' }], photos: [{ id: 'p1' }],
       points: [{ visiteId: 'v1', plan: 'P', zone: 'Z', gravite: 'critique', tempsChaud: null,
         tempsPeinture: 2, commentaire: '', inclusion: 'auto', marque: null }],
-      legendes: { p1: 'vue' }, reglages: { redacteur: 'Franck' }
+      legendes: { p1: 'vue' }, photosExclues: ['p1'], reglages: { redacteur: 'Franck' }
     }
     saveLibrary(dir, lib)
     expect(existsSync(join(dir, 'library.json'))).toBe(true)
@@ -33,7 +33,7 @@ describe('library', () => {
       JSON.stringify({ version: 1, visites: [{ id: 'v1' }], photos: [{ id: 'p1' }] }))
     expect(loadLibrary(dir)).toEqual({
       version: 3, visites: [{ id: 'v1' }], photos: [{ id: 'p1' }],
-      points: [], legendes: {}, reglages: {}
+      points: [], legendes: {}, photosExclues: [], reglages: {}
     })
   })
 

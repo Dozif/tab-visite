@@ -118,6 +118,12 @@ export function numeroRapport(reglages, rame, date) {
 
 const uniques = (xs) => [...new Set(xs)]
 
+/** Coche / décoche une photo « Dans le rapport » (sans modifier lib). */
+export function setPhotoExclue(lib, photoId, exclue) {
+  const reste = (lib.photosExclues ?? []).filter((id) => id !== photoId)
+  return { ...lib, photosExclues: exclue ? [...reste, photoId] : reste }
+}
+
 /**
  * @param sechageH séchage final (h) après la dernière intervention, saisi au
  *   niveau du rapport ; jamais additionné à la main-d'œuvre.
@@ -144,6 +150,7 @@ export function buildRapport(lib, { rame, visiteIds, redacteur, dateEdition, num
     a.p.zone.localeCompare(b.p.zone, 'fr'))
 
   const legendes = lib.legendes ?? {}
+  const exclues = new Set(lib.photosExclues ?? [])
   const points = brut.map(({ v, p }, i) => {
     const m = p.point.marque
     return {
@@ -156,7 +163,7 @@ export function buildRapport(lib, { rame, visiteIds, redacteur, dateEdition, num
       tempsPeinture: heure(p.point.tempsPeinture),
       tempsH: tempsTotal(p.point), // main-d'œuvre du point
       commentaire: p.point.commentaire ?? '',
-      photos: p.photos.map((ph) => ({
+      photos: p.photos.filter((ph) => !exclues.has(ph.id)).map((ph) => ({
         chemin: ph.chemin, datePrise: ph.datePrise, legende: legendes[ph.id] ?? ''
       })),
       // Rond placé à la main (éventuellement sur un autre dessin), sinon

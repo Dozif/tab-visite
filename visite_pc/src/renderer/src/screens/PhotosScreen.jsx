@@ -51,6 +51,7 @@ export default function PhotosScreen({ lib, visiteId, onBack, onLib }) {
               <div className="grille-photos">
                 {z.photos.map((p) => (
                   <Vignette key={p.id} photo={p} legende={lib.legendes?.[p.id] ?? ''}
+                    exclue={(lib.photosExclues ?? []).includes(p.id)}
                     onClick={() => setApercu(p)} onLib={onLib} />
                 ))}
               </div>
@@ -69,7 +70,7 @@ export default function PhotosScreen({ lib, visiteId, onBack, onLib }) {
   )
 }
 
-function Vignette({ photo, legende, onClick, onLib }) {
+function Vignette({ photo, legende, exclue, onClick, onLib }) {
   const [url, setUrl] = useState(null)
   const [erreur, setErreur] = useState(false)
   const [texte, setTexte] = useState(legende)
@@ -85,7 +86,7 @@ function Vignette({ photo, legende, onClick, onLib }) {
   }
 
   return (
-    <div className="vignette-bloc">
+    <div className={`vignette-bloc ${exclue ? 'exclue' : ''}`}>
       <button className="vignette" onClick={onClick} title={photo.datePrise}>
         {url && !erreur && (
           <img src={url} alt={photo.zone} onError={() => setErreur(true)} />
@@ -95,6 +96,11 @@ function Vignette({ photo, legende, onClick, onLib }) {
       <input className="legende-photo" value={texte} placeholder="Légende (facultatif)"
         onChange={(e) => setTexte(e.target.value)} onBlur={enregistrer}
         onKeyDown={(e) => { if (e.key === 'Enter') e.currentTarget.blur() }} />
+      <label className="photo-rapport">
+        <input type="checkbox" checked={!exclue}
+          onChange={async (e) => onLib(await window.api.setPhotoExclue(photo.id, !e.target.checked))} />
+        Dans le rapport
+      </label>
     </div>
   )
 }
