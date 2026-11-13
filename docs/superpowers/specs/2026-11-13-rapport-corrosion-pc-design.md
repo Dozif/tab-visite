@@ -224,3 +224,29 @@ dans `reglages.dernierNumero`).
   (2 fiches/page, rien de coupé, pied de page).
 - Test de bout en bout par Franck : export tablette perso → import PC → saisie
   → PDF.
+
+## Évolution v0.3.0 (demandes de Franck, 2026-11-13, après essai de la v0.2.0)
+
+**Temps détaillés** (remplace le champ unique « Temps ») :
+- Par point : `tempsChaud` (chaudronnerie, h) et `tempsPeinture` (h), pas de 0,5 h.
+  Total du point = somme (case vide = 0 ; « — » si les deux sont vides).
+- Le **séchage n'est pas par point** : c'est le séchage après la dernière
+  intervention qui fixe la fin de l'immobilisation. Une seule valeur
+  **« Séchage final » (h)** saisie sur l'écran « Créer un rapport ».
+- Synthèse (choix B de Franck) : **Main-d'œuvre** = Σ chaudronnerie + Σ peinture
+  (avec le détail), **Séchage final** à part ; jamais additionnés.
+- Récapitulatif : colonnes Chaudronnerie, Peinture, Total ; totaux en pied.
+- Inclusion `auto` : gravité ET au moins un des deux temps renseigné.
+- Migration : un ancien `tempsH` devient `tempsPeinture`.
+
+**Rond placé à la main** :
+- Bouton « Localiser » par point → dessin en grand ; choix du dessin parmi ceux
+  de la visite (photo concernant une autre voiture) ; clic = place le rond ;
+  taille petit / moyen / grand ; « Revenir à l'automatique ».
+- Stocké sur le point : `marque: { dessin, cx, cy, rx, ry }` (coordonnées 0–1,
+  rx/ry calculés pour un rond visuellement circulaire). Le rapport utilise la
+  marque si elle existe, sinon le rond automatique sur la zone.
+- « Localiser » indisponible si la visite n'a aucun dessin (ancien export).
+
+Les photos de référence (modèles) de la tablette ne figurent pas dans le
+rapport (confirmé par Franck : inutiles).
