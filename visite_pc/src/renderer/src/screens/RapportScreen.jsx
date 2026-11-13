@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { resumeVisite, visitesParDefaut, formatHeures, PERIMETRE } from '../../../shared/rapport.js'
+import { parseTemps } from '../components/PointEditor.jsx'
 
 // 'dd/MM/yyyy' -> nombre triable.
 const cle = (d) => {
@@ -17,6 +18,7 @@ export default function RapportScreen({ lib, rame, onBack, onLib }) {
     .sort((a, b) => cle(b.dateVisite) - cle(a.dateVisite) || a.type.localeCompare(b.type))
   const [cochees, setCochees] = useState(() => new Set(visitesParDefaut(lib, rame)))
   const [redacteur, setRedacteur] = useState(lib.reglages?.redacteur ?? '')
+  const [sechage, setSechage] = useState('')
   const [message, setMessage] = useState('')
   const [occupe, setOccupe] = useState(false)
 
@@ -27,7 +29,8 @@ export default function RapportScreen({ lib, rame, onBack, onLib }) {
     heures: choisies.reduce((s, l) => s + l.heures, 0)
   }
   const dates = new Set(choisies.map((l) => l.v.dateVisite))
-  const possible = total.nbPoints > 0 && !occupe
+  const sechageH = parseTemps(sechage) // null si vide, undefined si invalide
+  const possible = total.nbPoints > 0 && !occupe && sechageH !== undefined
 
   function basculer(id) {
     const s = new Set(cochees)
@@ -36,7 +39,7 @@ export default function RapportScreen({ lib, rame, onBack, onLib }) {
     setCochees(s)
   }
 
-  const opts = () => ({ rame, visiteIds: [...cochees], redacteur: redacteur.trim() })
+  const opts = () => ({ rame, visiteIds: [...cochees], redacteur: redacteur.trim(), sechageH: sechageH ?? null })
 
   async function lancer(action) {
     setOccupe(true)
@@ -69,7 +72,7 @@ export default function RapportScreen({ lib, rame, onBack, onLib }) {
       <table className="table-visites">
         <thead>
           <tr><th></th><th>Type</th><th>Périmètre</th><th>Niveau</th><th>Date</th>
-            <th className="num">Points</th><th className="num">Temps</th></tr>
+            <th className="num">Points</th><th className="num">Main-d'œuvre</th></tr>
         </thead>
         <tbody>
           {lignes.map(({ v, nbPoints, heures }) => (
@@ -95,6 +98,17 @@ export default function RapportScreen({ lib, rame, onBack, onLib }) {
         <input id="redacteur" value={redacteur} onChange={(e) => setRedacteur(e.target.value)}
           placeholder="Votre nom" />
       </div>
+      <div className="champ">
+        <label htmlFor="sechage">Séchage final</label>
+        <input id="sechage" className="temps" inputMode="decimal" value={sechage}
+          onChange={(e) => setSechage(e.target.value)} placeholder="—" />
+        <span>h</span>
+        <span className="aide">
+          après la dernière intervention (vaut pour l'ensemble des points réparés ensemble ;
+          non additionné à la main-d'œuvre)
+        </span>
+      </div>
+      {sechageH === undefined && <p className="avertissement">Séchage : saisissez un nombre d'heures (ex. 4 ou 2,5).</p>}
       <div className="actions">
         <button disabled={!possible} onClick={() => lancer('apercu')}>Aperçu</button>
         <button className="principal" disabled={!possible} onClick={() => lancer('pdf')}>

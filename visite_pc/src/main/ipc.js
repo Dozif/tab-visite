@@ -22,11 +22,11 @@ export function registerIpc(libraryDir) {
   }
 
   // Rapport (numéro calculé à partir des réglages, non enregistré ici).
-  function preparer({ rame, visiteIds, redacteur }) {
+  function preparer({ rame, visiteIds, redacteur, sechageH }) {
     const lib = loadLibrary(libraryDir)
     const date = new Date()
     const { numero, reglages } = numeroRapport(lib.reglages, rame, date)
-    const rapport = buildRapport(lib, { rame, visiteIds, redacteur, dateEdition: date, numero })
+    const rapport = buildRapport(lib, { rame, visiteIds, redacteur, dateEdition: date, numero, sechageH })
     return { rapport, reglages, date }
   }
 

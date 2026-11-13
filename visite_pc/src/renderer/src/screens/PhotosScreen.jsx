@@ -12,6 +12,13 @@ export default function PhotosScreen({ lib, visiteId, onBack, onLib }) {
   const groups = photosForVisite(lib, visiteId, f)
   const visite = lib.visites.find((v) => v.id === visiteId)
   const resume = resumeVisite(lib, visiteId)
+  // Dessins disponibles dans la visite (pour placer le rond à la main).
+  const dessins = []
+  for (const ph of lib.photos) {
+    if (ph.visiteId === visiteId && ph.dessin && !dessins.some((d) => d.dessin === ph.dessin)) {
+      dessins.push({ dessin: ph.dessin, plan: ph.plan })
+    }
+  }
 
   return (
     <div className="ecran">
@@ -49,7 +56,10 @@ export default function PhotosScreen({ lib, visiteId, onBack, onLib }) {
               </div>
               <PointEditor key={`${visiteId}|${g.plan}|${z.zone}`}
                 visiteId={visiteId} plan={g.plan} zone={z.zone}
-                point={findPoint(lib, visiteId, g.plan, z.zone)} onLib={onLib} />
+                point={findPoint(lib, visiteId, g.plan, z.zone)} onLib={onLib}
+                dessins={dessins}
+                dessinAuto={z.photos.find((ph) => ph.dessin)?.dessin ?? null}
+                zoneRect={z.photos.find((ph) => ph.zoneRect)?.zoneRect ?? null} />
             </div>
           ))}
         </section>

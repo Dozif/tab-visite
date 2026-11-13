@@ -8,7 +8,7 @@ contextBridge.exposeInMainWorld('api', {
   setPoint: (patch) => ipcRenderer.invoke('point:set', patch),
   setPointSync: (patch) => ipcRenderer.sendSync('point:setSync', patch),
   setLegende: (photoId, texte) => ipcRenderer.invoke('legende:set', { photoId, texte }),
-  // { rame, visiteIds, redacteur }
+  // { rame, visiteIds, redacteur, sechageH }
   rapportApercu: (opts) => ipcRenderer.invoke('rapport:apercu', opts),
   rapportPdf: (opts) => ipcRenderer.invoke('rapport:pdf', opts)
 })

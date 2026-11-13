@@ -39,14 +39,14 @@ describe('upsertLibrary', () => {
 
   it('réimport : conserve points, légendes et réglages', () => {
     const base = upsertLibrary(EMPTY, [row('v1', 'p1')]).lib
-    base.points = [{ visiteId: 'v1', plan: 'Remorque R3', zone: 'R3 D1', gravite: 'critique', tempsH: 2, commentaire: 'x', inclusion: 'auto' }]
+    base.points = [{ visiteId: 'v1', plan: 'Remorque R3', zone: 'R3 D1', gravite: 'critique', tempsChaud: 2, tempsPeinture: null, commentaire: 'x', inclusion: 'auto', marque: null }]
     base.legendes = { p1: 'vue de près' }
     base.reglages = { redacteur: 'Franck' }
     const { lib } = upsertLibrary(base, [row('v1', 'p1'), row('v1', 'p2')])
     expect(lib.points).toEqual(base.points)
     expect(lib.legendes).toEqual({ p1: 'vue de près' })
     expect(lib.reglages).toEqual({ redacteur: 'Franck' })
-    expect(lib.version).toBe(2)
+    expect(lib.version).toBe(3)
   })
 
   it("photos : dessin, zoneRect et ordre d'import", () => {

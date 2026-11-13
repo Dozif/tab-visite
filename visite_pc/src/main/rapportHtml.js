@@ -58,7 +58,12 @@ const CSS = `
   td.pt { white-space: nowrap; }
   td.num, th.num { text-align: right; white-space: nowrap; }
   tfoot td { font-weight: 700; background: #e8edf3 !important; border-top: 2px solid var(--bleu); }
-  .synthese { display: grid; grid-template-columns: 1fr 1fr 2fr; gap: 10px; margin-top: 4px; }
+  .synthese { display: grid; grid-template-columns: 1fr 1.4fr 1.4fr; gap: 10px; margin-top: 4px; }
+  .synthese .large { grid-column: 1 / -1; }
+  .carte .detail { font-size: 8.5pt; color: var(--gris); margin-top: 2px; }
+  .carte .nr { font-size: 12pt; color: var(--gris); font-weight: 600; }
+  .point-tete .detail-temps { color: var(--gris); font-size: 9pt; white-space: nowrap; }
+  td.constat-court { font-size: 8.5pt; }
   .carte { border: 1px solid var(--trait); border-radius: 6px; padding: 9px 12px; }
   .carte label { font-size: 7.5pt; text-transform: uppercase; color: var(--gris); letter-spacing: .5px; }
   .carte .gros { font-size: 22pt; font-weight: 700; color: var(--bleu); line-height: 1.1; }
@@ -99,15 +104,27 @@ const PLURIEL = { critique: 'critique', moyenne: 'moyen', mineure: 'mineur' }
 
 function localisation(p, fileUrl) {
   if (!p.dessin) return ''
-  let ellipse = ''
-  if (p.zoneRect) {
+  // Rond placé à la main en priorité, sinon rond automatique autour de la zone.
+  let e = null
+  if (p.marque) {
+    e = p.marque
+  } else if (p.zoneRect) {
     const { x, y, l, h } = p.zoneRect
-    ellipse = `<svg viewBox="0 0 1 1" preserveAspectRatio="none">` +
-      `<ellipse cx="${n4(x + l / 2)}" cy="${n4(y + h / 2)}" rx="${n4(l / 2 + 0.012)}" ry="${n4(h / 2 + 0.024)}" ` +
-      `fill="none" stroke="#dc0000" stroke-width="3" vector-effect="non-scaling-stroke"/></svg>`
+    e = { cx: x + l / 2, cy: y + h / 2, rx: l / 2 + 0.012, ry: h / 2 + 0.024 }
   }
+  const ellipse = !e ? '' : `<svg viewBox="0 0 1 1" preserveAspectRatio="none">` +
+    `<ellipse cx="${n4(e.cx)}" cy="${n4(e.cy)}" rx="${n4(e.rx)}" ry="${n4(e.ry)}" ` +
+    `fill="none" stroke="#dc0000" stroke-width="3" vector-effect="non-scaling-stroke"/></svg>`
   return `<div class="legende">Localisation</div>
     <div class="loc"><span class="cadre"><img src="${escapeHtml(fileUrl(p.dessin))}">${ellipse}</span></div>`
+}
+
+// « Chaud. 2,0 h · Peinture 1,5 h » (seulement les temps saisis).
+function detailTemps(p) {
+  const parts = []
+  if (p.tempsChaud !== null && p.tempsChaud !== undefined) parts.push(`Chaud. ${formatHeures(p.tempsChaud)}`)
+  if (p.tempsPeinture !== null && p.tempsPeinture !== undefined) parts.push(`Peinture ${formatHeures(p.tempsPeinture)}`)
+  return parts.length ? `<span class="detail-temps">${parts.join(' · ')}</span>` : ''
 }
 
 function fiche(p, fileUrl) {
@@ -123,7 +140,7 @@ function fiche(p, fileUrl) {
 <div class="point">
   <div class="point-tete"><div class="n">${p.n}</div>
     <div class="titre"><b>${escapeHtml(p.zone)}</b><span>${escapeHtml(p.plan)} · Visite ${escapeHtml(p.typeVisite)}</span></div>
-    ${badge(p.gravite)}<span class="temps">${formatHeures(p.tempsH)}</span></div>
+    ${detailTemps(p)}${badge(p.gravite)}<span class="temps">${formatHeures(p.tempsH)}</span></div>
   <div class="point-corps">
     ${localisation(p, fileUrl)}
     ${photos}
@@ -168,7 +185,7 @@ export function renderRapportHtml(rapport, fileUrl) {
 
 <h2>Visites incluses</h2>
 <table>
-  <thead><tr><th>Type</th><th>Périmètre</th><th>Niveau</th><th>Date</th><th class="num">Points</th><th class="num">Temps</th></tr></thead>
+  <thead><tr><th>Type</th><th>Périmètre</th><th>Niveau</th><th>Date</th><th class="num">Points</th><th class="num">Main-d'œuvre</th></tr></thead>
   <tbody>${r.visites.map((v) => `
     <tr><td><b>${escapeHtml(v.type)}</b></td><td>${escapeHtml(v.perimetre)}</td><td>${escapeHtml(v.niveau)}</td>
       <td>${escapeHtml(v.dateVisite)}</td><td class="num">${v.nbPoints}</td><td class="num">${formatHeures(v.heures)}</td></tr>`).join('')}
@@ -178,18 +195,24 @@ export function renderRapportHtml(rapport, fileUrl) {
 <h2>Synthèse</h2>
 <div class="synthese">
   <div class="carte"><label>Points à traiter</label><div class="gros">${s.nbPoints}</div></div>
-  <div class="carte"><label>Temps total estimé</label><div class="gros">${formatHeures(s.heures)}</div></div>
-  <div class="carte"><label>Répartition par gravité</label><div class="repart">${repart}</div></div>
+  <div class="carte"><label>Main-d'œuvre</label><div class="gros">${formatHeures(s.heures)}</div>
+    <div class="detail">chaudronnerie ${formatHeures(s.chaud ?? 0)} · peinture ${formatHeures(s.peinture ?? 0)}</div></div>
+  <div class="carte"><label>Séchage final</label><div class="gros">${s.sechage === null || s.sechage === undefined
+    ? '<span class="nr">Non renseigné</span>' : formatHeures(s.sechage)}</div>
+    <div class="detail">après la dernière intervention, non compris dans la main-d'œuvre</div></div>
+  <div class="carte large"><label>Répartition par gravité (main-d'œuvre)</label><div class="repart">${repart}</div></div>
 </div>
 
 <h2>Récapitulatif des points</h2>
 <table>
-  <thead><tr><th>N°</th><th>Point</th><th>Voiture / dessin</th><th>Gravité</th><th class="num">Temps</th><th>Constat</th></tr></thead>
+  <thead><tr><th>N°</th><th>Point</th><th>Voiture / dessin</th><th>Gravité</th><th class="num">Chaudronnerie</th><th class="num">Peinture</th><th class="num">Total</th><th>Constat</th></tr></thead>
   <tbody>${r.points.map((p) => `
     <tr><td>${p.n}</td><td class="pt"><b>${escapeHtml(p.zone)}</b></td><td>${escapeHtml(p.plan)}</td>
-      <td>${badge(p.gravite)}</td><td class="num">${formatHeures(p.tempsH)}</td><td>${escapeHtml(extrait(p.commentaire))}</td></tr>`).join('')}
+      <td>${badge(p.gravite)}</td><td class="num">${formatHeures(p.tempsChaud)}</td><td class="num">${formatHeures(p.tempsPeinture)}</td>
+      <td class="num"><b>${formatHeures(p.tempsH)}</b></td><td class="constat-court">${escapeHtml(extrait(p.commentaire))}</td></tr>`).join('')}
   </tbody>
-  <tfoot><tr><td colspan="4">Total — ${s.nbPoints} point${s.nbPoints > 1 ? 's' : ''}</td><td class="num">${formatHeures(s.heures)}</td><td></td></tr></tfoot>
+  <tfoot><tr><td colspan="4">Total — ${s.nbPoints} point${s.nbPoints > 1 ? 's' : ''}</td><td class="num">${formatHeures(s.chaud ?? 0)}</td>
+    <td class="num">${formatHeures(s.peinture ?? 0)}</td><td class="num">${formatHeures(s.heures)}</td><td></td></tr></tfoot>
 </table>
 
 <h2 class="saut">Détail des points</h2>

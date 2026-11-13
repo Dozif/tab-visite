@@ -31,10 +31,10 @@ function lib() {
 }
 
 function annote(l) {
-  l = setPoint(l, { visiteId: 'vR', plan: 'Remorque R1', zone: 'R1 D1', gravite: 'critique', tempsH: 3, commentaire: 'Perforation' })
-  l = setPoint(l, { visiteId: 'vR', plan: 'Remorque R1', zone: 'R1 DT', gravite: 'moyenne', tempsH: 1.5 })
+  l = setPoint(l, { visiteId: 'vR', plan: 'Remorque R1', zone: 'R1 D1', gravite: 'critique', tempsChaud: 2, tempsPeinture: 1, commentaire: 'Perforation' })
+  l = setPoint(l, { visiteId: 'vR', plan: 'Remorque R1', zone: 'R1 DT', gravite: 'moyenne', tempsPeinture: 1.5 })
   l = setPoint(l, { visiteId: 'vR', plan: 'Remorque R2', zone: 'R2 G4', gravite: 'mineure' }) // sans temps : auto -> exclu
-  l = setPoint(l, { visiteId: 'vM', plan: 'Motrice M1', zone: 'M1 D2', gravite: 'critique', tempsH: 4 })
+  l = setPoint(l, { visiteId: 'vM', plan: 'Motrice M1', zone: 'M1 D2', gravite: 'critique', tempsChaud: 4 })
   return l
 }
 
@@ -43,10 +43,11 @@ describe('points', () => {
     let l = setPoint(lib(), { visiteId: 'vR', plan: 'Remorque R1', zone: 'R1 D1', gravite: 'moyenne' })
     expect(findPoint(l, 'vR', 'Remorque R1', 'R1 D1')).toEqual({
       visiteId: 'vR', plan: 'Remorque R1', zone: 'R1 D1',
-      gravite: 'moyenne', tempsH: null, commentaire: '', inclusion: 'auto'
+      gravite: 'moyenne', tempsChaud: null, tempsPeinture: null, commentaire: '',
+      inclusion: 'auto', marque: null
     })
-    l = setPoint(l, { visiteId: 'vR', plan: 'Remorque R1', zone: 'R1 D1', tempsH: 2 })
-    expect(findPoint(l, 'vR', 'Remorque R1', 'R1 D1')).toMatchObject({ gravite: 'moyenne', tempsH: 2 })
+    l = setPoint(l, { visiteId: 'vR', plan: 'Remorque R1', zone: 'R1 D1', tempsPeinture: 2 })
+    expect(findPoint(l, 'vR', 'Remorque R1', 'R1 D1')).toMatchObject({ gravite: 'moyenne', tempsPeinture: 2 })
     expect(l.points).toHaveLength(1)
   })
 
@@ -58,12 +59,13 @@ describe('points', () => {
 
   it('inclusion : auto / oui / non', () => {
     expect(estInclus(null)).toBe(false)
-    expect(estInclus({ gravite: 'critique', tempsH: 1, inclusion: 'auto' })).toBe(true)
-    expect(estInclus({ gravite: 'critique', tempsH: null, inclusion: 'auto' })).toBe(false)
-    expect(estInclus({ gravite: null, tempsH: 2, inclusion: 'auto' })).toBe(false)
-    expect(estInclus({ gravite: 'critique', tempsH: 0, inclusion: 'auto' })).toBe(true)
-    expect(estInclus({ gravite: null, tempsH: null, inclusion: 'oui' })).toBe(true)
-    expect(estInclus({ gravite: 'critique', tempsH: 1, inclusion: 'non' })).toBe(false)
+    expect(estInclus({ gravite: 'critique', tempsChaud: 1, tempsPeinture: null, inclusion: 'auto' })).toBe(true)
+    expect(estInclus({ gravite: 'critique', tempsChaud: null, tempsPeinture: 1, inclusion: 'auto' })).toBe(true)
+    expect(estInclus({ gravite: 'critique', tempsChaud: null, tempsPeinture: null, inclusion: 'auto' })).toBe(false)
+    expect(estInclus({ gravite: null, tempsChaud: 2, tempsPeinture: null, inclusion: 'auto' })).toBe(false)
+    expect(estInclus({ gravite: 'critique', tempsChaud: 0, tempsPeinture: null, inclusion: 'auto' })).toBe(true)
+    expect(estInclus({ gravite: null, tempsChaud: null, tempsPeinture: null, inclusion: 'oui' })).toBe(true)
+    expect(estInclus({ gravite: 'critique', tempsChaud: 1, tempsPeinture: 1, inclusion: 'non' })).toBe(false)
   })
 
   it('pointsDeVisite regroupe les photos par point, dans l\'ordre d\'import', () => {
@@ -98,12 +100,12 @@ describe('rapport', () => {
   it('buildRapport : tri, numérotation, totaux, synthèse', () => {
     const r = buildRapport(annote(lib()), {
       rame: 123, visiteIds: ['vR', 'vM'], redacteur: 'Franck',
-      dateEdition: new Date(2026, 10, 14), numero: 'RC-123-20261114'
+      dateEdition: new Date(2026, 10, 14), numero: 'RC-123-20261114', sechageH: 4
     })
     // Critiques d'abord ; à gravité égale, motrices (MKBAM) avant remorques.
     expect(r.points.map((p) => [p.n, p.zone])).toEqual([[1, 'M1 D2'], [2, 'R1 D1'], [3, 'R1 DT']])
     expect(r.synthese).toEqual({
-      nbPoints: 3, heures: 8.5,
+      nbPoints: 3, heures: 8.5, chaud: 6, peinture: 2.5, sechage: 4,
       parGravite: { critique: { n: 2, h: 7 }, moyenne: { n: 1, h: 1.5 }, mineure: { n: 0, h: 0 } },
       nonEvaluee: { n: 0, h: 0 }
     })
@@ -113,7 +115,7 @@ describe('rapport', () => {
       datesVisite: '13/11/2026', redacteur: 'Franck', editeLe: '14/11/2026' })
     const d1 = r.points[1]
     expect(d1).toMatchObject({ plan: 'Remorque R1', typeVisite: 'MKBDR', gravite: 'critique',
-      tempsH: 3, commentaire: 'Perforation', dessin: 'dessins/vR/a.png',
+      tempsH: 3, tempsChaud: 2, tempsPeinture: 1, marque: null, commentaire: 'Perforation', dessin: 'dessins/vR/a.png',
       zoneRect: { x: 0.1, y: 0.2, l: 0.03, h: 0.07 } })
     expect(d1.photos).toEqual([
       { chemin: 'photos/vR/r1.jpg', datePrise: '13/11/2026 10:00', legende: '' },
@@ -146,7 +148,7 @@ describe('rapport', () => {
   })
 
   it('une visite seule : rapport séparé, sans mélange de dates', () => {
-    let l = setPoint(lib(), { visiteId: 'vOld', plan: 'Remorque R1', zone: 'R1 D1', gravite: 'moyenne', tempsH: 2 })
+    let l = setPoint(lib(), { visiteId: 'vOld', plan: 'Remorque R1', zone: 'R1 D1', gravite: 'moyenne', tempsPeinture: 2 })
     l = annote(l)
     const r = buildRapport(l, { rame: 123, visiteIds: ['vOld'], redacteur: '', dateEdition: new Date(2026, 10, 14), numero: 'X' })
     expect(r.datesVisite).toBe('02/10/2026')
@@ -164,5 +166,36 @@ describe('rapport', () => {
     expect(formatHeures(12)).toBe('12,0 h')
     expect(formatHeures(0)).toBe('0,0 h')
     expect(formatHeures(null)).toBe('—')
+    expect(formatHeures(undefined)).toBe('—')
+  })
+
+  it('sans séchage saisi : sechage null', () => {
+    const r = buildRapport(annote(lib()), { rame: 123, visiteIds: ['vR'], redacteur: '', dateEdition: new Date(2026, 10, 14), numero: 'X' })
+    expect(r.synthese.sechage).toBe(null)
+    expect(r.synthese).toMatchObject({ heures: 4.5, chaud: 2, peinture: 2.5 })
+  })
+
+  it('point : total « — » si aucun temps ; temps vide compté 0 dans le total', () => {
+    let l = annote(lib())
+    l = setPoint(l, { visiteId: 'vR', plan: 'Remorque R2', zone: 'R2 G4', inclusion: 'oui' })
+    const r = buildRapport(l, { rame: 123, visiteIds: ['vR'], redacteur: '', dateEdition: new Date(2026, 10, 14), numero: 'X' })
+    const g4 = r.points.find((p) => p.zone === 'R2 G4')
+    expect(g4).toMatchObject({ tempsChaud: null, tempsPeinture: null, tempsH: null })
+    const dt = r.points.find((p) => p.zone === 'R1 DT')
+    expect(dt).toMatchObject({ tempsChaud: null, tempsPeinture: 1.5, tempsH: 1.5 })
+  })
+
+  it('marque manuelle : remplace le rond automatique et peut changer de dessin', () => {
+    let l = annote(lib())
+    const marque = { dessin: 'dessins/vR/autre.png', cx: 0.5, cy: 0.4, rx: 0.03, ry: 0.07 }
+    l = setPoint(l, { visiteId: 'vR', plan: 'Remorque R1', zone: 'R1 D1', marque })
+    const r = buildRapport(l, { rame: 123, visiteIds: ['vR'], redacteur: '', dateEdition: new Date(2026, 10, 14), numero: 'X' })
+    const d1 = r.points.find((p) => p.zone === 'R1 D1')
+    expect(d1.dessin).toBe('dessins/vR/autre.png')
+    expect(d1.marque).toEqual({ cx: 0.5, cy: 0.4, rx: 0.03, ry: 0.07 })
+    // Retour à l'automatique.
+    l = setPoint(l, { visiteId: 'vR', plan: 'Remorque R1', zone: 'R1 D1', marque: null })
+    const r2 = buildRapport(l, { rame: 123, visiteIds: ['vR'], redacteur: '', dateEdition: new Date(2026, 10, 14), numero: 'X' })
+    expect(r2.points.find((p) => p.zone === 'R1 D1')).toMatchObject({ dessin: 'dessins/vR/a.png', marque: null })
   })
 })

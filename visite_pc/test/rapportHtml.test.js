@@ -10,18 +10,18 @@ function rapport(extra = {}) {
       { type: 'MKBDR', perimetre: 'Remorques', niveau: '2N', dateVisite: '13/11/2026', nbPoints: 2, heures: 8 }
     ],
     synthese: {
-      nbPoints: 3, heures: 12,
+      nbPoints: 3, heures: 12, chaud: 7, peinture: 5, sechage: 4,
       parGravite: { critique: { n: 1, h: 4 }, moyenne: { n: 1, h: 6 }, mineure: { n: 1, h: 2 } },
       nonEvaluee: { n: 0, h: 0 }
     },
     points: [
-      { n: 1, zone: 'M1 D2', plan: 'Motrice M1', typeVisite: 'MKBAM', gravite: 'critique', tempsH: 4,
+      { n: 1, zone: 'M1 D2', plan: 'Motrice M1', typeVisite: 'MKBAM', gravite: 'critique', tempsH: 4, tempsChaud: 4, tempsPeinture: null, marque: null,
         commentaire: '<b>&"x"</b>\nligne2', dessin: 'dessins/v/a.png', zoneRect: { x: 0.1, y: 0.2, l: 0.04, h: 0.1 },
         photos: [{ chemin: 'photos/v/p1.jpg', datePrise: '13/11/2026 09:42', legende: 'vue <rapprochée>' }] },
-      { n: 2, zone: 'R1 D1', plan: 'Remorque R1', typeVisite: 'MKBDR', gravite: 'moyenne', tempsH: 6,
+      { n: 2, zone: 'R1 D1', plan: 'Remorque R1', typeVisite: 'MKBDR', gravite: 'moyenne', tempsH: 6, tempsChaud: 3, tempsPeinture: 3, marque: null,
         commentaire: 'Reprise tôle', dessin: null, zoneRect: null,
         photos: [{ chemin: 'photos/v/p2.jpg', datePrise: '13/11/2026 10:05', legende: '' }] },
-      { n: 3, zone: 'R2 G4', plan: 'Remorque R2', typeVisite: 'MKBDR', gravite: 'mineure', tempsH: 2,
+      { n: 3, zone: 'R2 G4', plan: 'Remorque R2', typeVisite: 'MKBDR', gravite: 'mineure', tempsH: 2, tempsChaud: null, tempsPeinture: 2, marque: null,
         commentaire: '', dessin: null, zoneRect: null, photos: [] }
     ],
     ...extra
@@ -87,6 +87,40 @@ describe('renderRapportHtml', () => {
     r.points[1].commentaire = 'a'.repeat(200)
     const h = renderRapportHtml(r, url)
     expect(h).toContain('a'.repeat(60) + '…')
+  })
+})
+
+describe('temps détaillés et rond manuel', () => {
+  it('synthèse : main-d\'œuvre détaillée et séchage final à part', () => {
+    const h = renderRapportHtml(rapport(), url)
+    expect(h).toContain("Main-d'œuvre")
+    expect(h).toContain('chaudronnerie 7,0 h · peinture 5,0 h')
+    expect(h).toContain('Séchage final')
+    expect(h).toContain('4,0 h')
+  })
+
+  it('séchage non saisi : « Non renseigné »', () => {
+    const r = rapport()
+    r.synthese.sechage = null
+    expect(renderRapportHtml(r, url)).toContain('Non renseigné')
+  })
+
+  it('récapitulatif : colonnes Chaudronnerie / Peinture / Total et totaux', () => {
+    const h = renderRapportHtml(rapport(), url)
+    expect(h).toContain('<th class="num">Chaudronnerie</th><th class="num">Peinture</th><th class="num">Total</th>')
+    expect(h).toMatch(/<tfoot>.*7,0 h.*5,0 h.*12,0 h/s)
+  })
+
+  it('fiche : détail des temps dans la barre de titre', () => {
+    const h = renderRapportHtml(rapport(), url)
+    expect(h).toContain('Chaud. 3,0 h · Peinture 3,0 h')
+  })
+
+  it('rond manuel : ellipse à la position saisie', () => {
+    const r = rapport()
+    r.points[0].marque = { cx: 0.5, cy: 0.4, rx: 0.03, ry: 0.07 }
+    const h = renderRapportHtml(r, url)
+    expect(h).toMatch(/<ellipse cx="0\.5" cy="0\.4" rx="0\.03" ry="0\.07"/)
   })
 })
 

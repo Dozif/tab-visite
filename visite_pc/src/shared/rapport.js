@@ -40,7 +40,8 @@ export function setPoint(lib, { visiteId, plan, zone, ...patch }) {
   const points = [...(lib.points ?? [])]
   const i = points.findIndex((p) => memePoint(p, visiteId, plan, zone))
   const avant = i >= 0 ? points[i] : {
-    visiteId, plan, zone, gravite: null, tempsH: null, commentaire: '', inclusion: 'auto'
+    visiteId, plan, zone, gravite: null, tempsChaud: null, tempsPeinture: null,
+    commentaire: '', inclusion: 'auto', marque: null
   }
   const apres = { ...avant, ...patch }
   if (i >= 0) points[i] = apres
@@ -48,14 +49,21 @@ export function setPoint(lib, { visiteId, plan, zone, ...patch }) {
   return { ...lib, points }
 }
 
-const aTemps = (p) => p?.tempsH !== null && p?.tempsH !== undefined && Number.isFinite(p.tempsH)
+const heure = (v) => (typeof v === 'number' && Number.isFinite(v) ? v : null)
+
+/** Main-d'œuvre d'un point (chaudronnerie + peinture), ou null si rien saisi. */
+export function tempsTotal(point) {
+  const c = heure(point?.tempsChaud)
+  const p = heure(point?.tempsPeinture)
+  return c === null && p === null ? null : (c ?? 0) + (p ?? 0)
+}
 
 /** Le point part-il dans le rapport ? */
 export function estInclus(point) {
   if (!point) return false
   if (point.inclusion === 'oui') return true
   if (point.inclusion === 'non') return false
-  return !!point.gravite && aTemps(point)
+  return !!point.gravite && tempsTotal(point) !== null
 }
 
 /** Points (zones photographiées) d'une visite, dans l'ordre d'import. */
@@ -84,7 +92,7 @@ export function resumeVisite(lib, visiteId) {
   const inclus = pointsDeVisite(lib, visiteId).filter((p) => estInclus(p.point))
   return {
     nbPoints: inclus.length,
-    heures: inclus.reduce((s, p) => s + (aTemps(p.point) ? p.point.tempsH : 0), 0)
+    heures: inclus.reduce((s, p) => s + (tempsTotal(p.point) ?? 0), 0)
   }
 }
 
@@ -110,7 +118,11 @@ export function numeroRapport(reglages, rame, date) {
 
 const uniques = (xs) => [...new Set(xs)]
 
-export function buildRapport(lib, { rame, visiteIds, redacteur, dateEdition, numero }) {
+/**
+ * @param sechageH séchage final (h) après la dernière intervention, saisi au
+ *   niveau du rapport ; jamais additionné à la main-d'œuvre.
+ */
+export function buildRapport(lib, { rame, visiteIds, redacteur, dateEdition, numero, sechageH }) {
   const visites = lib.visites
     .filter((v) => v.rame === rame && visiteIds.includes(v.id))
     .sort((a, b) => rang(ORDRE_TYPE, a.type) - rang(ORDRE_TYPE, b.type) ||
@@ -132,22 +144,31 @@ export function buildRapport(lib, { rame, visiteIds, redacteur, dateEdition, num
     a.p.zone.localeCompare(b.p.zone, 'fr'))
 
   const legendes = lib.legendes ?? {}
-  const points = brut.map(({ v, p }, i) => ({
-    n: i + 1,
-    zone: p.zone,
-    plan: p.plan,
-    typeVisite: v.type,
-    gravite: p.point.gravite ?? null,
-    tempsH: aTemps(p.point) ? p.point.tempsH : null,
-    commentaire: p.point.commentaire ?? '',
-    photos: p.photos.map((ph) => ({
-      chemin: ph.chemin, datePrise: ph.datePrise, legende: legendes[ph.id] ?? ''
-    })),
-    dessin: p.photos.find((ph) => ph.dessin)?.dessin ?? null,
-    zoneRect: p.photos.find((ph) => ph.zoneRect)?.zoneRect ?? null
-  }))
+  const points = brut.map(({ v, p }, i) => {
+    const m = p.point.marque
+    return {
+      n: i + 1,
+      zone: p.zone,
+      plan: p.plan,
+      typeVisite: v.type,
+      gravite: p.point.gravite ?? null,
+      tempsChaud: heure(p.point.tempsChaud),
+      tempsPeinture: heure(p.point.tempsPeinture),
+      tempsH: tempsTotal(p.point), // main-d'œuvre du point
+      commentaire: p.point.commentaire ?? '',
+      photos: p.photos.map((ph) => ({
+        chemin: ph.chemin, datePrise: ph.datePrise, legende: legendes[ph.id] ?? ''
+      })),
+      // Rond placé à la main (éventuellement sur un autre dessin), sinon
+      // rond automatique sur la zone du point.
+      dessin: m?.dessin ?? p.photos.find((ph) => ph.dessin)?.dessin ?? null,
+      marque: m ? { cx: m.cx, cy: m.cy, rx: m.rx, ry: m.ry } : null,
+      zoneRect: p.photos.find((ph) => ph.zoneRect)?.zoneRect ?? null
+    }
+  })
 
-  const heures = (pts) => pts.reduce((s, p) => s + (p.tempsH ?? 0), 0)
+  const somme = (pts, champ) => pts.reduce((s, p) => s + (p[champ] ?? 0), 0)
+  const heures = (pts) => somme(pts, 'tempsH')
   const parGravite = {}
   for (const g of GRAVITES) {
     const pts = points.filter((p) => p.gravite === g)
@@ -172,7 +193,15 @@ export function buildRapport(lib, { rame, visiteIds, redacteur, dateEdition, num
         dateVisite: v.dateVisite, nbPoints: pts.length, heures: heures(pts)
       }
     }),
-    synthese: { nbPoints: points.length, heures: heures(points), parGravite, nonEvaluee },
+    synthese: {
+      nbPoints: points.length,
+      heures: heures(points), // main-d'œuvre totale
+      chaud: somme(points, 'tempsChaud'),
+      peinture: somme(points, 'tempsPeinture'),
+      sechage: heure(sechageH),
+      parGravite,
+      nonEvaluee
+    },
     points
   }
 }
