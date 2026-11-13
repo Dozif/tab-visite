@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Rapport corrosion — Rame 123 (maquette)</title>
+<style>
+  @page { size: A4; margin: 14mm 14mm 18mm 14mm; }
+  :root {
+    --bleu: #1f3a5f; --gris: #5b6573; --trait: #d5dae1; --fond: #f3f5f8;
+    --crit: #c62828; --moy: #e67e00; --min: #2e7d32;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: "Segoe UI", Roboto, Arial, sans-serif; color: #1c2430; font-size: 10.5pt; margin: 0; }
+  h1, h2, h3 { margin: 0; }
+  .entete { display: flex; justify-content: space-between; align-items: flex-end;
+            border-bottom: 3px solid var(--bleu); padding-bottom: 8px; }
+  .entete h1 { font-size: 20pt; color: var(--bleu); letter-spacing: .3px; }
+  .entete .sous { color: var(--gris); font-size: 10pt; margin-top: 2px; }
+  .entete .rame { text-align: right; }
+  .entete .rame b { display: block; font-size: 22pt; color: var(--bleu); line-height: 1; }
+  .entete .rame span { color: var(--gris); font-size: 9pt; }
+
+  .infos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 12px 0 14px;
+           border: 1px solid var(--trait); border-radius: 6px; overflow: hidden; }
+  .infos div { padding: 7px 10px; border-right: 1px solid var(--trait); }
+  .infos div:last-child { border-right: 0; }
+  .infos label { display: block; font-size: 7.5pt; text-transform: uppercase; color: var(--gris); letter-spacing: .5px; }
+  .infos span { font-weight: 600; }
+
+  h2 { font-size: 12pt; color: var(--bleu); margin: 16px 0 6px; padding-bottom: 3px; border-bottom: 1px solid var(--trait); }
+
+  table { width: 100%; border-collapse: collapse; font-size: 9.5pt; }
+  th { background: var(--bleu); color: #fff; text-align: left; font-weight: 600; padding: 5px 7px; font-size: 8.5pt; }
+  td { padding: 5px 7px; border-bottom: 1px solid var(--trait); vertical-align: top; }
+  tr:nth-child(even) td { background: var(--fond); }
+  td.pt { white-space: nowrap; }
+  td.num, th.num { text-align: right; white-space: nowrap; }
+  tfoot td { font-weight: 700; background: #e8edf3 !important; border-top: 2px solid var(--bleu); }
+
+  .synthese { display: grid; grid-template-columns: 1fr 1fr 2fr; gap: 10px; margin-top: 4px; }
+  .carte { border: 1px solid var(--trait); border-radius: 6px; padding: 9px 12px; }
+  .carte label { font-size: 7.5pt; text-transform: uppercase; color: var(--gris); letter-spacing: .5px; }
+  .carte .gros { font-size: 22pt; font-weight: 700; color: var(--bleu); line-height: 1.1; }
+  .carte .gros small { font-size: 11pt; font-weight: 600; }
+  .repart { display: flex; gap: 8px; margin-top: 6px; flex-wrap: wrap; }
+
+  .badge { display: inline-block; padding: 2px 9px; border-radius: 10px; color: #fff; font-weight: 700;
+           font-size: 8.5pt; white-space: nowrap; }
+  .crit { background: var(--crit); } .moy { background: var(--moy); } .min { background: var(--min); }
+
+  .saut { break-before: page; }
+
+  .point { break-inside: avoid; border: 1px solid var(--trait); border-radius: 7px; margin-bottom: 9px; overflow: hidden; }
+  .point-tete { display: flex; align-items: center; gap: 10px; padding: 7px 10px; background: var(--fond);
+                border-bottom: 1px solid var(--trait); }
+  .point-tete .n { width: 24px; height: 24px; border-radius: 50%; background: var(--bleu); color: #fff;
+                   display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 9.5pt; flex: none; }
+  .point-tete .titre { flex: 1; }
+  .point-tete .titre b { font-size: 12pt; }
+  .point-tete .titre span { color: var(--gris); font-size: 9pt; margin-left: 6px; }
+  .point-tete .temps { font-weight: 700; font-size: 11pt; color: var(--bleu); margin-left: 8px; white-space: nowrap; }
+  .point-corps { padding: 5px 10px 8px; }
+  .loc { width: 100%; height: 24mm; object-fit: contain; border: 1px solid var(--trait); border-radius: 4px; background: #fff; }
+  .legende { font-size: 7.5pt; color: var(--gris); text-transform: uppercase; letter-spacing: .5px; margin: 4px 0 2px; }
+  .photos { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .photos figure { margin: 0; }
+  .photos img { width: 100%; height: 47mm; object-fit: cover; border-radius: 4px; display: block; }
+  .photos figcaption { font-size: 8pt; color: var(--gris); margin-top: 2px; }
+  .constat { border-left: 4px solid var(--bleu); background: var(--fond); padding: 6px 10px; border-radius: 0 4px 4px 0; line-height: 1.4; }
+  .bord-crit { border-left-color: var(--crit); } .bord-moy { border-left-color: var(--moy); } .bord-min { border-left-color: var(--min); }
+
+  .signature { margin-top: 18px; display: flex; justify-content: flex-end; }
+  .signature div { width: 70mm; border-top: 1px solid var(--gris); padding-top: 4px; font-size: 9pt; color: var(--gris); }
+  .maquette { position: fixed; top: 40%; left: 0; right: 0; text-align: center; font-size: 60pt; color: rgba(31,58,95,.06);
+              transform: rotate(-30deg); font-weight: 800; pointer-events: none; }
+</style>
+</head>
+<body>
+<div class="maquette">MAQUETTE</div>
+
+<!-- ───────── PAGE 1 : en-tête, synthèse, récapitulatif ───────── -->
+<div class="entete">
+  <div>
+    <h1>Rapport de visite corrosion</h1>
+    <div class="sous">Constats et travaux à prévoir</div>
+  </div>
+  <div class="rame"><span>Rame</span><b>123</b><span>Niveau 2N</span></div>
+</div>
+
+<div class="infos">
+  <div><label>N° de rapport</label><span>RC-123-20261113</span></div>
+  <div><label>Date de visite</label><span>13/11/2026</span></div>
+  <div><label>Rédigé par</label><span>Franck</span></div>
+  <div><label>Édité le</label><span>14/11/2026</span></div>
+</div>
+
+<h2>Visites incluses</h2>
+<table>
+  <thead><tr><th>Type</th><th>Périmètre</th><th>Niveau</th><th>Date</th><th class="num">Points</th><th class="num">Temps</th></tr></thead>
+  <tbody>
+    <tr><td><b>MKBAM</b></td><td>Motrices</td><td>2N</td><td>13/11/2026</td><td class="num">2</td><td class="num">5,0 h</td></tr>
+    <tr><td><b>MKBDR</b></td><td>Remorques</td><td>2N</td><td>13/11/2026</td><td class="num">4</td><td class="num">7,0 h</td></tr>
+  </tbody>
+</table>
+
+<h2>Synthèse</h2>
+<div class="synthese">
+  <div class="carte"><label>Points à traiter</label><div class="gros">6</div></div>
+  <div class="carte"><label>Temps total estimé</label><div class="gros">12,0 <small>h</small></div></div>
+  <div class="carte"><label>Répartition par gravité</label>
+    <div class="repart">
+      <span class="badge crit">2 critiques · 7,0 h</span>
+      <span class="badge moy">2 moyens · 3,5 h</span>
+      <span class="badge min">2 mineurs · 1,5 h</span>
+    </div>
+  </div>
+</div>
+
+<h2>Récapitulatif des points</h2>
+<table>
+  <thead><tr><th>N°</th><th>Point</th><th>Voiture / dessin</th><th>Gravité</th><th class="num">Temps</th><th>Constat</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td class="pt"><b>M1 D2</b></td><td>Motrice (Droit-Pair) M1</td><td><span class="badge crit">Critique</span></td><td class="num">4,0 h</td><td>Corrosion feuilletante sur le pourtour du cadre de hublot…</td></tr>
+    <tr><td>2</td><td class="pt"><b>R1 D1</b></td><td>Remorque (Droit-Pair) R1</td><td><span class="badge crit">Critique</span></td><td class="num">3,0 h</td><td>Corrosion perforante en pied de caisse sur ~10 cm…</td></tr>
+    <tr><td>3</td><td class="pt"><b>R1 DT</b></td><td>Remorque (Droit-Pair) R1</td><td><span class="badge moy">Moyenne</span></td><td class="num">1,5 h</td><td>Corrosion autour des fixations de la trappe…</td></tr>
+    <tr><td>4</td><td class="pt"><b>R2 G4</b></td><td>Remorque (Gauche-Impair) R2</td><td><span class="badge moy">Moyenne</span></td><td class="num">2,0 h</td><td>Cloquage de peinture avec début de corrosion…</td></tr>
+    <tr><td>5</td><td class="pt"><b>M2 G1</b></td><td>Motrice (Gauche-Impair) M2</td><td><span class="badge min">Mineure</span></td><td class="num">1,0 h</td><td>Points de rouille superficiels…</td></tr>
+    <tr><td>6</td><td class="pt"><b>R3 D5</b></td><td>Remorque (Droit-Pair) R3</td><td><span class="badge min">Mineure</span></td><td class="num">0,5 h</td><td>Rouille superficielle sur arête…</td></tr>
+  </tbody>
+  <tfoot><tr><td colspan="4">Total — 6 points</td><td class="num">12,0 h</td><td></td></tr></tfoot>
+</table>
+
+<!-- ───────── DÉTAIL DES POINTS ───────── -->
+<h2 class="saut">Détail des points</h2>
+
+<div class="point">
+  <div class="point-tete"><div class="n">1</div>
+    <div class="titre"><b>M1 D2</b><span>Motrice (Droit-Pair) M1 · Visite MKBAM</span></div>
+    <span class="badge crit">Critique</span><span class="temps">4,0 h</span></div>
+  <div class="point-corps">
+    <div class="legende">Localisation</div>
+    <img class="loc" src="img/plan_M1D2.png">
+    <div class="legende">Photos</div>
+    <div class="photos">
+      <figure><img src="img/p1.jpg"><figcaption>13/11/2026 09:42</figcaption></figure>
+      <figure><img src="img/p4.jpg"><figcaption>13/11/2026 09:43 — vue rapprochée angle haut droit</figcaption></figure>
+    </div>
+    <div class="legende">Constat et travaux à prévoir</div>
+    <div class="constat bord-crit">Joint de hublot dégradé, corrosion feuilletante sur tout le pourtour du cadre.
+      Dépose du hublot, décapage du cadre, traitement anticorrosion, peinture et repose avec joint neuf.</div>
+  </div>
+</div>
+
+<div class="point">
+  <div class="point-tete"><div class="n">2</div>
+    <div class="titre"><b>R1 D1</b><span>Remorque (Droit-Pair) R1 · Visite MKBDR</span></div>
+    <span class="badge crit">Critique</span><span class="temps">3,0 h</span></div>
+  <div class="point-corps">
+    <div class="legende">Localisation</div>
+    <img class="loc" src="img/plan_R1D1.png">
+    <div class="legende">Photos</div>
+    <div class="photos">
+      <figure><img src="img/p2.jpg"><figcaption>13/11/2026 10:05</figcaption></figure>
+      <figure><img src="img/p6.jpg"><figcaption>13/11/2026 10:06</figcaption></figure>
+    </div>
+    <div class="legende">Constat et travaux à prévoir</div>
+    <div class="constat bord-crit">Corrosion perforante en pied de caisse sur environ 10 cm.
+      Reprise de tôle à prévoir, traitement anticorrosion et peinture.</div>
+  </div>
+</div>
+
+<div class="point">
+  <div class="point-tete"><div class="n">3</div>
+    <div class="titre"><b>R1 DT</b><span>Remorque (Droit-Pair) R1 · Visite MKBDR</span></div>
+    <span class="badge moy">Moyenne</span><span class="temps">1,5 h</span></div>
+  <div class="point-corps">
+    <div class="legende">Localisation</div>
+    <img class="loc" src="img/plan_R1DT.png">
+    <div class="legende">Photos</div>
+    <div class="photos">
+      <figure><img src="img/p3.jpg"><figcaption>13/11/2026 10:12</figcaption></figure>
+    </div>
+    <div class="legende">Constat et travaux à prévoir</div>
+    <div class="constat bord-moy">Corrosion autour des fixations de la trappe. Remplacement de 2 vis et traitement local.</div>
+  </div>
+</div>
+
+<div class="point">
+  <div class="point-tete"><div class="n">4</div>
+    <div class="titre"><b>R2 G4</b><span>Remorque (Gauche-Impair) R2 · Visite MKBDR</span></div>
+    <span class="badge moy">Moyenne</span><span class="temps">2,0 h</span></div>
+  <div class="point-corps">
+    <div class="legende">Localisation</div>
+    <img class="loc" src="img/plan_R2G4.png">
+    <div class="legende">Photos</div>
+    <div class="photos">
+      <figure><img src="img/p5.jpg"><figcaption>13/11/2026 10:31</figcaption></figure>
+    </div>
+    <div class="legende">Constat et travaux à prévoir</div>
+    <div class="constat bord-moy">Cloquage de peinture avec début de corrosion sous la bande basse. Décapage local et traitement.</div>
+  </div>
+</div>
+
+<div class="point">
+  <div class="point-tete"><div class="n">5</div>
+    <div class="titre"><b>M2 G1</b><span>Motrice (Gauche-Impair) M2 · Visite MKBAM</span></div>
+    <span class="badge min">Mineure</span><span class="temps">1,0 h</span></div>
+  <div class="point-corps">
+    <div class="legende">Localisation</div>
+    <img class="loc" src="img/plan_M2G1.png">
+    <div class="legende">Photos</div>
+    <div class="photos">
+      <figure><img src="img/p6.jpg"><figcaption>13/11/2026 11:02</figcaption></figure>
+    </div>
+    <div class="legende">Constat et travaux à prévoir</div>
+    <div class="constat bord-min">Points de rouille superficiels. À surveiller ; retouche peinture.</div>
+  </div>
+</div>
+
+<div class="point">
+  <div class="point-tete"><div class="n">6</div>
+    <div class="titre"><b>R3 D5</b><span>Remorque (Droit-Pair) R3 · Visite MKBDR</span></div>
+    <span class="badge min">Mineure</span><span class="temps">0,5 h</span></div>
+  <div class="point-corps">
+    <div class="legende">Localisation</div>
+    <img class="loc" src="img/plan_R3D5.png">
+    <div class="legende">Photos</div>
+    <div class="photos">
+      <figure><img src="img/p4.jpg"><figcaption>13/11/2026 11:20</figcaption></figure>
+    </div>
+    <div class="legende">Constat et travaux à prévoir</div>
+    <div class="constat bord-min">Rouille superficielle sur arête. Retouche peinture.</div>
+  </div>
+</div>
+
+<div class="signature"><div>Rédigé par Franck, le 14/11/2026</div></div>
+</body>
+</html>

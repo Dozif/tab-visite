@@ -2,11 +2,13 @@
   "name": "visite-pc",
   "version": "0.1.0",
   "description": "Consultation/archivage des visites de corrosion (import des exports tablette).",
+  "author": "Franck",
   "main": "./out/main/index.js",
   "scripts": {
     "dev": "electron-vite dev",
     "build": "electron-vite build",
-    "test": "vitest run"
+    "test": "vitest run",
+    "dist:win": "electron-vite build && electron-builder --win"
   },
   "dependencies": {
     "adm-zip": "^0.5.16",
@@ -15,6 +17,7 @@
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.4",
     "electron": "^33.2.0",
+    "electron-builder": "^26.15.3",
     "electron-vite": "^2.3.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

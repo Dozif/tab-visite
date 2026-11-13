@@ -1,0 +1,19 @@
+appId: com.tabvisite.visitepc
+productName: Visite PC
+directories:
+  output: dist
+# `files` non surchargé : electron-builder inclut out/ + les dépendances de
+# production (adm-zip, xlsx) et élague automatiquement les devDependencies.
+win:
+  target:
+    - target: nsis
+    - target: portable
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  shortcutName: Visite PC
+  artifactName: ${name}-${version}-setup.${ext}
+portable:
+  artifactName: ${name}-${version}-portable.${ext}
