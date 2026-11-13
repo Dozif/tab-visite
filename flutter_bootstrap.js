@@ -35,8 +35,13 @@ if (!window._flutter) {
 }
 _flutter.buildConfig = {"engineRevision":"83675ed27633283e7fc296c8bca22e841224c096","builds":[{"compileTarget":"dart2js","renderer":"canvaskit","mainJsPath":"main.dart.js"},{}]};
 
+
+// Moteur de rendu (canvaskit) servi depuis le site lui-même et non depuis le
+// CDN de Google : indispensable pour démarrer sans réseau.
+// Pas de serviceWorkerSettings : le service worker de Flutter est abandonné
+// (il se désinstalle tout seul) ; c'est notre sw.js qui gère le hors-ligne.
 _flutter.loader.load({
-  serviceWorkerSettings: {
-    serviceWorkerVersion: "3376595850" /* Flutter's service worker is deprecated and will be removed in a future Flutter release. */
-  }
+  config: {
+    canvasKitBaseUrl: "canvaskit/",
+  },
 });
