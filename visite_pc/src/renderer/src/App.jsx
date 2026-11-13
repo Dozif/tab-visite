@@ -4,7 +4,7 @@ import RameScreen from './screens/RameScreen.jsx'
 import './styles.css'
 
 export default function App() {
-  const [lib, setLib] = useState({ version: 1, visites: [], photos: [] })
+  const [lib, setLib] = useState({ version: 2, visites: [], photos: [], points: [], legendes: {}, reglages: {} })
   const [rame, setRame] = useState(null)
   const [message, setMessage] = useState('')
 
@@ -35,7 +35,7 @@ export default function App() {
       </header>
       {rame === null
         ? <RamesScreen lib={lib} onOpen={setRame} />
-        : <RameScreen lib={lib} rame={rame} onBack={() => setRame(null)} />}
+        : <RameScreen lib={lib} rame={rame} onBack={() => setRame(null)} onLib={setLib} />}
     </div>
   )
 }
