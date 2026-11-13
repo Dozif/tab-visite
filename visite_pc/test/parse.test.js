@@ -23,7 +23,21 @@ describe('parseDataXlsx', () => {
       rame: 3, type: 'MKBDR', niveau: '2N', dateVisite: '14/07/2026',
       plan: 'Remorque R3', zone: 'R3 D1', datePrise: '14/07/2026 10:22',
       traitee: true, cheminPhoto: 'photos/Remorque R3/R3 D1/0_p1.jpg',
-      visiteId: 'v1', photoId: 'p1'
+      visiteId: 'v1', photoId: 'p1', fichierDessin: '', zoneRect: null
     })
+  })
+
+  it('lit le dessin et la position du point (export récent)', () => {
+    const header = ['Rame', 'Type', 'Niveau', 'Date visite', 'Plan', 'Zone',
+      'Date prise', 'Traitée', 'Chemin photo', 'Visite ID', 'Photo ID',
+      'Fichier dessin', 'Zone X', 'Zone Y', 'Zone largeur', 'Zone hauteur']
+    const ws = XLSX.utils.aoa_to_sheet([header,
+      ['3', 'MKBDR', '2N', '14/07/2026', 'Remorque R3', 'R3 D1', '14/07/2026 10:22',
+        'non', 'photos/x.jpg', 'v1', 'p1', 'dessins/pl1.png', '0.25', '0.5', '0.03', '0.07']])
+    const wb = XLSX.utils.book_new()
+    XLSX.utils.book_append_sheet(wb, ws, 'Photos')
+    const [row] = parseDataXlsx(XLSX.write(wb, { type: 'buffer', bookType: 'xlsx' }))
+    expect(row.fichierDessin).toBe('dessins/pl1.png')
+    expect(row.zoneRect).toEqual({ x: 0.25, y: 0.5, l: 0.03, h: 0.07 })
   })
 })
