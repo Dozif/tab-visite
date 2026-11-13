@@ -144,7 +144,9 @@ export function renderRapportHtml(rapport, fileUrl) {
   const repart = Object.entries(s.parGravite)
     .filter(([, v]) => v.n > 0)
     .map(([g, v]) => `<span class="badge ${classe(g)}">${v.n} ${PLURIEL[g]}${v.n > 1 ? 's' : ''} · ${formatHeures(v.h)}</span>`)
-    .join('')
+    .join('') + (s.nonEvaluee?.n > 0
+      ? `<span class="badge nev">${s.nonEvaluee.n} non évalué${s.nonEvaluee.n > 1 ? 's' : ''} · ${formatHeures(s.nonEvaluee.h)}</span>`
+      : '')
   const plusieursDates = r.datesVisite.includes(',')
 
   return `<!doctype html>

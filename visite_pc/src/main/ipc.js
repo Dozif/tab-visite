@@ -47,6 +47,14 @@ export function registerIpc(libraryDir) {
   // Saisie d'un point : { visiteId, plan, zone, gravite?, tempsH?, commentaire?, inclusion? }
   ipcMain.handle('point:set', (_e, patch) => modifier((lib) => setPoint(lib, patch)))
 
+  // Variante synchrone, utilisée à la fermeture de la fenêtre pour ne pas
+  // perdre un commentaire tapé juste avant (l'appel asynchrone n'aurait pas
+  // le temps d'aboutir).
+  ipcMain.on('point:setSync', (e, patch) => {
+    modifier((lib) => setPoint(lib, patch))
+    e.returnValue = true
+  })
+
   ipcMain.handle('legende:set', (_e, { photoId, texte }) => modifier((lib) => {
     const legendes = { ...lib.legendes }
     if (texte) legendes[photoId] = texte

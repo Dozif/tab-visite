@@ -6,6 +6,7 @@ contextBridge.exposeInMainWorld('api', {
   photoUrl: (cheminRelatif) => ipcRenderer.invoke('photo:url', cheminRelatif),
   // Saisies du rapport : renvoient la bibliothèque à jour.
   setPoint: (patch) => ipcRenderer.invoke('point:set', patch),
+  setPointSync: (patch) => ipcRenderer.sendSync('point:setSync', patch),
   setLegende: (photoId, texte) => ipcRenderer.invoke('legende:set', { photoId, texte }),
   // { rame, visiteIds, redacteur }
   rapportApercu: (opts) => ipcRenderer.invoke('rapport:apercu', opts),

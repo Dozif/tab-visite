@@ -61,14 +61,17 @@ export function estInclus(point) {
 /** Points (zones photographiées) d'une visite, dans l'ordre d'import. */
 export function pointsDeVisite(lib, visiteId) {
   const parCle = new Map()
+  // Ordre d'import ; les bibliothèques antérieures (sans « ordre ») gardent
+  // l'ordre du tableau, qui est aussi celui de l'import.
   const photos = lib.photos
-    .filter((p) => p.visiteId === visiteId)
-    .sort((a, b) => (a.ordre ?? 0) - (b.ordre ?? 0))
-  for (const ph of photos) {
+    .map((ph, i) => ({ ph, rang: ph.ordre ?? i }))
+    .filter(({ ph }) => ph.visiteId === visiteId)
+    .sort((a, b) => a.rang - b.rang)
+  for (const { ph, rang } of photos) {
     const cle = `${ph.plan}\u0000${ph.zone}`
     if (!parCle.has(cle)) {
       parCle.set(cle, {
-        plan: ph.plan, zone: ph.zone, ordre: ph.ordre ?? 0, photos: [],
+        plan: ph.plan, zone: ph.zone, ordre: rang, photos: [],
         point: findPoint(lib, visiteId, ph.plan, ph.zone)
       })
     }
@@ -150,6 +153,10 @@ export function buildRapport(lib, { rame, visiteIds, redacteur, dateEdition, num
     const pts = points.filter((p) => p.gravite === g)
     parGravite[g] = { n: pts.length, h: heures(pts) }
   }
+  // Points inclus à la main sans gravité : comptés à part pour que la
+  // répartition couvre bien tous les points.
+  const sansGravite = points.filter((p) => !GRAVITES.includes(p.gravite))
+  const nonEvaluee = { n: sansGravite.length, h: heures(sansGravite) }
 
   return {
     numero,
@@ -165,7 +172,7 @@ export function buildRapport(lib, { rame, visiteIds, redacteur, dateEdition, num
         dateVisite: v.dateVisite, nbPoints: pts.length, heures: heures(pts)
       }
     }),
-    synthese: { nbPoints: points.length, heures: heures(points), parGravite },
+    synthese: { nbPoints: points.length, heures: heures(points), parGravite, nonEvaluee },
     points
   }
 }

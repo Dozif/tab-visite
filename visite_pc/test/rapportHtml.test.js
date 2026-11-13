@@ -11,7 +11,8 @@ function rapport(extra = {}) {
     ],
     synthese: {
       nbPoints: 3, heures: 12,
-      parGravite: { critique: { n: 1, h: 4 }, moyenne: { n: 1, h: 6 }, mineure: { n: 1, h: 2 } }
+      parGravite: { critique: { n: 1, h: 4 }, moyenne: { n: 1, h: 6 }, mineure: { n: 1, h: 2 } },
+      nonEvaluee: { n: 0, h: 0 }
     },
     points: [
       { n: 1, zone: 'M1 D2', plan: 'Motrice M1', typeVisite: 'MKBAM', gravite: 'critique', tempsH: 4,
@@ -77,6 +78,8 @@ describe('renderRapportHtml', () => {
     const h = renderRapportHtml(r, url)
     expect(h).toContain('Non évaluée')
     expect(h).toContain('—')
+    r.synthese.nonEvaluee = { n: 1, h: 2 }
+    expect(renderRapportHtml(r, url)).toContain('class="badge nev">1 non évalué · 2,0 h')
   })
 
   it('extrait de constat limité dans le récapitulatif', () => {

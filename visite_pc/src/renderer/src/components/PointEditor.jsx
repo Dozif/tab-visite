@@ -41,6 +41,19 @@ export default function PointEditor({ visiteId, plan, zone, point, onLib }) {
     if (enAttente.current !== null) enregistrerCommentaire(enAttente.current)
   }, [])
 
+  // Fenêtre fermée pendant la frappe (React ne démonte rien) : enregistrement
+  // synchrone avant que l'appli se ferme.
+  useEffect(() => {
+    const avantFermeture = () => {
+      if (enAttente.current === null) return
+      clearTimeout(minuterie.current)
+      window.api.setPointSync({ visiteId, plan, zone, commentaire: enAttente.current })
+      enAttente.current = null
+    }
+    window.addEventListener('beforeunload', avantFermeture)
+    return () => window.removeEventListener('beforeunload', avantFermeture)
+  }, [visiteId, plan, zone])
+
   function changerCommentaire(e) {
     const texte = e.target.value
     setCommentaire(texte)

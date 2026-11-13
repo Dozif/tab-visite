@@ -104,7 +104,8 @@ describe('rapport', () => {
     expect(r.points.map((p) => [p.n, p.zone])).toEqual([[1, 'M1 D2'], [2, 'R1 D1'], [3, 'R1 DT']])
     expect(r.synthese).toEqual({
       nbPoints: 3, heures: 8.5,
-      parGravite: { critique: { n: 2, h: 7 }, moyenne: { n: 1, h: 1.5 }, mineure: { n: 0, h: 0 } }
+      parGravite: { critique: { n: 2, h: 7 }, moyenne: { n: 1, h: 1.5 }, mineure: { n: 0, h: 0 } },
+      nonEvaluee: { n: 0, h: 0 }
     })
     expect(r.visites.map((v) => [v.type, v.perimetre, v.nbPoints, v.heures]))
       .toEqual([['MKBAM', 'Motrices', 1, 4], ['MKBDR', 'Remorques', 2, 4.5]])
@@ -128,6 +129,20 @@ describe('rapport', () => {
     expect(r.points[2]).toMatchObject({ gravite: null, tempsH: null })
     expect(r.synthese.heures).toBe(4.5)
     expect(r.synthese.nbPoints).toBe(3)
+    expect(r.synthese.nonEvaluee).toEqual({ n: 1, h: 0 })
+  })
+
+  it("anciennes bibliothèques (photos sans « ordre ») : ordre d'import conservé", () => {
+    const l = annote(lib())
+    l.photos = l.photos.map(({ ordre, ...ph }) => ph)
+    // R1 DT importé avant R1 D1 : l'ordre du tableau doit primer sur le nom.
+    const i = l.photos.findIndex((ph) => ph.id === 'r3')
+    l.photos.unshift(...l.photos.splice(i, 1))
+    expect(pointsDeVisite(l, 'vR').map((p) => p.zone)).toEqual(['R1 DT', 'R1 D1', 'R2 G4'])
+    // À gravité égale, le rapport suit aussi cet ordre (et non l'ordre alphabétique).
+    const l2 = setPoint(l, { visiteId: 'vR', plan: 'Remorque R1', zone: 'R1 DT', gravite: 'critique' })
+    const r = buildRapport(l2, { rame: 123, visiteIds: ['vR'], redacteur: '', dateEdition: new Date(2026, 10, 14), numero: 'X' })
+    expect(r.points.map((p) => p.zone)).toEqual(['R1 DT', 'R1 D1'])
   })
 
   it('une visite seule : rapport séparé, sans mélange de dates', () => {
