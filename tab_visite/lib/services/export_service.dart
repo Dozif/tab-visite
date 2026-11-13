@@ -24,6 +24,9 @@ class ExportService {
     'Rame', 'Type', 'Niveau', 'Date visite',
     'Plan', 'Zone', 'Date prise', 'Traitée', 'Chemin photo',
     'Visite ID', 'Photo ID',
+    // Localisation du point (appli PC, rapport) : dessin + rectangle de la
+    // zone en coordonnées normalisées 0–1.
+    'Fichier dessin', 'Zone X', 'Zone Y', 'Zone largeur', 'Zone hauteur',
   ];
 
   String _safe(String s) => s.replaceAll(RegExp(r'[^A-Za-z0-9_\- ]'), '_');
@@ -42,6 +45,7 @@ class ExportService {
   Future<ZipExport> exportVisiteToZip(Visite v) async {
     final archive = Archive();
     final data = <List<String>>[];
+    final dessins = <String, String>{};
     for (final r in await photoRepo.joinedForVisite(v.id)) {
       final datePrise = r['date_prise'] as int;
       final chemin = 'photos/${_safe(r['plan_nom'] as String)}'
@@ -53,6 +57,7 @@ class ExportService {
         r['plan_nom'] as String, r['zone_nom'] as String,
         formatDateHeure(datePrise), _ouiNon(r['traitee']), chemin,
         v.id, r['id'] as String,
+        ...await _localisation(archive, r, dessins),
       ]);
     }
     _addXlsx(archive, data);
@@ -66,6 +71,7 @@ class ExportService {
   Future<ZipExport> exportAllVisitesToZip() async {
     final archive = Archive();
     final data = <List<String>>[];
+    final dessins = <String, String>{};
     for (final r in await photoRepo.joinedAllByVisite()) {
       final rame = r['numero_rame'] as int;
       final type = r['type_visite'] as String;
@@ -82,6 +88,7 @@ class ExportService {
         r['plan_nom'] as String, r['zone_nom'] as String,
         formatDateHeure(datePrise), _ouiNon(r['traitee']), chemin,
         r['visite_id'] as String, r['id'] as String,
+        ...await _localisation(archive, r, dessins),
       ]);
     }
     _addXlsx(archive, data);
@@ -89,6 +96,29 @@ class ExportService {
       bytes: _zip(archive),
       filename: 'toutes_visites_${_jour(DateTime.now().millisecondsSinceEpoch)}.zip',
     );
+  }
+
+  /// Colonnes de localisation d'une ligne photo : chemin du dessin dans le ZIP
+  /// (ajouté une seule fois par dessin, `dessins/<planId><ext>` — l'id évite
+  /// les collisions entre dessins de même nom) puis x, y, largeur, hauteur.
+  /// Dessin introuvable : chemin vide (l'appli PC affiche alors la fiche sans
+  /// localisation).
+  Future<List<String>> _localisation(Archive archive, Map<String, Object?> r,
+      Map<String, String> dessins) async {
+    final planId = r['plan_id'] as String;
+    if (!dessins.containsKey(planId)) {
+      final source = r['chemin_image'] as String;
+      final point = source.lastIndexOf('.');
+      final ext = point > source.lastIndexOf('/') && point >= 0
+          ? source.substring(point).toLowerCase()
+          : '.png';
+      final nom = 'dessins/$planId$ext';
+      final bytes = await storage.readBytes(source);
+      if (bytes != null) archive.addFile(ArchiveFile(nom, bytes.length, bytes));
+      dessins[planId] = bytes != null ? nom : '';
+    }
+    String n(Object? v) => (v as num).toDouble().toString();
+    return [dessins[planId]!, n(r['x']), n(r['y']), n(r['largeur']), n(r['hauteur'])];
   }
 
   Future<void> _addPhoto(

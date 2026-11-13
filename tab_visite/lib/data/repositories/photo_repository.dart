@@ -35,7 +35,8 @@ class PhotoRepository {
   Future<List<Map<String, Object?>>> joinedForVisite(String visiteId) {
     return db.rawQuery('''
       SELECT ph.id, ph.date_prise, ph.traitee, ph.chemin_fichier,
-             z.nom AS zone_nom, pl.nom AS plan_nom, pl.ordre AS plan_ordre
+             z.nom AS zone_nom, pl.nom AS plan_nom, pl.ordre AS plan_ordre,
+             pl.id AS plan_id, pl.chemin_image, z.x, z.y, z.largeur, z.hauteur
       FROM photos ph
       JOIN zones z ON z.id = ph.zone_id
       JOIN plans pl ON pl.id = z.plan_id
@@ -50,6 +51,7 @@ class PhotoRepository {
     return db.rawQuery('''
       SELECT ph.id, ph.date_prise, ph.traitee, ph.chemin_fichier,
              z.nom AS zone_nom, pl.nom AS plan_nom, pl.ordre AS plan_ordre,
+             pl.id AS plan_id, pl.chemin_image, z.x, z.y, z.largeur, z.hauteur,
              vi.id AS visite_id, vi.numero_rame, vi.type_visite, vi.niveau, vi.date_visite
       FROM photos ph
       JOIN zones z ON z.id = ph.zone_id

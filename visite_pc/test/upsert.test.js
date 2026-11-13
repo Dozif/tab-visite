@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { upsertLibrary } from '../src/main/import.js'
 
-const EMPTY = { version: 1, visites: [], photos: [] }
+const EMPTY = { version: 2, visites: [], photos: [], points: [], legendes: {}, reglages: {} }
 
 function row(visiteId, photoId, extra = {}) {
   return {
@@ -35,5 +35,26 @@ describe('upsertLibrary', () => {
     const { lib } = upsertLibrary(first, [row('v2', 'p9', { rame: 4 })])
     expect(lib.visites.map((v) => v.id).sort()).toEqual(['v1', 'v2'])
     expect(lib.photos).toHaveLength(2)
+  })
+
+  it('réimport : conserve points, légendes et réglages', () => {
+    const base = upsertLibrary(EMPTY, [row('v1', 'p1')]).lib
+    base.points = [{ visiteId: 'v1', plan: 'Remorque R3', zone: 'R3 D1', gravite: 'critique', tempsChaud: 2, tempsPeinture: null, commentaire: 'x', inclusion: 'auto', marque: null }]
+    base.legendes = { p1: 'vue de près' }
+    base.reglages = { redacteur: 'Franck' }
+    const { lib } = upsertLibrary(base, [row('v1', 'p1'), row('v1', 'p2')])
+    expect(lib.points).toEqual(base.points)
+    expect(lib.legendes).toEqual({ p1: 'vue de près' })
+    expect(lib.reglages).toEqual({ redacteur: 'Franck' })
+    expect(lib.version).toBe(3)
+  })
+
+  it("photos : dessin, zoneRect et ordre d'import", () => {
+    const { lib } = upsertLibrary(EMPTY, [
+      row('v1', 'p1', { fichierDessin: 'dessins/pl1.png', zoneRect: { x: 0.1, y: 0.2, l: 0.03, h: 0.07 } }),
+      row('v1', 'p2', { fichierDessin: '', zoneRect: null })
+    ])
+    expect(lib.photos[0]).toMatchObject({ dessin: 'dessins/v1/pl1.png', zoneRect: { x: 0.1, y: 0.2, l: 0.03, h: 0.07 }, ordre: 0 })
+    expect(lib.photos[1]).toMatchObject({ dessin: null, zoneRect: null, ordre: 1 })
   })
 })
